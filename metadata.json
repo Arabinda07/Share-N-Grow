@@ -1,0 +1,6 @@
+{
+  "name": "ShareNGrow",
+  "description": "Find trusted local artists for classes, murals, events, and custom art in Bengal.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

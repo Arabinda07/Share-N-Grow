@@ -1,0 +1,195 @@
+import { useState, useEffect } from 'react';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+import { Textarea } from '../components/ui/textarea';
+import { Card, CardContent } from '../components/ui/card';
+import { SERVICES } from '../types';
+import { supabase, hasSupabaseConfig } from '../lib/supabase';
+import { CheckCircle2, AlertCircle } from 'lucide-react';
+import { Link, useSearchParams } from 'react-router-dom';
+
+export function Hire() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [searchParams] = useSearchParams();
+  const preselectedArtistId = searchParams.get('artist');
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError(null);
+
+    if (!hasSupabaseConfig) {
+      setError("Database is not configured. (Developer: check Supabase credentials)");
+      return;
+    }
+
+    setIsSubmitting(true);
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get('name') as string,
+      phone: formData.get('contact') as string,
+      email: formData.get('email') as string,
+      city: formData.get('city') as string,
+      area: formData.get('area') as string,
+      service_needed: formData.get('service') as string,
+      budget_range: formData.get('budget') as string,
+      deadline: formData.get('deadline') as string,
+      description: formData.get('details') as string,
+      reference_url: formData.get('reference') as string,
+      selected_artist_id: preselectedArtistId || null,
+    };
+
+    const { error: dbError } = await supabase.from('inquiries').insert([data]);
+
+    setIsSubmitting(false);
+
+    if (dbError) {
+      console.error(dbError);
+      setError("Something went wrong submitting your request. Please try again.");
+    } else {
+      setIsSuccess(true);
+    }
+  }
+
+  if (isSuccess) {
+    return (
+      <div className="flex min-h-[60vh] flex-col items-center justify-center p-4 py-20 text-center">
+        <CheckCircle2 className="mb-6 h-16 w-16 text-terracotta" />
+        <h2 className="mb-4 text-3xl font-bold text-ink">Request Received</h2>
+        <p className="mx-auto mb-8 max-w-md text-ink-light">
+          Thanks. We have received your request. A ShareNGrow admin will review it and contact you on WhatsApp if we can suggest suitable artists.
+        </p>
+        <Link to="/">
+          <Button variant="outline">Return to Home</Button>
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mb-10 text-center">
+        <h1 className="text-3xl font-bold font-serif tracking-tight text-ink sm:text-4xl">Tell us what kind of artist you need.</h1>
+        <p className="mt-4 text-lg text-ink-light max-w-2xl mx-auto">
+          ShareNGrow will review your request and try to match you with suitable artists from the community.
+        </p>
+      </div>
+
+      <Card className="border-stone-200">
+        <CardContent className="pt-6">
+          {!hasSupabaseConfig && (
+             <div className="mb-6 flex items-start gap-3 rounded-md bg-red-50 p-4 text-red-900 border border-red-200">
+               <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
+               <p className="text-sm font-medium">Database is not configured. Please add Supabase credentials in the settings.</p>
+             </div>
+          )}
+
+          {error && (
+            <div className="mb-6 rounded-md bg-red-50 p-4 text-sm text-red-900">
+              {error}
+            </div>
+          )}
+          
+          {preselectedArtistId && (
+            <div className="mb-6 rounded-md bg-paper-dark p-4 text-sm text-ink flex items-start gap-3">
+               <CheckCircle2 className="mt-0.5 h-5 w-5 text-pine shrink-0" />
+               <p>We've noted that you found an artist you'd like to work with. We will prioritize introducing them if they are available.</p>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-8">
+             <div className="space-y-4">
+               <h3 className="font-semibold text-lg border-b border-stone-100 pb-2">Client Details</h3>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-stone-900">Full Name *</label>
+                  <Input name="name" required placeholder="Name" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-stone-900">WhatsApp / Phone *</label>
+                  <Input name="contact" required placeholder="Phone number" />
+                </div>
+              </div>
+              <div className="space-y-2">
+                  <label className="text-sm font-medium text-stone-900">Email (Optional)</label>
+                  <Input name="email" type="email" placeholder="email@example.com" />
+              </div>
+             </div>
+
+             <div className="space-y-4 pt-2">
+               <h3 className="font-semibold text-lg border-b border-stone-100 pb-2">Location</h3>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-stone-900">City *</label>
+                  <Input name="city" required placeholder="E.g., Kolkata" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-stone-900">Area / Locality *</label>
+                  <Input name="area" required placeholder="E.g., Salt Lake" />
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4 pt-2">
+               <h3 className="font-semibold text-lg border-b border-stone-100 pb-2">Project Details</h3>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-stone-900">Service Needed *</label>
+                <select
+                  name="service"
+                  required
+                  className="flex h-10 w-full rounded-md border border-stone-300 bg-white px-3 py-2 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-amber-600"
+                >
+                  <option value="">Select a service...</option>
+                  <option value="drawing-teacher">Drawing teacher for child</option>
+                  <option value="wall-mural">Wall mural</option>
+                  <option value="live-event-art">Live event artist</option>
+                  <option value="portrait-custom-artwork">Portrait or custom artwork</option>
+                  <option value="workshop">Workshop for school/office</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-stone-900">Budget Range (Optional)</label>
+                  <Input name="budget" placeholder="₹" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-stone-900">Preferred Date/Deadline</label>
+                  <Input name="deadline" placeholder="E.g. Next month" />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-stone-900">Short Description *</label>
+                <Textarea 
+                  name="details" 
+                  required 
+                  placeholder="Give us an idea of what you need..." 
+                  className="min-h-[120px]"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                  <label className="text-sm font-medium text-stone-900">Reference Image or Link (Optional)</label>
+                  <Input name="reference" placeholder="Drive / Pinterest link" />
+              </div>
+            </div>
+
+            <div className="flex items-start gap-2 pt-4">
+               <input id="consent" type="checkbox" required className="mt-1 border-stone-300 text-terracotta focus:ring-terracotta rounded" />
+               <label htmlFor="consent" className="text-sm text-ink-light leading-relaxed">
+                 I agree to be contacted by ShareNGrow via WhatsApp or phone about this request.
+               </label>
+            </div>
+
+            <Button type="submit" variant="brand" size="lg" className="w-full h-12" disabled={isSubmitting || !hasSupabaseConfig}>
+              {isSubmitting ? "Submitting..." : "Send Inquiry"}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
