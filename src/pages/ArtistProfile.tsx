@@ -4,7 +4,7 @@ import { supabase, hasSupabaseConfig } from '../lib/supabase';
 import { Artist } from '../types';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { mapPin, User, CheckCircle2, Instagram, Facebook } from 'lucide-react';
+import { MapPin, User, CheckCircle2, Instagram, Facebook } from 'lucide-react';
 
 export function ArtistProfile() {
   const { id } = useParams<{ id: string }>();
@@ -80,7 +80,7 @@ export function ArtistProfile() {
              <div>
                <h1 className="text-4xl font-bold font-serif tracking-tight text-ink">{artist.name}</h1>
                <p className="flex items-center text-ink-light mt-2 text-lg">
-                  <mapPin className="mr-1.5 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></mapPin>
+                  <MapPin className="mr-1.5 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></MapPin>
                   {artist.city}{artist.area ? `, ${artist.area}` : ''}
                </p>
                <div className="flex items-center gap-4 mt-4">

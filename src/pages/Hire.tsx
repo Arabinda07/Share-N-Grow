@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
@@ -76,7 +76,7 @@ export function Hire() {
         </p>
       </div>
 
-      <Card className="border-stone-200">
+      <Card className="border-ink-light/20 bg-white">
         <CardContent className="pt-6">
           {!hasSupabaseConfig && (
              <div className="mb-6 flex items-start gap-3 rounded-md bg-red-50 p-4 text-red-900 border border-red-200">
@@ -100,45 +100,45 @@ export function Hire() {
 
           <form onSubmit={handleSubmit} className="space-y-8">
              <div className="space-y-4">
-               <h3 className="font-semibold text-lg border-b border-stone-100 pb-2">Client Details</h3>
+               <h3 className="font-semibold text-lg border-b border-ink-light/20 pb-2 text-ink">Client Details</h3>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">Full Name *</label>
+                  <label className="text-sm font-medium text-ink">Full Name *</label>
                   <Input name="name" required placeholder="Name" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">WhatsApp / Phone *</label>
+                  <label className="text-sm font-medium text-ink">WhatsApp / Phone *</label>
                   <Input name="contact" required placeholder="Phone number" />
                 </div>
               </div>
               <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">Email (Optional)</label>
+                  <label className="text-sm font-medium text-ink">Email (Optional)</label>
                   <Input name="email" type="email" placeholder="email@example.com" />
               </div>
              </div>
 
              <div className="space-y-4 pt-2">
-               <h3 className="font-semibold text-lg border-b border-stone-100 pb-2">Location</h3>
+               <h3 className="font-semibold text-lg border-b border-ink-light/20 pb-2 text-ink">Location</h3>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">City *</label>
+                  <label className="text-sm font-medium text-ink">City *</label>
                   <Input name="city" required placeholder="E.g., Kolkata" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">Area / Locality *</label>
+                  <label className="text-sm font-medium text-ink">Area / Locality *</label>
                   <Input name="area" required placeholder="E.g., Salt Lake" />
                 </div>
               </div>
             </div>
 
             <div className="space-y-4 pt-2">
-               <h3 className="font-semibold text-lg border-b border-stone-100 pb-2">Project Details</h3>
+               <h3 className="font-semibold text-lg border-b border-ink-light/20 pb-2 text-ink">Project Details</h3>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-stone-900">Service Needed *</label>
+                <label className="text-sm font-medium text-ink">Service Needed *</label>
                 <select
                   name="service"
                   required
-                  className="flex h-10 w-full rounded-md border border-stone-300 bg-white px-3 py-2 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-amber-600"
+                  className="flex h-10 w-full rounded-md border border-ink-light/20 bg-white px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-terracotta"
                 >
                   <option value="">Select a service...</option>
                   <option value="drawing-teacher">Drawing teacher for child</option>
@@ -152,17 +152,17 @@ export function Hire() {
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">Budget Range (Optional)</label>
+                  <label className="text-sm font-medium text-ink">Budget Range (Optional)</label>
                   <Input name="budget" placeholder="₹" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">Preferred Date/Deadline</label>
+                  <label className="text-sm font-medium text-ink">Preferred Date/Deadline</label>
                   <Input name="deadline" placeholder="E.g. Next month" />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-stone-900">Short Description *</label>
+                <label className="text-sm font-medium text-ink">Short Description *</label>
                 <Textarea 
                   name="details" 
                   required 
@@ -172,7 +172,7 @@ export function Hire() {
               </div>
               
               <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">Reference Image or Link (Optional)</label>
+                  <label className="text-sm font-medium text-ink">Reference Image or Link (Optional)</label>
                   <Input name="reference" placeholder="Drive / Pinterest link" />
               </div>
             </div>

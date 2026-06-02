@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase, hasSupabaseConfig } from '../lib/supabase';
 import { Inquiry, JoinRequest } from '../types';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
@@ -48,13 +48,13 @@ export function Admin() {
               <input 
                 type="password" 
                 placeholder="Enter access code" 
-                className="rounded-md border border-stone-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-600"
+                className="rounded-md border border-ink-light/20 bg-paper-dark p-2 text-ink focus:outline-none focus:ring-2 focus:ring-terracotta"
                 value={authCode}
                 onChange={(e) => setAuthCode(e.target.value)}
               />
               <button 
                 type="submit"
-                className="rounded-md bg-stone-900 p-2 text-white hover:bg-stone-800"
+                className="rounded-md bg-ink p-2 text-white hover:bg-ink-light transition-colors"
               >
                 View Dashboard
               </button>
@@ -81,41 +81,41 @@ export function Admin() {
 
   return (
     <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
-      <h1 className="mb-8 text-3xl font-bold tracking-tight text-stone-900">Admin Dashboard</h1>
+      <h1 className="mb-8 text-3xl font-bold font-serif tracking-tight text-ink">Admin Dashboard</h1>
 
       {loading ? (
-        <div className="text-stone-500">Loading data...</div>
+        <div className="text-ink-light">Loading data...</div>
       ) : (
         <div className="space-y-12">
           {/* Inquiries */}
           <section>
-            <h2 className="mb-4 text-xl flex items-center font-semibold text-stone-900 border-b border-stone-200 pb-2">
+            <h2 className="mb-4 text-xl flex items-center font-semibold text-ink border-b border-ink-light/20 pb-2">
               Recent Client Inquiries
-              <span className="ml-3 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">
+              <span className="ml-3 rounded-full bg-paper-dark px-2.5 py-0.5 text-xs font-medium text-terracotta">
                 {inquiries.length} requests
               </span>
             </h2>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {inquiries.length === 0 ? (
-                <p className="text-stone-500 text-sm py-4">No inquiries found.</p>
+                <p className="text-ink-light text-sm py-4">No inquiries found.</p>
               ) : inquiries.map((req) => (
-                <Card key={req.id} className="border-stone-200 shadow-none">
+                <Card key={req.id} className="border-ink-light/20 bg-white shadow-none">
                   <CardContent className="p-5 flex flex-col h-full">
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-semibold text-lg line-clamp-1">{req.name}</h3>
-                      <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs capitalize text-stone-600 font-medium">
+                      <h3 className="font-semibold text-lg line-clamp-1 text-ink">{req.name}</h3>
+                      <span className="rounded-full bg-paper-dark border border-ink-light/20 px-2 py-0.5 text-xs capitalize text-ink-light font-medium">
                         {req.status}
                       </span>
                     </div>
-                    <div className="text-sm text-stone-600 space-y-1 mb-4 flex-grow">
-                      <p><span className="font-medium text-stone-800">Phone:</span> {req.phone}</p>
-                      <p><span className="font-medium text-stone-800">Service:</span> <span className="capitalize">{req.service_needed.replace(/-/g, ' ')}</span></p>
-                      <p><span className="font-medium text-stone-800">Location:</span> {req.city}{req.area ? `, ${req.area}` : ''}</p>
-                      <div className="mt-2 text-stone-700 bg-stone-50 p-2 rounded border border-stone-100 whitespace-pre-wrap text-xs h-24 overflow-y-auto">
+                    <div className="text-sm text-ink-light space-y-1 mb-4 flex-grow">
+                      <p><span className="font-medium text-ink">Phone:</span> {req.phone}</p>
+                      <p><span className="font-medium text-ink">Service:</span> <span className="capitalize">{req.service_needed.replace(/-/g, ' ')}</span></p>
+                      <p><span className="font-medium text-ink">Location:</span> {req.city}{req.area ? `, ${req.area}` : ''}</p>
+                      <div className="mt-2 text-ink-light bg-paper p-2 rounded border border-ink-light/20 whitespace-pre-wrap text-xs h-24 overflow-y-auto">
                         {req.description}
                       </div>
                     </div>
-                    <div className="flex items-center text-xs text-stone-400 mt-auto pt-4">
+                    <div className="flex items-center text-xs text-ink-light/50 mt-auto pt-4 border-t border-ink-light/10">
                       <Calendar className="mr-1.5 h-3 w-3" />
                       {formatDistanceToNow(new Date(req.created_at), { addSuffix: true })}
                     </div>
@@ -127,44 +127,44 @@ export function Admin() {
 
           {/* Applications */}
           <section>
-            <h2 className="mb-4 text-xl flex items-center font-semibold text-stone-900 border-b border-stone-200 pb-2">
+            <h2 className="mb-4 text-xl flex items-center font-semibold text-ink border-b border-ink-light/20 pb-2">
               Artist Join Requests
-              <span className="ml-3 rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-medium text-stone-800">
+              <span className="ml-3 rounded-full bg-paper border border-ink-light/20 px-2.5 py-0.5 text-xs font-medium text-ink-light">
                 {applications.length} applied
               </span>
             </h2>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {applications.length === 0 ? (
-                <p className="text-stone-500 text-sm py-4">No applications found.</p>
+                <p className="text-ink-light text-sm py-4">No applications found.</p>
               ) : applications.map((app) => (
-                <Card key={app.id} className="border-stone-200 shadow-none">
+                <Card key={app.id} className="border-ink-light/20 bg-white shadow-none">
                   <CardContent className="p-5 flex flex-col h-full">
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-semibold text-lg line-clamp-1">{app.name}</h3>
-                      <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs capitalize text-stone-600 font-medium">
+                      <h3 className="font-semibold text-lg line-clamp-1 text-ink">{app.name}</h3>
+                      <span className="rounded-full bg-paper border border-ink-light/20 px-2 py-0.5 text-xs capitalize text-ink-light font-medium">
                         {app.status}
                       </span>
                     </div>
-                    <div className="text-sm text-stone-600 space-y-1 mb-4 flex-grow">
-                      <p><span className="font-medium text-stone-800">Location:</span> {app.city}{app.area ? `, ${app.area}` : ''}</p>
-                      <p><span className="font-medium text-stone-800">Contact:</span> {app.phone}</p>
+                    <div className="text-sm text-ink-light space-y-1 mb-4 flex-grow">
+                      <p><span className="font-medium text-ink">Location:</span> {app.city}{app.area ? `, ${app.area}` : ''}</p>
+                      <p><span className="font-medium text-ink">Contact:</span> {app.phone}</p>
                       <p className="line-clamp-1">
-                        <span className="font-medium text-stone-800">Services: </span> 
+                        <span className="font-medium text-ink">Services: </span> 
                         {app.service_interest?.join(', ') || 'None specified'}
                       </p>
                       <p className="line-clamp-1">
-                        <span className="font-medium text-stone-800">Mediums: </span> 
+                        <span className="font-medium text-ink">Mediums: </span> 
                         {app.mediums?.join(', ') || 'None specified'}
                       </p>
                       {app.portfolio_links && (
                         <p className="mt-2">
-                          <a href={app.portfolio_links} target="_blank" rel="noreferrer" className="text-amber-600 hover:underline">
+                          <a href={app.portfolio_links} target="_blank" rel="noreferrer" className="text-terracotta hover:underline">
                             View Portfolio Links
                           </a>
                         </p>
                       )}
                     </div>
-                    <div className="flex items-center text-xs text-stone-400 mt-auto pt-4">
+                    <div className="flex items-center text-xs text-ink-light/50 mt-auto pt-4 border-t border-ink-light/10">
                       <Calendar className="mr-1.5 h-3 w-3" />
                       {formatDistanceToNow(new Date(app.created_at), { addSuffix: true })}
                     </div>

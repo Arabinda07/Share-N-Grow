@@ -3,7 +3,7 @@ import { supabase, hasSupabaseConfig } from '../lib/supabase';
 import { Artist } from '../types';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { mapPin, User } from 'lucide-react';
+import { MapPin, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export function ArtistsDirectory() {
@@ -114,7 +114,7 @@ export function ArtistsDirectory() {
                <CardContent className="pt-6 flex flex-col flex-grow">
                  <h2 className="text-xl font-bold font-serif text-ink">{artist.name}</h2>
                  <p className="flex items-center text-sm text-ink-light mt-1">
-                    <mapPin className="mr-1 h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></mapPin>
+                    <MapPin className="mr-1 h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></MapPin>
                     {artist.city}{artist.area ? `, ${artist.area}` : ''}
                  </p>
                  
