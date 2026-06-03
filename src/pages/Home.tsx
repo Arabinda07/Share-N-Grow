@@ -36,20 +36,18 @@ export function Home() {
       ease: 'power3.out',
     });
 
-    // Image Scale & Fade Scroll for grid items
+    // Fade Scroll for category items
     gsap.utils.toArray('.bento-item').forEach((item: any) => {
       gsap.fromTo(item, 
-        { scale: 0.8, opacity: 0 },
+        { y: 30, opacity: 0 },
         { 
-          scale: 1, 
+          y: 0, 
           opacity: 1, 
-          duration: 1.2, 
+          duration: 1, 
           ease: 'power3.out',
           scrollTrigger: {
             trigger: item,
             start: 'top 85%',
-            end: 'top 50%',
-            scrub: true,
           }
         }
       );
@@ -102,51 +100,60 @@ export function Home() {
         <div className="hero-element flex flex-col sm:flex-row items-start justify-start gap-4 w-full">
           <Link to="/hire">
             <Button size="lg" className="w-full sm:w-auto h-14 md:h-16 px-8 md:px-12 text-base md:text-lg font-medium shadow-[0_10px_30px_-10px_rgba(28,25,23,0.2)] bg-ink hover:bg-ink-light text-white rounded-2xl transition-transform active:scale-[0.98]">
-              Hire an artist
+              Hire an Artist
             </Button>
           </Link>
           <Link to="/join">
             <Button size="lg" variant="outline" className="w-full sm:w-auto h-14 md:h-16 px-8 md:px-12 text-base md:text-lg font-medium bg-transparent border-whisper text-ink hover:bg-paper-dark shadow-none rounded-2xl transition-transform active:scale-[0.98]">
-              Apply to directory
+              Apply as Artist
             </Button>
           </Link>
         </div>
       </section>
 
-      {/* Gapless Bento Grid Focus */}
-      <section className="py-24 md:py-48 px-4 sm:px-6 lg:px-8 bg-white border-t border-whisper relative z-10">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-12 auto-rows-[minmax(250px,auto)] grid-flow-dense gap-4 md:gap-6">
+      {/* Categories Focus */}
+      <section className="py-24 md:py-40 px-6 lg:px-12 bg-white relative z-10">
+        <div className="max-w-7xl mx-auto flex flex-col gap-12 md:gap-24">
             
-            <div className="bento-item md:col-span-8 md:row-span-2 relative rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden group bg-ink text-white p-8 md:p-10 flex flex-col justify-end min-h-[300px]">
-              <div className="absolute inset-0 bg-gradient-to-tr from-ink via-ink to-ink-light opacity-90"></div>
-              <div className="relative z-10">
-                <span className="text-white/70 font-semibold tracking-widest text-[11px] md:text-[13px] uppercase mb-4 block">Wall Murals & Public Art</span>
-                <h3 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 max-w-lg leading-tight">Paint a blank wall.</h3>
-                <p className="text-lg md:text-xl text-white/80 max-w-md mb-8 md:mb-10 leading-relaxed">We connect you with painters who handle large-format typography, illustration, and commercial branding.</p>
-                <Link to="/hire" className="inline-flex items-center text-sm font-medium tracking-wide uppercase hover:text-terracotta transition-colors">
-                  Contact an artist <ArrowRight className="ml-2 h-4 w-4" />
+            <div className="bento-item flex flex-col md:flex-row items-start md:items-end justify-between gap-8 md:gap-16 pb-12 border-b border-whisper group select-none">
+              <div className="flex-1 max-w-2xl">
+                <span className="text-ink-light font-semibold tracking-[0.15em] text-xs uppercase mb-6 block">01 / Wall Murals & Public Art</span>
+                <h3 className="text-3xl md:text-5xl font-bold font-serif mb-6 leading-[1.05]">Turn a blank wall into art.</h3>
+                <p className="text-lg md:text-xl text-ink-light leading-relaxed">Connect with painters who handle large-format typography, illustration, and commercial branding for your specific project.</p>
+              </div>
+              <div className="shrink-0 pt-4 md:pt-0">
+                <Link to="/hire" className="inline-flex items-center text-sm font-semibold tracking-wide uppercase group-hover:text-terracotta transition-colors">
+                  Contact an artist <ArrowRight className="ml-3 h-4 w-4" />
                 </Link>
               </div>
             </div>
 
-            <div className="bento-item md:col-span-4 md:row-span-1 border border-whisper rounded-[1.5rem] md:rounded-[2.5rem] p-8 md:p-10 bg-white shadow-none flex flex-col justify-center relative overflow-hidden group">
-               <h3 className="text-xl md:text-2xl font-bold text-ink mb-3 md:mb-4 group-hover:text-terracotta transition-colors">Drawing Teachers</h3>
-               <p className="text-ink-light text-base md:text-lg leading-relaxed">Foundational drawing, charcoal, and acrylics. In-home or private studios.</p>
-               <Link to="/hire" className="mt-6 md:mt-8 inline-flex items-center text-sm font-medium text-ink hover:text-terracotta transition-colors">
-                 Find a teacher <ArrowRight className="ml-1 h-3.5 w-3.5" />
-               </Link>
+            <div className="bento-item flex flex-col md:flex-row items-start md:items-end justify-between gap-8 md:gap-16 pb-12 border-b border-whisper group select-none">
+              <div className="flex-1 max-w-2xl">
+                 <span className="text-ink-light font-semibold tracking-[0.15em] text-xs uppercase mb-6 block">02 / Drawing Teachers</span>
+                 <h3 className="text-3xl md:text-5xl font-bold font-serif text-ink mb-6 leading-[1.05]">Foundational skills.</h3>
+                 <p className="text-ink-light text-lg md:text-xl leading-relaxed">Charcoal, acrylics, and sketching basics. Find patient, skilled teachers for in-home lessons or private studio sessions.</p>
+              </div>
+              <div className="shrink-0 pt-4 md:pt-0">
+                <Link to="/hire" className="inline-flex items-center text-sm font-semibold tracking-wide uppercase group-hover:text-terracotta transition-colors">
+                  Find a teacher <ArrowRight className="ml-3 h-4 w-4" />
+                </Link>
+              </div>
             </div>
 
-            <div className="bento-item md:col-span-4 md:row-span-1 border border-whisper rounded-[1.5rem] md:rounded-[2.5rem] p-8 md:p-10 bg-white shadow-none flex flex-col justify-center relative overflow-hidden group">
-               <h3 className="text-xl md:text-2xl font-bold text-ink mb-3 md:mb-4 group-hover:text-terracotta transition-colors">Live Event Art</h3>
-               <p className="text-ink-light text-base md:text-lg leading-relaxed">Fast watercolors, live canvas painting, and caricatures for events.</p>
-               <Link to="/hire" className="mt-6 md:mt-8 inline-flex items-center text-sm font-medium text-ink hover:text-terracotta transition-colors">
-                 Book for an event <ArrowRight className="ml-1 h-3.5 w-3.5" />
-               </Link>
+            <div className="bento-item flex flex-col md:flex-row items-start md:items-end justify-between gap-8 md:gap-16 pb-12 border-b border-whisper group select-none">
+              <div className="flex-1 max-w-2xl">
+                 <span className="text-ink-light font-semibold tracking-[0.15em] text-xs uppercase mb-6 block">03 / Live Event Art</span>
+                 <h3 className="text-3xl md:text-5xl font-bold font-serif text-ink mb-6 leading-[1.05]">Live canvas painting.</h3>
+                 <p className="text-ink-light text-lg md:text-xl leading-relaxed">Hire artists for fast watercolors, live canvas painting, and caricatures to capture memories right as they happen.</p>
+              </div>
+              <div className="shrink-0 pt-4 md:pt-0">
+                <Link to="/hire" className="inline-flex items-center text-sm font-semibold tracking-wide uppercase group-hover:text-terracotta transition-colors">
+                  Book for an event <ArrowRight className="ml-3 h-4 w-4" />
+                </Link>
+              </div>
             </div>
 
-          </div>
         </div>
       </section>
 
@@ -190,9 +197,6 @@ export function Home() {
       <section className="py-24 md:py-32 px-6 lg:px-12 bg-white border-t border-whisper flex justify-center">
         <div className="max-w-4xl w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
           <div className="max-w-2xl">
-            <div className="h-16 w-16 bg-[#25D366]/10 rounded-2xl flex items-center justify-center mb-6">
-              <WhatsappLogo className="w-8 h-8 text-[#25D366]" weight="regular" />
-            </div>
             <h2 className="text-3xl md:text-5xl font-bold font-serif tracking-tight text-ink mb-4">Join the Community</h2>
             <p className="text-lg md:text-xl text-ink-light leading-relaxed">
               Our main goal is to connect artists and clients directly. Join our WhatsApp community to stay updated on new projects, workshops, and calls for artists.
@@ -200,7 +204,7 @@ export function Home() {
           </div>
           <div className="shrink-0">
             <a href="https://chat.whatsapp.com/JtEre6AP4zaEXgJVu8edVe" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 text-base md:text-lg font-medium rounded-2xl text-[#FFFFFF] bg-[#25D366] hover:bg-[#1DA851] shadow-lg shadow-[#25D366]/20 transition-all active:scale-[0.98]">
-              Join the Community
+              Join Us
             </a>
           </div>
         </div>

@@ -51,10 +51,10 @@ export function Collaborate() {
   if (isSuccess) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center p-4 py-20 text-center">
-        <CheckCircle2 className="mb-6 h-16 w-16 text-amber-600" />
-        <h2 className="mb-4 text-3xl font-bold text-stone-900">Request Sent</h2>
-        <p className="mx-auto mb-8 max-w-md text-stone-600">
-          Thank you for reaching out. We will review your collaboration proposal and get back to you shortly.
+        <CheckCircle2 className="mb-6 h-16 w-16 text-pine" />
+        <h2 className="mb-4 text-3xl font-bold text-ink font-serif tracking-tight">We have your request.</h2>
+        <p className="mx-auto mb-8 max-w-md text-ink-light">
+          We'll review your collaboration proposal and message you to discuss it further.
         </p>
         <Link to="/">
           <Button variant="outline">Return to Home</Button>
@@ -73,25 +73,25 @@ export function Collaborate() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 mb-12">
-        <Card className="border-whisper bg-paper rounded-[2.5rem] shadow-none">
+        <Card className="border-whisper bg-paper rounded-2xl shadow-none">
           <CardContent className="p-8">
             <h3 className="font-semibold text-lg text-ink tracking-tight font-serif mb-3">For Schools & Colleges</h3>
              <p className="text-base text-ink-light leading-relaxed">Hire guest faculty, organise specialized art workshops, or find judges for cultural fests.</p>
           </CardContent>
         </Card>
-        <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none">
+        <Card className="border-whisper bg-white rounded-2xl shadow-none">
           <CardContent className="p-8">
             <h3 className="font-semibold text-lg text-ink tracking-tight font-serif mb-3">For Offices & Local Businesses</h3>
              <p className="text-base text-ink-light leading-relaxed">Team-building art workshops, office murals, or finding local art for your café walls.</p>
           </CardContent>
         </Card>
-        <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none">
+        <Card className="border-whisper bg-white rounded-2xl shadow-none">
           <CardContent className="p-8">
             <h3 className="font-semibold text-lg text-ink tracking-tight font-serif mb-3">For Events & Planners</h3>
              <p className="text-base text-ink-light leading-relaxed">Bulk hire live artists for large festivals, weddings, or corporate offsites.</p>
           </CardContent>
         </Card>
-        <Card className="border-whisper bg-paper rounded-[2.5rem] shadow-none">
+        <Card className="border-whisper bg-paper rounded-2xl shadow-none">
           <CardContent className="p-8">
             <h3 className="font-semibold text-lg text-ink tracking-tight font-serif mb-3">For Cultural Groups & NGOs</h3>
              <p className="text-base text-ink-light leading-relaxed">Partner with our network for community art projects, charity auctions, or public installations.</p>
@@ -99,17 +99,17 @@ export function Collaborate() {
         </Card>
       </div>
 
-      <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none p-4 sm:p-8">
-        <CardContent className="pt-6">
-          <form onSubmit={handleSubmit} className="space-y-8">
+      <Card className="border border-whisper bg-white rounded-2xl shadow-none p-4 sm:p-8 md:p-10">
+        <CardContent className="pt-2">
+          <form onSubmit={handleSubmit} className="space-y-12">
              {error && (
-              <div className="mb-6 rounded-xl bg-red-50 p-4 text-sm text-red-900 border border-red-200">
+              <div className="mb-8 rounded-xl bg-red-50 p-4 text-sm text-red-900 border border-red-100">
                 {error}
               </div>
             )}
             
-            <div className="space-y-6">
-              <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Your Details</h3>
+            <div className="space-y-8">
+              <h3 className="font-semibold text-xl text-ink">Your Details</h3>
               <div className="grid gap-6 sm:grid-cols-2">
                  <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Your Name *</label>
@@ -142,8 +142,8 @@ export function Collaborate() {
               </div>
             </div>
 
-            <div className="space-y-6 pt-6">
-               <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Partnership Details</h3>
+            <div className="space-y-8">
+               <h3 className="font-semibold text-xl text-ink">Partnership Details</h3>
                
                <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Type of Collaboration *</label>
@@ -175,7 +175,7 @@ export function Collaborate() {
                </div>
             </div>
 
-            <div className="pt-6">
+            <div>
               <Button type="submit" size="lg" className="w-full h-16 text-lg bg-ink hover:bg-ink-light text-white rounded-2xl shadow-none transition-transform active:scale-[0.98]" disabled={isSubmitting || !hasSupabaseConfig}>
                 {isSubmitting ? (
                   <div className="flex space-x-2">

@@ -52,9 +52,9 @@ export function EventsLiveArt() {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center p-4 py-20 text-center">
         <CheckCircle2 className="mb-6 h-16 w-16 text-pine" />
-        <h2 className="mb-4 text-3xl font-bold font-serif text-ink">Request Received</h2>
+        <h2 className="mb-4 text-3xl font-bold font-serif text-ink">We have your request.</h2>
         <p className="mx-auto mb-8 max-w-md text-ink-light">
-          Thank you. A ShareNGrow admin will review your event details and contact you on WhatsApp to discuss artist availability.
+          We'll review your event details and message you on WhatsApp to discuss artist availability.
         </p>
         <Link to="/">
           <Button variant="outline">Return to Home</Button>
@@ -78,7 +78,7 @@ export function EventsLiveArt() {
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6 md:gap-8 mb-16 max-w-4xl mx-auto px-4 md:px-0">
-        <Card className="border border-whisper bg-paper-dark rounded-[1.5rem] md:rounded-[2.5rem] shadow-none">
+        <Card className="border border-whisper bg-paper-dark rounded-2xl shadow-none">
           <CardContent className="p-8 md:p-10">
             <h3 className="font-bold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-serif">Popular services</h3>
             <ul className="list-none text-ink-light space-y-3 md:space-y-4 text-base md:text-lg">
@@ -91,7 +91,7 @@ export function EventsLiveArt() {
           </CardContent>
         </Card>
         
-        <Card className="border border-whisper bg-white rounded-[1.5rem] md:rounded-[2.5rem] shadow-none">
+        <Card className="border border-whisper bg-white rounded-2xl shadow-none">
           <CardContent className="p-8 md:p-10">
             <h3 className="font-bold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-serif">Event details we need</h3>
             <ul className="list-none text-ink-light space-y-3 md:space-y-4 text-base md:text-lg">
@@ -105,17 +105,17 @@ export function EventsLiveArt() {
         </Card>
       </div>
 
-      <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none p-4 sm:p-8" id="request-form">
-        <CardContent className="pt-6">
-          <form onSubmit={handleSubmit} className="space-y-8">
+      <Card className="border border-whisper bg-white rounded-2xl shadow-none p-4 sm:p-8 md:p-10" id="request-form">
+        <CardContent className="pt-2 md:pt-4">
+          <form onSubmit={handleSubmit} className="space-y-12">
              {error && (
-              <div className="mb-6 rounded-xl bg-red-50 p-4 text-sm text-red-900 border border-red-200">
+              <div className="mb-8 rounded-xl bg-red-50 p-4 text-sm text-red-900 border border-red-100">
                 {error}
               </div>
             )}
             
-            <div className="space-y-6">
-              <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Client Details</h3>
+            <div className="space-y-8">
+              <h3 className="font-semibold text-xl text-ink">Client Details</h3>
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Name *</label>
@@ -128,8 +128,8 @@ export function EventsLiveArt() {
               </div>
             </div>
 
-            <div className="space-y-6 pt-6">
-               <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Event Details</h3>
+            <div className="space-y-8">
+               <h3 className="font-semibold text-xl text-ink">Event Details</h3>
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Event Type *</label>
@@ -163,8 +163,8 @@ export function EventsLiveArt() {
               </div>
             </div>
 
-            <div className="space-y-6 pt-6">
-               <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Art Requirements</h3>
+            <div className="space-y-8">
+               <h3 className="font-semibold text-xl text-ink">Art Requirements</h3>
                
                <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Specific Art Service Needed *</label>
@@ -189,12 +189,12 @@ export function EventsLiveArt() {
                </div>
             </div>
             
-            <div className="space-y-2 pt-6">
+            <div className="space-y-2">
               <label className="text-sm font-medium text-ink">Additional Notes</label>
               <Textarea name="notes" placeholder="Any specific requirements for artist attire, setup space, or breaks?" className="min-h-[140px] rounded-xl border-whisper p-4" />
             </div>
 
-            <div className="pt-6">
+            <div>
               <Button type="submit" size="lg" className="w-full h-16 text-lg bg-ink hover:bg-ink-light text-white rounded-2xl shadow-none transition-transform active:scale-[0.98]" disabled={isSubmitting || !hasSupabaseConfig}>
                 {isSubmitting ? (
                   <div className="flex space-x-2">

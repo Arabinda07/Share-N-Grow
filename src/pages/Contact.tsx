@@ -19,27 +19,27 @@ export function Contact() {
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
-        <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none flex flex-col justify-start items-start text-left p-8 md:p-10">
+        <Card className="border-whisper bg-white rounded-2xl shadow-none flex flex-col justify-start items-start text-left p-8 md:p-10">
           <CardContent className="p-0">
-             <div className="h-16 w-16 mb-6 rounded-full bg-paper flex items-center justify-center">
+             <div className="h-16 w-16 mb-6 rounded-2xl border border-whisper bg-paper flex items-center justify-center">
                 <EnvelopeSimple className="h-6 w-6 text-ink" />
              </div>
-             <h3 className="text-2xl font-bold text-ink mb-2">Email</h3>
+             <h3 className="text-2xl font-bold text-ink mb-2 tracking-tight">Email</h3>
              <p className="text-ink-light mb-6">Drop us a line anytime.</p>
-             <a href="mailto:sharengrowofficial@gmail.com" className="text-terracotta font-medium hover:underline text-lg">
+             <a href="mailto:sharengrowofficial@gmail.com" className="text-ink hover:text-ink-light transition-colors font-medium text-lg">
                sharengrowofficial@gmail.com
              </a>
           </CardContent>
         </Card>
 
-        <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none flex flex-col justify-start items-start text-left p-8 md:p-10">
+        <Card className="border-whisper bg-white rounded-2xl shadow-none flex flex-col justify-start items-start text-left p-8 md:p-10">
           <CardContent className="p-0">
-             <div className="h-16 w-16 mb-6 rounded-full bg-paper flex items-center justify-center">
+             <div className="h-16 w-16 mb-6 rounded-2xl border border-whisper bg-paper flex items-center justify-center">
                 <Phone className="h-6 w-6 text-ink" />
              </div>
-             <h3 className="text-2xl font-bold text-ink mb-2">Phone</h3>
+             <h3 className="text-2xl font-bold text-ink mb-2 tracking-tight">Phone</h3>
              <p className="text-ink-light mb-6">Call or WhatsApp us.</p>
-             <a href="tel:+917031584487" className="text-terracotta font-medium hover:underline text-lg">
+             <a href="tel:+917031584487" className="text-ink hover:text-ink-light transition-colors font-medium text-lg">
                +91 7031584487
              </a>
           </CardContent>

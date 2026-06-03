@@ -179,8 +179,8 @@ export function ArtistProfile() {
 
           <div>
              <h3 className="text-2xl font-semibold mb-6 text-ink font-serif tracking-tight">Portfolio Samples</h3>
-             <div className="bg-paper p-12 rounded-[2.5rem] border border-whisper text-center text-ink-light flex flex-col items-center justify-center min-h-[300px]">
-               <div className="h-16 w-16 mb-4 rounded-2xl bg-white border border-whisper flex items-center justify-center shadow-sm">
+             <div className="bg-paper p-12 rounded-2xl border border-whisper text-center text-ink-light flex flex-col items-center justify-center min-h-[300px]">
+               <div className="h-16 w-16 mb-4 rounded-xl bg-white border border-whisper flex items-center justify-center shadow-sm">
                  <Palette className="h-8 w-8 opacity-20" />
                </div>
                <p className="text-lg">Portfolio images will be displayed here once uploaded and approved.</p>
@@ -190,7 +190,7 @@ export function ArtistProfile() {
 
         {/* Sidebar */}
         <div className="space-y-6">
-          <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none sticky top-24">
+          <Card className="border border-whisper bg-white rounded-2xl shadow-none sticky top-24">
             <CardContent className="p-8">
                <h3 className="font-semibold text-xl mb-6 text-ink tracking-tight font-serif">Availability</h3>
                <ul className="space-y-5 mb-8">

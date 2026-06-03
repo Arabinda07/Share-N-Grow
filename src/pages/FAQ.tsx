@@ -69,7 +69,7 @@ export function FAQ() {
         {faqs.map((faq, index) => (
           <Card 
             key={index} 
-            className="border-whisper bg-white rounded-3xl shadow-none overflow-hidden cursor-pointer transition-all hover:border-ink/20"
+            className="border-whisper bg-white rounded-2xl shadow-none overflow-hidden cursor-pointer transition-all hover:border-ink/20"
             onClick={() => toggleAccordion(index)}
           >
             <div className="p-6 md:p-8 flex justify-between items-center bg-white">
@@ -88,7 +88,7 @@ export function FAQ() {
         ))}
       </div>
 
-      <div className="mt-16 bg-paper p-8 rounded-[2.5rem] border border-whisper flex flex-col items-start text-left">
+      <div className="mt-16 bg-paper p-8 rounded-2xl border border-whisper flex flex-col items-start text-left">
         <h2 className="text-2xl font-bold text-ink mb-3 font-serif tracking-tight">Still have questions?</h2>
         <p className="text-ink-light mb-6">
           If you couldn't find the answer to your question, feel free to contact us or submit an inquiry, and our team will get back to you.

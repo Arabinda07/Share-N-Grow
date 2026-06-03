@@ -83,39 +83,39 @@ export function Hire() {
         <link rel="canonical" href="https://share-n-grow.vercel.app/hire" />
       </Helmet>
       <div className="mb-14 md:mb-20 px-4">
-        <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold font-serif tracking-tighter text-ink leading-[1.1]">Hire an artist</h1>
+        <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold font-serif tracking-tighter text-ink leading-[1.1]">Hire an Artist</h1>
         <p className="mt-4 md:mt-6 text-lg md:text-xl text-ink-light max-w-2xl leading-relaxed">
-          Tell us what you need. We'll review the brief and introduce you to an artist who can do it.
+          Tell us what you're looking for. We'll review your project and introduce you to an artist who fits the bill.
         </p>
       </div>
 
-      <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none p-4 sm:p-8">
-        <CardContent className="pt-6">
+      <Card className="border border-whisper bg-white rounded-2xl shadow-none p-4 sm:p-8 md:p-12">
+        <CardContent className="pt-2 md:pt-4">
           {!hasSupabaseConfig && (
-             <div className="mb-6 flex items-start gap-3 rounded-xl bg-red-50 p-4 text-red-900 border border-red-200">
+             <div className="mb-8 flex items-start gap-3 rounded-xl bg-red-50 p-4 text-red-900 border border-red-100">
                <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
                <p className="text-sm font-medium">Database is not configured. Please add Supabase credentials in the settings.</p>
              </div>
           )}
 
           {error && (
-            <div className="mb-6 rounded-xl bg-red-50 p-4 text-sm text-red-900 border border-red-200">
+            <div className="mb-8 rounded-xl bg-red-50 p-4 text-sm text-red-900 border border-red-100">
               {error}
             </div>
           )}
           
           {preselectedArtistId && (
-            <div className="mb-6 rounded-xl bg-paper p-4 text-sm text-ink flex items-start gap-3 border border-whisper">
-               <CheckCircle2 className="mt-0.5 h-5 w-5 text-pine shrink-0" />
+            <div className="mb-8 rounded-xl bg-paper p-4 text-sm text-ink flex items-start gap-3 border border-whisper">
+               <CheckCircle2 className="mt-0.5 h-5 w-5 text-[#25D366] shrink-0" />
                <p>We see you selected an artist. We'll reach out to them first to check availability.</p>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-12">
              <input type="text" name="_botcheck" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
 
-             <div className="space-y-6">
-               <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Client Details</h3>
+             <div className="space-y-8">
+               <h3 className="font-semibold text-xl text-ink">Client Details</h3>
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Full Name *</label>
@@ -132,8 +132,8 @@ export function Hire() {
               </div>
              </div>
 
-             <div className="space-y-6 pt-6">
-               <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Location</h3>
+             <div className="space-y-8">
+               <h3 className="font-semibold text-xl text-ink">Location</h3>
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">City *</label>
@@ -146,8 +146,8 @@ export function Hire() {
               </div>
             </div>
 
-            <div className="space-y-6 pt-6">
-               <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Project Details</h3>
+            <div className="space-y-8">
+               <h3 className="font-semibold text-xl text-ink">Project Details</h3>
               <div className="space-y-2">
                 <label className="text-sm font-medium text-ink">Service Needed *</label>
                 <select
@@ -192,14 +192,14 @@ export function Hire() {
               </div>
             </div>
 
-            <div className="flex items-start gap-4 pt-6">
+            <div className="flex items-start gap-4">
                <input id="consent" type="checkbox" required className="mt-1 h-5 w-5 border-whisper text-ink focus:ring-ink focus:ring-offset-paper rounded" />
                <label htmlFor="consent" className="text-base text-ink-light leading-relaxed cursor-pointer">
                  I agree to be contacted via WhatsApp or phone. My details won't be made public.
                </label>
             </div>
 
-            <div className="pt-6">
+            <div>
               <Button type="submit" size="lg" className="w-full h-16 text-lg bg-ink hover:bg-ink-light text-white rounded-2xl transition-transform active:scale-[0.98]" disabled={isSubmitting || !hasSupabaseConfig}>
                 {isSubmitting ? (
                   <div className="flex space-x-2">

@@ -113,9 +113,9 @@ export function Join() {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center p-4 py-20 text-center">
         <CheckCircle2 className="mb-6 h-16 w-16 text-pine" />
-        <h2 className="mb-4 text-3xl font-bold font-serif text-ink">Application Received</h2>
+        <h2 className="mb-4 text-3xl font-bold font-serif text-ink tracking-tight">We've got your application.</h2>
         <p className="mx-auto mb-8 max-w-md text-ink-light">
-          Thank you for applying to join ShareNGrow. We will review your details and get in touch with you via WhatsApp.
+          We'll review your details and message you on WhatsApp to talk about the next steps.
         </p>
         <Link to="/">
           <Button variant="outline">Return to Home</Button>
@@ -132,39 +132,39 @@ export function Join() {
         <link rel="canonical" href="https://share-n-grow.vercel.app/join" />
       </Helmet>
       <div className="mb-14 md:mb-20 px-4">
-        <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold tracking-tighter text-ink leading-[1.1] font-serif">Apply for the Directory</h1>
+        <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold tracking-tighter text-ink leading-[1.1] font-serif">Apply as an Artist</h1>
         <p className="mt-4 md:mt-6 text-lg md:text-xl text-ink-light max-w-2xl leading-relaxed">
-          ShareNGrow is currently accepting artists for teaching, murals, live event art, workshops, portraits, and selected custom work.
+          ShareNGrow is currently accepting artists for teaching, murals, live event art, workshops, portraits, and custom commissions.
         </p>
       </div>
 
       <div className="mb-8 rounded-[1.5rem] bg-paper-dark p-6 border border-ink-light/10">
         <h3 className="text-ink font-semibold mb-2">Important Note</h3>
         <p className="text-ink-light text-sm leading-relaxed">
-          Applying does not guarantee listing. We manually review applications to keep the network useful and safe for both artists and clients. We look for clear examples of your work and a professional approach to client services.
+          Applying doesn't guarantee a spot. We review applications personally to make sure the network stays reliable for both artists and clients. We're looking for clear examples of your work and a professional approach.
         </p>
       </div>
 
-      <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none p-4 sm:p-8">
-        <CardContent className="pt-6">
+      <Card className="border border-whisper bg-white rounded-2xl shadow-none p-4 sm:p-8 md:p-12">
+        <CardContent className="pt-2 md:pt-4">
           {!hasSupabaseConfig && (
-             <div className="mb-6 flex items-start gap-3 rounded-xl bg-red-50 p-4 text-red-900 border border-red-200">
+             <div className="mb-8 flex items-start gap-3 rounded-xl bg-red-50 p-4 text-red-900 border border-red-100">
                <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
                <p className="text-sm font-medium">Database is not configured. Please add Supabase credentials in the settings.</p>
              </div>
           )}
 
           {error && (
-            <div className="mb-6 rounded-xl bg-red-50 p-4 text-sm text-red-900 border border-red-200">
+            <div className="mb-8 rounded-xl bg-red-50 p-4 text-sm text-red-900 border border-red-100">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-12">
             <input type="text" name="_botcheck" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
 
-            <div className="space-y-6">
-              <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Basic Details</h3>
+            <div className="space-y-8">
+              <h3 className="font-semibold text-xl text-ink">Basic Details</h3>
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Full Name *</label>
@@ -195,8 +195,8 @@ export function Join() {
               </div>
             </div>
             
-            <div className="space-y-6 pt-6">
-              <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Your Art</h3>
+            <div className="space-y-8">
+              <h3 className="font-semibold text-xl text-ink">Your Art</h3>
               <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Mediums you work with *</label>
                   <Input name="mediums" required placeholder="E.g., Acrylic, Watercolour, Charcoal (comma separated)" className="rounded-xl border-whisper h-12" />
@@ -204,7 +204,7 @@ export function Join() {
               
               <div className="space-y-3">
                 <label className="text-sm font-medium text-ink mb-1 block">Services you can offer (Select all that apply) *</label>
-                <div className="space-y-3 bg-paper p-6 rounded-[1.5rem] border border-whisper">
+                <div className="space-y-3 bg-paper p-6 rounded-2xl border border-whisper">
                     <div className="flex items-center gap-3">
                       <input type="checkbox" id="service-drawing-teacher" name="service-drawing-teacher" className="rounded h-5 w-5 border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
                       <label htmlFor="service-drawing-teacher" className="text-sm text-ink-light leading-none cursor-pointer">Drawing teacher</label>
@@ -232,14 +232,16 @@ export function Join() {
                 </div>
               </div>
               
-              <div className="space-y-2 pt-2">
-                  <label className="text-sm font-medium text-ink">Portfolio Link(s)</label>
-                  <Input name="portfolio" placeholder="Google Drive, Behance, or Website URL" className="rounded-xl border-whisper h-12" />
-              </div>
-              
-              <div className="space-y-2 pt-2">
-                  <label className="text-sm font-medium text-ink">Upload Portfolio File (PDF/Image max 5MB)</label>
-                  <Input type="file" name="portfolio_file" accept=".pdf,.jpeg,.jpg,.png" className="rounded-xl border-whisper file:mr-4 file:rounded-xl file:border-0 file:bg-paper file:px-4 file:py-2 file:text-sm file:font-semibold hover:file:bg-paper-dark transition-all cursor-pointer h-12 pt-2" />
+              <div className="space-y-4">
+                <div className="space-y-2 pt-2">
+                    <label className="text-sm font-medium text-ink">Portfolio Link(s)</label>
+                    <Input name="portfolio" placeholder="Google Drive, Behance, or Website URL" className="rounded-xl border-whisper h-12" />
+                </div>
+                
+                <div className="space-y-2 pt-2">
+                    <label className="text-sm font-medium text-ink">Upload Portfolio File (PDF/Image max 5MB)</label>
+                    <Input type="file" name="portfolio_file" accept=".pdf,.jpeg,.jpg,.png" className="rounded-xl border-whisper file:mr-4 file:rounded-xl file:border-0 file:bg-paper file:px-4 file:py-2 file:text-sm file:font-semibold hover:file:bg-paper-dark transition-all cursor-pointer h-12 pt-2 text-ink-light" />
+                </div>
               </div>
               
               <div className="space-y-2">
@@ -253,8 +255,8 @@ export function Join() {
               </div>
             </div>
 
-             <div className="space-y-6 pt-6">
-              <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Availability & Consent</h3>
+             <div className="space-y-8">
+              <h3 className="font-semibold text-xl text-ink">Availability & Consent</h3>
               
               <div className="space-y-4">
                  <div className="flex items-start gap-4">
@@ -271,8 +273,8 @@ export function Join() {
                   </div>
               </div>
               
-              <div className="space-y-4 pt-6 border-t border-whisper">
-                  <div className="flex items-start gap-4">
+              <div className="space-y-4 pt-4 border-t border-whisper">
+                  <div className="flex items-start gap-4 mt-8">
                     <input type="checkbox" id="consent_public" name="consent_public" required className="mt-1 h-5 w-5 rounded border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
                     <label htmlFor="consent_public" className="text-base text-ink-light leading-relaxed cursor-pointer">I consent to having my public profile published on ShareNGrow if approved. (Private phone/email will not be shown).</label>
                   </div>
@@ -282,13 +284,13 @@ export function Join() {
                   </div>
               </div>
               
-               <div className="space-y-2 pt-6">
+               <div className="space-y-2 pt-4">
                   <label className="text-sm font-medium text-ink">Message to Admins (Optional)</label>
                   <Textarea name="message" placeholder="Anything else we should know?" className="rounded-xl border-whisper min-h-[100px] p-4" />
               </div>
             </div>
 
-            <div className="pt-6">
+            <div>
               <Button type="submit" size="lg" className="w-full h-16 text-lg bg-ink hover:bg-ink-light text-white rounded-2xl transition-all duration-300 ease-out active:scale-[0.98]" disabled={isSubmitting || !hasSupabaseConfig}>
                 {isSubmitting ? (
                   <div className="flex space-x-2">

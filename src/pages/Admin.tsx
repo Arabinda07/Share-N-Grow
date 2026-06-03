@@ -166,7 +166,7 @@ export function Admin() {
   if (!isAuthenticated) {
     return (
       <div className="container mx-auto flex min-h-[60vh] max-w-sm flex-col items-center justify-center px-4">
-        <Card className="w-full overflow-hidden border-ink-light/20 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] rounded-[2rem]">
+        <Card className="w-full overflow-hidden border-ink-light/20 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] rounded-2xl">
           <CardContent className="p-8">
             <h2 className="mb-6 text-2xl font-bold text-center tracking-tight text-ink font-serif">Admin Login</h2>
             {authError && (
@@ -178,7 +178,7 @@ export function Admin() {
               <input 
                 type="email" 
                 placeholder="Admin Email" 
-                className="flex h-12 w-full rounded-xl border border-ink-light/20 bg-white px-3 py-2 text-sm text-ink placeholder:text-ink-light/50 focus-visible:outline-none focus-visible:border-terracotta focus:ring-1 focus:ring-terracotta transition-shadow"
+                className="flex h-12 w-full rounded-xl border border-ink-light/20 bg-white px-3 py-2 text-sm text-ink placeholder:text-ink-light/50 focus-visible:outline-none focus-visible:border-ink/20 focus:ring-1 focus:ring-ink/20 transition-shadow"
                 value={email}
                 required
                 onChange={(e) => setEmail(e.target.value)}
@@ -186,7 +186,7 @@ export function Admin() {
               <input 
                 type="password" 
                 placeholder="Password" 
-                className="flex h-12 w-full rounded-xl border border-ink-light/20 bg-white px-3 py-2 text-sm text-ink placeholder:text-ink-light/50 focus-visible:outline-none focus-visible:border-terracotta focus:ring-1 focus:ring-terracotta transition-shadow"
+                className="flex h-12 w-full rounded-xl border border-ink-light/20 bg-white px-3 py-2 text-sm text-ink placeholder:text-ink-light/50 focus-visible:outline-none focus-visible:border-ink/20 focus:ring-1 focus:ring-ink/20 transition-shadow"
                 value={password}
                 required
                 onChange={(e) => setPassword(e.target.value)}
@@ -238,11 +238,11 @@ export function Admin() {
               {inquiries.length === 0 ? (
                 <p className="text-ink-light text-sm py-4">No inquiries found.</p>
               ) : inquiries.map((req) => (
-                <Card key={req.id} className="border-ink-light/20 bg-white shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] rounded-[2rem]">
+                <Card key={req.id} className="border border-whisper bg-white shadow-none rounded-2xl">
                   <CardContent className="p-6 flex flex-col h-full">
                     <div className="flex justify-between items-start mb-4">
                       <h3 className="font-semibold text-lg line-clamp-1 text-ink font-serif tracking-tight">{req.name}</h3>
-                      <span className="rounded-full bg-paper-dark border border-ink-light/10 px-3 py-1 text-xs capitalize text-ink-light font-bold">
+                      <span className="rounded-full bg-paper-dark border border-whisper px-3 py-1 text-xs capitalize text-ink-light font-bold">
                         {req.status}
                       </span>
                     </div>
@@ -250,11 +250,11 @@ export function Admin() {
                       <p><span className="font-medium text-ink">Phone:</span> {req.phone}</p>
                       <p><span className="font-medium text-ink">Service:</span> <span className="capitalize">{req.service_needed.replace(/-/g, ' ')}</span></p>
                       <p><span className="font-medium text-ink">Location:</span> {req.city}{req.area ? `, ${req.area}` : ''}</p>
-                      <div className="mt-4 text-ink-light bg-paper-dark p-4 rounded-[1rem] border border-ink-light/10 whitespace-pre-wrap text-[13px] h-28 overflow-y-auto leading-relaxed">
+                      <div className="mt-4 text-ink-light bg-paper-dark p-4 rounded-[1rem] border border-whisper whitespace-pre-wrap text-[13px] h-28 overflow-y-auto leading-relaxed">
                         {req.description}
                       </div>
                     </div>
-                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-ink-light/10">
+                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-whisper">
                       <div className="flex items-center text-xs text-ink-light/70 font-medium">
                         <Calendar className="mr-2 h-3.5 w-3.5 text-terracotta" />
                         {formatDistanceToNow(new Date(req.created_at), { addSuffix: true })}
@@ -266,8 +266,8 @@ export function Admin() {
                       )}
                       {(req.status === 'reviewed' || req.status === 'matched') && (
                         <div className="flex gap-2">
-                          {req.status === 'reviewed' && <button onClick={() => updateInquiryStatus(req.id, 'matched')} className="text-[11px] font-semibold tracking-wide px-3 py-1.5 bg-terracotta text-white rounded-md hover:bg-terracotta-dark transition-all active:scale-95 shadow-sm">MATCHED</button>}
-                          <button onClick={() => updateInquiryStatus(req.id, 'closed')} className="text-[11px] font-semibold tracking-wide px-3 py-1.5 bg-paper-dark text-ink border border-ink-light/20 rounded-md hover:bg-paper transition-all active:scale-95">CLOSE</button>
+                          {req.status === 'reviewed' && <button onClick={() => updateInquiryStatus(req.id, 'matched')} className="text-[11px] font-semibold tracking-wide px-3 py-1.5 bg-ink border border-ink text-white rounded-md hover:bg-ink-light transition-all active:scale-95 shadow-sm">MATCHED</button>}
+                          <button onClick={() => updateInquiryStatus(req.id, 'closed')} className="text-[11px] font-semibold tracking-wide px-3 py-1.5 bg-paper-dark text-ink border border-whisper rounded-md hover:bg-paper transition-all active:scale-95">CLOSE</button>
                         </div>
                       )}
                     </div>
@@ -289,11 +289,11 @@ export function Admin() {
               {applications.length === 0 ? (
                 <p className="text-ink-light text-sm py-4">No applications found.</p>
               ) : applications.map((app) => (
-                <Card key={app.id} className="border-ink-light/20 bg-white shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] rounded-[2rem]">
+                <Card key={app.id} className="border border-whisper bg-white shadow-none rounded-2xl">
                   <CardContent className="p-6 flex flex-col h-full">
                     <div className="flex justify-between items-start mb-4">
                       <h3 className="font-semibold text-lg line-clamp-1 text-ink font-serif tracking-tight">{app.name}</h3>
-                      <span className="rounded-full bg-paper border border-ink-light/10 px-3 py-1 text-xs capitalize text-ink-light font-bold">
+                      <span className="rounded-full bg-paper border border-whisper px-3 py-1 text-xs capitalize text-ink-light font-bold">
                         {app.status}
                       </span>
                     </div>
@@ -309,14 +309,14 @@ export function Admin() {
                         {app.mediums?.join(', ') || 'None specified'}
                       </p>
                       {app.portfolio_links && (
-                        <p className="mt-3 pt-2 border-t border-ink-light/10">
-                          <a href={app.portfolio_links} target="_blank" rel="noreferrer" className="text-terracotta hover:text-terracotta-dark font-medium underline underline-offset-2 decoration-terracotta/30 hover:decoration-terracotta transition-colors">
+                        <p className="mt-3 pt-2 border-t border-whisper">
+                          <a href={app.portfolio_links} target="_blank" rel="noreferrer" className="text-ink hover:text-ink-light font-medium underline underline-offset-2 decoration-ink/30 hover:decoration-ink transition-colors">
                             View Portfolio Links
                           </a>
                         </p>
                       )}
                     </div>
-                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-ink-light/10">
+                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-whisper">
                       <div className="flex items-center text-xs text-ink-light/70 font-medium">
                         <Calendar className="mr-2 h-3.5 w-3.5 text-terracotta" />
                         {formatDistanceToNow(new Date(app.created_at), { addSuffix: true })}

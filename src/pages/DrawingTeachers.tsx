@@ -50,9 +50,9 @@ export function DrawingTeachers() {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center p-4 py-20 text-center">
         <CheckCircle2 className="mb-6 h-16 w-16 text-pine" />
-        <h2 className="mb-4 text-3xl font-bold font-serif text-ink">Request Received</h2>
+        <h2 className="mb-4 text-3xl font-bold font-serif text-ink">We have your request.</h2>
         <p className="mx-auto mb-8 max-w-md text-ink-light">
-          Thank you. A ShareNGrow admin will review your request and contact you on WhatsApp if we can suggest suitable teachers.
+          We'll review your request and message you on WhatsApp to suggest suitable teachers.
         </p>
         <Link to="/">
           <Button variant="outline">Return to Home</Button>
@@ -76,7 +76,7 @@ export function DrawingTeachers() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-12 px-4 md:px-0">
-        <Card className="border border-whisper bg-paper-dark rounded-[1.5rem] md:rounded-[2rem] shadow-none">
+        <Card className="border border-whisper bg-paper-dark rounded-2xl shadow-none">
           <CardContent className="p-8 md:p-10">
             <h3 className="font-semibold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-serif">What they can learn</h3>
             <ul className="list-none text-ink-light space-y-3 md:space-y-4 text-base md:text-lg">
@@ -89,7 +89,7 @@ export function DrawingTeachers() {
           </CardContent>
         </Card>
         
-        <Card className="border border-whisper bg-white rounded-[1.5rem] md:rounded-[2rem] shadow-none">
+        <Card className="border border-whisper bg-white rounded-2xl shadow-none">
           <CardContent className="p-8 md:p-10">
             <h3 className="font-semibold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-serif">Class formats</h3>
             <ul className="list-none text-ink-light space-y-3 md:space-y-4 text-base md:text-lg">
@@ -102,7 +102,7 @@ export function DrawingTeachers() {
         </Card>
       </div>
 
-      <div className="mb-12 rounded-[2rem] bg-paper p-6 md:p-8 border border-whisper flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6">
+      <div className="mb-12 rounded-2xl bg-paper p-6 md:p-8 border border-whisper flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6">
         <div className="bg-white p-3 rounded-full shrink-0 border border-whisper shadow-sm">
            <AlertCircle className="w-6 h-6 text-terracotta" />
         </div>
@@ -116,17 +116,17 @@ export function DrawingTeachers() {
         </div>
       </div>
 
-      <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none p-4 sm:p-8" id="request-form">
-        <CardContent className="pt-6">
-          <form onSubmit={handleSubmit} className="space-y-8">
+      <Card className="border border-whisper bg-white rounded-2xl shadow-none p-4 sm:p-8 md:p-10" id="request-form">
+        <CardContent className="pt-2 md:pt-4">
+          <form onSubmit={handleSubmit} className="space-y-12">
              {error && (
-              <div className="mb-6 rounded-xl bg-red-50 p-4 text-sm text-red-900 border border-red-200">
+              <div className="mb-8 rounded-xl bg-red-50 p-4 text-sm text-red-900 border border-red-100">
                 {error}
               </div>
             )}
             
-            <div className="space-y-6">
-              <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Parent Details</h3>
+            <div className="space-y-8">
+              <h3 className="font-semibold text-xl text-ink">Parent Details</h3>
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Parent Name *</label>
@@ -139,8 +139,8 @@ export function DrawingTeachers() {
               </div>
             </div>
 
-            <div className="space-y-6 pt-6">
-               <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Location & Student</h3>
+            <div className="space-y-8">
+               <h3 className="font-semibold text-xl text-ink">Location & Student</h3>
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">City *</label>
@@ -157,8 +157,8 @@ export function DrawingTeachers() {
               </div>
             </div>
 
-            <div className="space-y-6 pt-6">
-               <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Class Preferences</h3>
+            <div className="space-y-8">
+               <h3 className="font-semibold text-xl text-ink">Class Preferences</h3>
                <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Preferred Class Mode *</label>
@@ -195,12 +195,12 @@ export function DrawingTeachers() {
                </div>
             </div>
             
-            <div className="space-y-2 pt-6">
+            <div className="space-y-2">
               <label className="text-sm font-medium text-ink">Additional Notes</label>
               <Textarea name="notes" placeholder="Any specific requirements or things the teacher should know?" className="min-h-[140px] rounded-xl border-whisper p-4" />
             </div>
 
-            <div className="pt-6">
+            <div>
               <Button type="submit" size="lg" className="w-full h-16 text-lg bg-ink hover:bg-ink-light text-white rounded-2xl shadow-none transition-transform active:scale-[0.98]" disabled={isSubmitting || !hasSupabaseConfig}>
                 {isSubmitting ? (
                   <div className="flex space-x-2">

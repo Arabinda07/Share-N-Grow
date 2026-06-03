@@ -125,7 +125,7 @@ export function ArtistsDirectory() {
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3 md:gap-8">
           {artists.map((artist) => (
-            <Card key={artist.id} className="border border-whisper bg-white rounded-[2rem] overflow-hidden flex flex-col transition-all hover:bg-paper-dark shadow-none">
+            <Card key={artist.id} className="border border-whisper bg-white rounded-2xl overflow-hidden flex flex-col transition-all hover:bg-paper-dark shadow-none">
                {/* Cover Image Placeholder */}
                <div className="h-48 md:h-56 bg-paper relative overflow-hidden border-b border-whisper">
                  {/* In a real app, you'd fetch cover art. For now, solid color. */}
