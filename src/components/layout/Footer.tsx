@@ -3,11 +3,11 @@ import { FacebookLogo, InstagramLogo, WhatsappLogo, EnvelopeSimple } from '@phos
 
 export function Footer() {
   return (
-    <footer className="border-t border-ink-light/10 bg-white py-16 text-sm text-ink-light mt-auto">
+    <footer className="border-t border-ink-light/10 bg-white py-16 text-sm text-ink/80 mt-auto">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] grid md:grid-cols-5 gap-12">
         <div className="col-span-1 md:col-span-2">
           <span className="text-xl font-bold font-serif text-ink tracking-tight block mb-4">ShareNGrow</span>
-          <p className="max-w-xs leading-relaxed text-ink-light mb-6">
+          <p className="max-w-xs leading-relaxed text-ink/80 mb-6">
             A curated network connecting local artists with clients.
           </p>
           <div className="flex gap-4">
@@ -49,7 +49,7 @@ export function Footer() {
         </div>
       </div>
       
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] mt-16 pt-8 border-t border-ink-light/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-ink-light/70">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] mt-16 pt-8 border-t border-ink/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-ink/70">
          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
            <p>© {new Date().getFullYear()} ShareNGrow. All rights reserved.</p>
            <p>Trusted local artists.</p>

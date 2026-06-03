@@ -67,7 +67,7 @@ export function Home() {
     
     // Scrubbing Text Reveal
     gsap.fromTo('.reveal-text', 
-      { opacity: 0.2 },
+      { opacity: 0.4 },
       { 
         opacity: 1,
         scrollTrigger: {
