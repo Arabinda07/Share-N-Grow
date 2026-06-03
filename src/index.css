@@ -17,30 +17,30 @@
 }
 
 :root {
-  /* Tinted neutrals using OKLCH towards hue 140 (Sage / Canvas) */
-  --app-paper: oklch(98.5% 0.005 140);
-  --app-paper-dark: oklch(96% 0.01 140);
-  --app-ink: oklch(25% 0.02 140);
-  --app-ink-light: oklch(45% 0.01 140);
+  /* Tinted neutrals using OKLCH towards hue 160 (Phthalo Green) */
+  --app-paper: oklch(98.5% 0.005 160);
+  --app-paper-dark: oklch(96% 0.01 160);
+  --app-ink: oklch(25% 0.02 160);
+  --app-ink-light: oklch(45% 0.01 160);
   
-  --app-terracotta: oklch(55% 0.12 140); /* Sage Green Accent */
-  --app-terracotta-dark: oklch(45% 0.10 140);
+  --app-terracotta: oklch(33% 0.06 160); /* Phthalo Green Accent (#123524) */
+  --app-terracotta-dark: oklch(25% 0.05 160);
   
-  --app-whisper: oklch(25% 0.02 140 / 0.1);
+  --app-whisper: oklch(25% 0.02 160 / 0.1);
   --app-white: oklch(100% 0 0);
 }
 
 .dark {
-  --app-paper: oklch(18% 0.015 140);
-  --app-paper-dark: oklch(22% 0.015 140);
-  --app-ink: oklch(95% 0.01 140);
-  --app-ink-light: oklch(75% 0.01 140);
+  --app-paper: oklch(18% 0.015 160);
+  --app-paper-dark: oklch(22% 0.015 160);
+  --app-ink: oklch(95% 0.01 160);
+  --app-ink-light: oklch(75% 0.01 160);
   
-  --app-terracotta: oklch(65% 0.12 140);
-  --app-terracotta-dark: oklch(55% 0.10 140);
+  --app-terracotta: oklch(65% 0.12 160);
+  --app-terracotta-dark: oklch(55% 0.10 160);
   
-  --app-whisper: oklch(95% 0.01 140 / 0.15);
-  --app-white: oklch(24% 0.015 140);
+  --app-whisper: oklch(95% 0.01 160 / 0.15);
+  --app-white: oklch(24% 0.015 160);
 }
 
 @layer utilities {

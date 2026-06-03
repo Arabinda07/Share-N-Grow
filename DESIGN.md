@@ -4,16 +4,17 @@
 
 A warm, human-centric, and highly curated interface that feels like a sunlit artist's studio—approachable, professional, and trustworthy. The aesthetic balances the earthy, cultural roots of Bengal's art scene with the clean precision of modern software. Density is relaxed (Level 4) to give artwork and text room to breathe, variance is deliberate (Level 6) to avoid robotic symmetry, and motion is tactile and grounded (Level 5).
 
-## 2. Color Palette & Roles
+## 2. Color Palette & Roles (60-30-10 Rule)
 
-- **Canvas / Paper** (`oklch(98.5% 0.005 140)`) — The primary page background. A warm, breathable neutral canvas.
-- **Pure Surface** (`oklch(100% 0 0)`) — Card, modal, and input fill. Creates subtle elevation against the canvas.
-- **Paper Dark** (`oklch(96% 0.01 140)`) — Secondary container fills, muted highlight sections, and empty state backgrounds.
-- **Charcoal Ink** (`oklch(25% 0.02 140)`) — Primary headline and body text. Deep, legible zinc-depth, tinted slightly with sage to match the palette, never pure black.
-- **Ink Light** (`oklch(45% 0.01 140)`) — Secondary text, helper labels, and metadata.
-- **Sage Accent (Legacy class: Terracotta)** (`oklch(55% 0.12 140)`) — The single semantic accent. Used for checkmarks, focus rings, subtle icons, and micro-interactions. A deep, tactile green reflecting growth and community.
-- **Sage Accent Dark** (`oklch(45% 0.10 140)`) — Hover state for the accent.
-- **Whisper Border** (`oklch(25% 0.02 140 / 0.1)`) — Semi-transparent faint borders for structure without optical heaviness.
+- **Canvas / Paper (60%)** (`oklch(96% 0.02 85)`) — **Warm Parchment**. The primary page background. Offers a warm, breathable, and slightly aged neutral canvas.
+- **Paper Dark** (`oklch(91% 0.04 85)`) — Secondary container fills.
+- **Pure Surface** (`oklch(98% 0.01 85)`) — Card, modal, and input fill. Creates subtle elevation against the parchment canvas.
+- **Charcoal Ink** (`oklch(25% 0.02 85)`) — Primary headline and body text. Deep, legible zinc-depth, tinted with warmth to match the parchment.
+- **Ink Light** (`oklch(45% 0.03 85)`) — Secondary text, helper labels, and metadata.
+- **Antique Gold (30%)** (`oklch(72% 0.12 80)`) — Secondary large elements, elegant highlight borders, or decorative accents.
+- **Phthalo Green Accent (10%) (Legacy class: Terracotta)** (`oklch(33% 0.06 160)`) — The core semantic accent (Call to Actions, primary buttons, checkmarks). A very dark, rich forest green reflecting traditional artistry.
+- **Phthalo Green Accent Dark** (`oklch(25% 0.05 160)`) — Hover state for the accent.
+- **Whisper Border** (`oklch(72% 0.12 80 / 0.25)`) — Gold-tinted faint borders for elegant, warm structure.
 
 _Note: We utilize the CSS class names `terracotta` purely for backward-compatibility in the component codebase, mapped structurally to our chosen accent color._
 
