@@ -37,7 +37,7 @@ export function Footer() {
         
         <div className="flex flex-col gap-4">
           <h4 className="font-semibold text-ink">Network</h4>
-          <Link to="/join" className="hover:text-terracotta transition-colors">Apply as Artist</Link>
+          <Link to="/join" className="hover:text-terracotta transition-colors">Join Us</Link>
           <Link to="/collaborate" className="hover:text-terracotta transition-colors">Collaborate</Link>
           <Link to="/faq" className="hover:text-terracotta transition-colors">FAQ</Link>
         </div>

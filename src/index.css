@@ -12,35 +12,43 @@
   --color-ink-light: var(--app-ink-light);
   --color-terracotta: var(--app-terracotta);
   --color-terracotta-dark: var(--app-terracotta-dark);
+  --color-secondary: var(--app-secondary);
+  --color-secondary-dark: var(--app-secondary-dark);
   --color-whisper: var(--app-whisper);
   --color-white: var(--app-white);
 }
 
 :root {
-  /* Tinted neutrals using OKLCH towards hue 160 (Phthalo Green) */
-  --app-paper: oklch(98.5% 0.005 160);
-  --app-paper-dark: oklch(96% 0.01 160);
-  --app-ink: oklch(25% 0.02 160);
-  --app-ink-light: oklch(45% 0.01 160);
+  /* Sunlit Atrium Palette */
+  --app-paper: oklch(99% 0.01 100);      /* Crisp Morning Canvas */
+  --app-paper-dark: oklch(96% 0.01 100); /* Soft Atrium Shadow */
+  --app-ink: oklch(25% 0.02 200);        /* Deep Slate */
+  --app-ink-light: oklch(50% 0.02 200);  /* Soft Slate */
   
-  --app-terracotta: oklch(33% 0.06 160); /* Phthalo Green Accent (#123524) */
-  --app-terracotta-dark: oklch(25% 0.05 160);
+  --app-terracotta: oklch(55% 0.16 142); /* Vibrant Leaf Green (Primary) */
+  --app-terracotta-dark: oklch(48% 0.14 142);
   
-  --app-whisper: oklch(25% 0.02 160 / 0.1);
+  --app-secondary: oklch(80% 0.14 70);   /* Sunlit Yellow / Morning Ray */
+  --app-secondary-dark: oklch(72% 0.14 70);
+  
+  --app-whisper: oklch(25% 0.02 200 / 0.10); /* Transparent Slate Border */
   --app-white: oklch(100% 0 0);
 }
 
 .dark {
-  --app-paper: oklch(18% 0.015 160);
-  --app-paper-dark: oklch(22% 0.015 160);
-  --app-ink: oklch(95% 0.01 160);
-  --app-ink-light: oklch(75% 0.01 160);
+  --app-paper: oklch(20% 0.02 200);      /* Night Slate Canvas */
+  --app-paper-dark: oklch(24% 0.02 200); /* Elevated Night Slate */
+  --app-ink: oklch(95% 0.01 200);        /* Pale Slate Text */
+  --app-ink-light: oklch(75% 0.01 200);  /* Muted Slate Text */
   
-  --app-terracotta: oklch(65% 0.12 160);
-  --app-terracotta-dark: oklch(55% 0.10 160);
+  --app-terracotta: oklch(65% 0.16 142); /* Bright Leaf Green */
+  --app-terracotta-dark: oklch(58% 0.14 142);
   
-  --app-whisper: oklch(95% 0.01 160 / 0.15);
-  --app-white: oklch(24% 0.015 160);
+  --app-secondary: oklch(85% 0.14 70);   /* Soft Sun */
+  --app-secondary-dark: oklch(78% 0.12 70);
+  
+  --app-whisper: oklch(95% 0.01 200 / 0.12);
+  --app-white: oklch(24% 0.01 200);
 }
 
 @layer utilities {
@@ -49,6 +57,21 @@
   }
   .animation-delay-400 {
     animation-delay: 400ms;
+  }
+  .animate-slide-down-fade {
+    animation: slideDownFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+  }
+}
+
+@keyframes slideDownFade {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

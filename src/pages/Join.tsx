@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
 import { useFormWizard } from '../hooks/useFormWizard';
 import { WizardProgress } from '../components/ui/wizard-progress';
+import confetti from 'canvas-confetti';
 
 export function Join() {
   const wizard = useFormWizard({
@@ -131,6 +132,31 @@ export function Join() {
       wizard.setError("Something went wrong submitting your application. Please try again.");
     } else {
       wizard.setIsSuccess(true);
+      
+      const duration = 3 * 1000;
+      const end = Date.now() + duration;
+
+      const frame = () => {
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#28b463', '#f1c40f']
+        });
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#28b463', '#f1c40f']
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      };
+      frame();
     }
   }
 

@@ -133,7 +133,7 @@ export function Showcase() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {featuredArtists.map((artist) => (
                 <Link key={artist.id} to={`/artist/${artist.slug || artist.id}`} className="block group">
-                  <Card className="border border-whisper bg-white rounded-2xl overflow-hidden transition-all group-hover:bg-paper-dark shadow-none h-full flex flex-row items-center p-4 gap-4">
+                  <Card className="border border-whisper bg-white rounded-2xl overflow-hidden transition-all duration-300 group-hover:-translate-y-1 group-hover:border-secondary-dark group-hover:shadow-xl group-hover:shadow-secondary-dark/20 shadow-none h-full flex flex-row items-center p-4 gap-4">
                     <div className="w-20 h-20 rounded-full overflow-hidden bg-paper-dark shrink-0">
                       {artist.profile_image_url ? (
                          <img src={artist.profile_image_url} alt={artist.name} className="w-full h-full object-cover" />

@@ -13,10 +13,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Mobile Contextual Bottom Sticky CTA
 const MobileBottomCTA = () => (
-  <div className="md:hidden fixed bottom-6 left-0 right-0 z-40 px-4 pointer-events-none flex justify-center">
+  <div className="md:hidden fixed bottom-6 left-0 right-0 z-40 px-4 pointer-events-none flex justify-center mobile-cta-element">
     <div className="bg-ink/90 backdrop-blur-md text-white p-2.5 rounded-full shadow-2xl flex items-center justify-between pointer-events-auto border border-white/10 w-full max-w-[340px] transition-transform duration-300">
       <span className="text-sm font-medium pl-4 opacity-90 pr-2">Are you an artist?</span>
-      <a href="https://chat.whatsapp.com/JtEre6AP4zaEXgJVu8edVe" target="_blank" rel="noopener noreferrer" className="bg-[#25D366] text-[#FFFFFF] hover:bg-[#1DA851] font-semibold text-sm px-5 py-2.5 rounded-full transition-transform active:scale-95 shadow-sm inline-flex items-center gap-2">
+      <a href="https://chat.whatsapp.com/JtEre6AP4zaEXgJVu8edVe" target="_blank" rel="noopener noreferrer" className="bg-terracotta text-white hover:bg-terracotta-dark font-semibold text-sm px-5 py-2.5 rounded-full transition-transform active:scale-95 shadow-sm inline-flex items-center gap-2">
         <WhatsappLogo weight="fill" className="w-4 h-4" /> Join Us
       </a>
     </div>
@@ -79,6 +79,15 @@ export function Home() {
       }
     );
 
+    // Mobile Bottom CTA element pop-up
+    gsap.from('.mobile-cta-element', {
+      y: 100,
+      opacity: 0,
+      duration: 1,
+      delay: 0.8,
+      ease: 'back.out(1.2)',
+    });
+
   }, { scope: container });
 
   return (
@@ -99,25 +108,25 @@ export function Home() {
         </p>
         <div className="hero-element flex flex-col sm:flex-row items-start justify-start gap-4 w-full">
           <Link to="/hire">
-            <Button size="lg" className="w-full sm:w-auto h-14 md:h-16 px-8 md:px-12 text-base md:text-lg font-medium shadow-[0_10px_30px_-10px_rgba(28,25,23,0.2)] bg-ink hover:bg-ink-light text-white rounded-2xl transition-transform active:scale-[0.98]">
+            <Button size="lg" className="w-full sm:w-auto">
               Hire an Artist
             </Button>
           </Link>
           <Link to="/join">
-            <Button size="lg" variant="outline" className="w-full sm:w-auto h-14 md:h-16 px-8 md:px-12 text-base md:text-lg font-medium bg-transparent border-whisper text-ink hover:bg-paper-dark shadow-none rounded-2xl transition-transform active:scale-[0.98]">
-              Apply as Artist
+            <Button size="lg" variant="outline" className="w-full sm:w-auto">
+              Join the Community
             </Button>
           </Link>
         </div>
       </section>
 
       {/* Categories Focus */}
-      <section className="py-24 md:py-40 px-6 lg:px-12 bg-white relative z-10">
+      <section className="py-24 md:py-40 px-6 lg:px-12 bg-paper-dark relative z-10">
         <div className="max-w-7xl mx-auto flex flex-col gap-12 md:gap-24">
             
             <div className="bento-item flex flex-col md:flex-row items-start md:items-end justify-between gap-8 md:gap-16 pb-12 border-b border-whisper group select-none">
               <div className="flex-1 max-w-2xl">
-                <span className="text-ink-light font-semibold tracking-[0.15em] text-xs uppercase mb-6 block">01 / Wall Murals & Public Art</span>
+                <span className="text-secondary-dark font-semibold tracking-[0.15em] text-xs uppercase mb-6 block">01 / Wall Murals & Public Art</span>
                 <h3 className="text-3xl md:text-5xl font-bold font-serif mb-6 leading-[1.05]">Turn a blank wall into art.</h3>
                 <p className="text-lg md:text-xl text-ink-light leading-relaxed">Connect with painters who handle large-format typography, illustration, and commercial branding for your specific project.</p>
               </div>
@@ -130,7 +139,7 @@ export function Home() {
 
             <div className="bento-item flex flex-col md:flex-row items-start md:items-end justify-between gap-8 md:gap-16 pb-12 border-b border-whisper group select-none">
               <div className="flex-1 max-w-2xl">
-                 <span className="text-ink-light font-semibold tracking-[0.15em] text-xs uppercase mb-6 block">02 / Drawing Teachers</span>
+                 <span className="text-secondary-dark font-semibold tracking-[0.15em] text-xs uppercase mb-6 block">02 / Drawing Teachers</span>
                  <h3 className="text-3xl md:text-5xl font-bold font-serif text-ink mb-6 leading-[1.05]">Foundational skills.</h3>
                  <p className="text-ink-light text-lg md:text-xl leading-relaxed">Charcoal, acrylics, and sketching basics. Find patient, skilled teachers for in-home lessons or private studio sessions.</p>
               </div>
@@ -143,7 +152,7 @@ export function Home() {
 
             <div className="bento-item flex flex-col md:flex-row items-start md:items-end justify-between gap-8 md:gap-16 pb-12 border-b border-whisper group select-none">
               <div className="flex-1 max-w-2xl">
-                 <span className="text-ink-light font-semibold tracking-[0.15em] text-xs uppercase mb-6 block">03 / Live Event Art</span>
+                 <span className="text-secondary-dark font-semibold tracking-[0.15em] text-xs uppercase mb-6 block">03 / Live Event Art</span>
                  <h3 className="text-3xl md:text-5xl font-bold font-serif text-ink mb-6 leading-[1.05]">Live canvas painting.</h3>
                  <p className="text-ink-light text-lg md:text-xl leading-relaxed">Hire artists for fast watercolors, live canvas painting, and caricatures to capture memories right as they happen.</p>
               </div>
@@ -175,17 +184,17 @@ export function Home() {
           </div>
           <div className="lg:col-span-6 space-y-16 md:space-y-32 py-10 md:py-[25vh]">
             <div className="pl-8 md:pl-12 border-l-2 border-whisper relative bento-item">
-               <span className="absolute -left-[9px] md:-left-[10px] top-2 md:top-3 w-[16px] h-[16px] md:w-[18px] md:h-[18px] bg-paper border-[4px] border-ink rounded-full"></span>
+               <span className="absolute -left-[9px] md:-left-[10px] top-2 md:top-3 w-[16px] h-[16px] md:w-[18px] md:h-[18px] bg-paper-dark border-[4px] border-secondary-dark rounded-full shadow-lg shadow-secondary-dark/40"></span>
                <h3 className="text-2xl md:text-4xl font-bold text-ink mb-4 md:mb-6">Request</h3>
                <p className="text-lg md:text-2xl leading-relaxed text-ink-light">Send us the wall dimensions, event dates, or what you want to learn. We keep it private.</p>
             </div>
             <div className="pl-8 md:pl-12 border-l-2 border-whisper relative bento-item">
-               <span className="absolute -left-[9px] md:-left-[10px] top-2 md:top-3 w-[16px] h-[16px] md:w-[18px] md:h-[18px] bg-paper border-[4px] border-ink rounded-full"></span>
+               <span className="absolute -left-[9px] md:-left-[10px] top-2 md:top-3 w-[16px] h-[16px] md:w-[18px] md:h-[18px] bg-paper-dark border-[4px] border-secondary-dark rounded-full shadow-lg shadow-secondary-dark/40"></span>
                <h3 className="text-2xl md:text-4xl font-bold text-ink mb-4 md:mb-6">Review</h3>
                <p className="text-lg md:text-2xl leading-relaxed text-ink-light">We check our roster for medium, location, and your budget to find the artist whose work fits.</p>
             </div>
             <div className="pl-8 md:pl-12 border-l-2 border-whisper relative bento-item">
-               <span className="absolute -left-[9px] md:-left-[10px] top-2 md:top-3 w-[16px] h-[16px] md:w-[18px] md:h-[18px] bg-paper border-[4px] border-ink rounded-full"></span>
+               <span className="absolute -left-[9px] md:-left-[10px] top-2 md:top-3 w-[16px] h-[16px] md:w-[18px] md:h-[18px] bg-paper-dark border-[4px] border-terracotta rounded-full shadow-lg shadow-terracotta/30"></span>
                <h3 className="text-2xl md:text-4xl font-bold text-ink mb-4 md:mb-6">Introduction</h3>
                <p className="text-lg md:text-2xl leading-relaxed text-ink-light">We set up a chat between you and the artist. You handle the timeline and budget with them.</p>
             </div>
@@ -194,7 +203,7 @@ export function Home() {
       </section>
 
       {/* WhatsApp Community Section */}
-      <section className="py-24 md:py-32 px-6 lg:px-12 bg-white border-t border-whisper flex justify-center">
+      <section className="py-24 md:py-32 px-6 lg:px-12 bg-secondary/15 border-t border-secondary/20 flex justify-center">
         <div className="max-w-4xl w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
           <div className="max-w-2xl">
             <h2 className="text-3xl md:text-5xl font-bold font-serif tracking-tight text-ink mb-4">Join the Community</h2>
@@ -203,7 +212,7 @@ export function Home() {
             </p>
           </div>
           <div className="shrink-0">
-            <a href="https://chat.whatsapp.com/JtEre6AP4zaEXgJVu8edVe" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 text-base md:text-lg font-medium rounded-2xl text-[#FFFFFF] bg-[#25D366] hover:bg-[#1DA851] shadow-lg shadow-[#25D366]/20 transition-all active:scale-[0.98]">
+            <a href="https://chat.whatsapp.com/JtEre6AP4zaEXgJVu8edVe" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 text-base md:text-lg font-medium rounded-2xl text-white bg-terracotta hover:opacity-90 transition-opacity">
               Join Us
             </a>
           </div>

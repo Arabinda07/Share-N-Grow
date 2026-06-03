@@ -4,17 +4,16 @@
 
 A warm, human-centric, and highly curated interface that feels like a sunlit artist's studio—approachable, professional, and trustworthy. The aesthetic balances the earthy, cultural roots of Bengal's art scene with the clean precision of modern software. Density is relaxed (Level 4) to give artwork and text room to breathe, variance is deliberate (Level 6) to avoid robotic symmetry, and motion is tactile and grounded (Level 5).
 
-## 2. Color Palette & Roles (60-30-10 Rule)
+## 2. Color Palette & Roles (Sunlit Atrium)
 
-- **Canvas / Paper (60%)** (`oklch(96% 0.02 85)`) — **Warm Parchment**. The primary page background. Offers a warm, breathable, and slightly aged neutral canvas.
-- **Paper Dark** (`oklch(91% 0.04 85)`) — Secondary container fills.
-- **Pure Surface** (`oklch(98% 0.01 85)`) — Card, modal, and input fill. Creates subtle elevation against the parchment canvas.
-- **Charcoal Ink** (`oklch(25% 0.02 85)`) — Primary headline and body text. Deep, legible zinc-depth, tinted with warmth to match the parchment.
-- **Ink Light** (`oklch(45% 0.03 85)`) — Secondary text, helper labels, and metadata.
-- **Antique Gold (30%)** (`oklch(72% 0.12 80)`) — Secondary large elements, elegant highlight borders, or decorative accents.
-- **Phthalo Green Accent (10%) (Legacy class: Terracotta)** (`oklch(33% 0.06 160)`) — The core semantic accent (Call to Actions, primary buttons, checkmarks). A very dark, rich forest green reflecting traditional artistry.
-- **Phthalo Green Accent Dark** (`oklch(25% 0.05 160)`) — Hover state for the accent.
-- **Whisper Border** (`oklch(72% 0.12 80 / 0.25)`) — Gold-tinted faint borders for elegant, warm structure.
+- **Canvas / Paper (Crisp Morning Canvas)** (`oklch(99% 0.01 100)`) — A bright, airy base that replaces heavy off-whites. Feels fresh and expansive.
+- **Paper Dark (Soft Atrium Shadow)** (`oklch(96% 0.01 100)`) — Gentle shading for secondary elements and hover states.
+- **Pure Surface (Pure White)** (`oklch(100% 0 0)`) — Contrast elevation for cards.
+- **Charcoal Ink (Deep Slate)** (`oklch(25% 0.02 200)`) — Rich, grounding text color tying back to architectural structure rather than flat black.
+- **Ink Light (Soft Slate)** (`oklch(50% 0.02 200)`) — Friendly, legible secondary text.
+- **Vibrant Leaf Green (Primary Accent / Button)** (`oklch(55% 0.16 142)`) — Legacy class: `terracotta`. Our bold, lush "bright green" for calls to action, standing out vividly against the airy white.
+- **Sunlit Yellow / Morning Ray (Secondary Accent)** (`oklch(80% 0.14 70)`) — Class: `secondary`. Used to add warmth and a splash of morning sunlight to complementary details.
+- **Whisper Border** (`oklch(25% 0.02 200 / 0.10)`) — Delicate slate borders.
 
 _Note: We utilize the CSS class names `terracotta` purely for backward-compatibility in the component codebase, mapped structurally to our chosen accent color._
 
