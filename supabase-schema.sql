@@ -277,12 +277,32 @@ CREATE POLICY "Public can read featured items" ON featured_items
 
 -- ==============================================================================
 -- STORAGE BUCKETS
--- (To be created via Supabase Dashboard or API, but defined here for documentation)
 -- ==============================================================================
--- INSERT INTO storage.buckets (id, name, public) VALUES 
---   ('artist-profiles', 'artist-profiles', true),
---   ('artworks', 'artworks', true),
---   ('mural-proofs', 'mural-proofs', false),
---   ('event-proofs', 'event-proofs', false),
---   ('application-uploads', 'application-uploads', false)
--- ON CONFLICT (id) DO NOTHING;
+-- Create the necessary buckets
+INSERT INTO storage.buckets (id, name, public) VALUES 
+  ('artist-profiles', 'artist-profiles', true),
+  ('artworks', 'artworks', true),
+  ('mural-proofs', 'mural-proofs', false),
+  ('event-proofs', 'event-proofs', false),
+  ('application-uploads', 'application-uploads', false)
+ON CONFLICT (id) DO NOTHING;
+
+-- ==============================================================================
+-- STORAGE POLICIES
+-- ==============================================================================
+-- Enable RLS on storage.objects just to be sure (it is typically enabled by default)
+ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY;
+
+-- 1. Read Access: Public can view objects in public buckets
+CREATE POLICY "Public can view public buckets" ON storage.objects
+  FOR SELECT USING (bucket_id IN ('artist-profiles', 'artworks'));
+
+-- 2. Write Access: Allow public uploads (since this MVP has public application forms)
+-- In a production environment, you would restrict this to authenticated users or use signed upload URLs
+CREATE POLICY "Public can upload files" ON storage.objects
+  FOR INSERT WITH CHECK (
+    bucket_id IN ('artist-profiles', 'artworks', 'mural-proofs', 'event-proofs', 'application-uploads')
+  );
+
+-- 3. Delete/Update Access: restricted to admins in a real app, omitted here to prevent unauthorized modifications.
+
