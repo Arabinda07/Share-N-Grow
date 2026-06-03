@@ -37,7 +37,7 @@ export default function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
-        <div className="min-h-screen flex flex-col bg-paper font-sans text-ink">
+        <div className="min-h-screen flex flex-col bg-paper font-sans text-ink relative">
           <Navbar />
           <main className="flex-grow overflow-x-hidden w-full max-w-full">
             <Suspense fallback={<PageLoader />}>

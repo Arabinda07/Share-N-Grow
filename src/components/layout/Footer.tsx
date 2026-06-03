@@ -7,7 +7,7 @@ export function Footer() {
         <div className="col-span-1 md:col-span-2">
           <span className="text-xl font-bold font-sans text-ink tracking-tight block mb-4">ShareNGrow</span>
           <p className="max-w-xs leading-relaxed text-ink-light">
-            A curated network connecting local artists with clients in West Bengal, India.
+            A curated network connecting local artists with clients.
           </p>
         </div>
         
@@ -25,13 +25,12 @@ export function Footer() {
           <Link to="/join" className="hover:text-terracotta transition-colors">Apply as Artist</Link>
           <Link to="/collaborate" className="hover:text-terracotta transition-colors">Collaborate</Link>
           <Link to="/faq" className="hover:text-terracotta transition-colors">FAQ</Link>
-          <Link to="/admin" className="hover:text-terracotta transition-colors">Admin Access</Link>
         </div>
       </div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] mt-16 pt-8 border-t border-ink-light/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-ink-light/70">
          <p>© {new Date().getFullYear()} ShareNGrow. All rights reserved.</p>
-         <p>Trusted local artists in Bengal.</p>
+         <p>Trusted local artists.</p>
       </div>
     </footer>
   );

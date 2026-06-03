@@ -114,11 +114,11 @@ export function ArtistProfile() {
         {/* Main Content */}
         <div className="space-y-12">
           <div className="flex flex-col sm:flex-row gap-8 items-start sm:items-center">
-              <div className="h-40 w-40 shrink-0 rounded-3xl bg-paper-dark overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] border border-slate-200/50">
+              <div className="h-40 w-40 shrink-0 rounded-3xl bg-paper overflow-hidden shadow-none border border-whisper">
                 {artist.profile_image_url ? (
                    <img src={artist.profile_image_url} alt={artist.name} loading="lazy" className="h-full w-full object-cover" />
                 ) : (
-                   <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-paper-dark to-ink-light/5 text-ink-light/20">
+                   <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-paper to-whisper text-ink-light/20">
                      <User className="h-16 w-16 opacity-30" />
                    </div>
                 )}
@@ -178,8 +178,8 @@ export function ArtistProfile() {
 
           <div>
              <h3 className="text-2xl font-semibold mb-6 text-ink font-sans tracking-tight">Portfolio Samples</h3>
-             <div className="bg-paper-dark p-12 rounded-[2rem] border border-ink-light/10 text-center text-ink-light flex flex-col items-center justify-center min-h-[300px]">
-               <div className="h-16 w-16 mb-4 rounded-2xl bg-white border border-slate-200/50 flex items-center justify-center shadow-sm">
+             <div className="bg-paper p-12 rounded-[2.5rem] border border-whisper text-center text-ink-light flex flex-col items-center justify-center min-h-[300px]">
+               <div className="h-16 w-16 mb-4 rounded-2xl bg-white border border-whisper flex items-center justify-center shadow-sm">
                  <Palette className="h-8 w-8 opacity-20" />
                </div>
                <p className="text-lg">Portfolio images will be displayed here once uploaded and approved.</p>
@@ -189,36 +189,36 @@ export function ArtistProfile() {
 
         {/* Sidebar */}
         <div className="space-y-6">
-          <Card className="border border-slate-200/50 bg-white rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] sticky top-24">
+          <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none sticky top-24">
             <CardContent className="p-8">
                <h3 className="font-semibold text-xl mb-6 text-ink tracking-tight font-sans">Availability</h3>
                <ul className="space-y-5 mb-8">
                  <li className="flex items-start">
                    {artist.available_for_commissions ? 
                      <CheckCircle2 className="h-5 w-5 text-terracotta mr-3 shrink-0 mt-0.5" /> :
-                     <div className="h-5 w-5 rounded-full border-2 border-ink-light/20 mr-3 shrink-0 mt-0.5" />
+                     <div className="h-5 w-5 rounded-full border-2 border-whisper mr-3 shrink-0 mt-0.5" />
                    }
                    <span className={artist.available_for_commissions ? "text-ink font-medium leading-tight" : "text-ink-light leading-tight"}>Available for custom commissions or projects</span>
                  </li>
                  <li className="flex items-start">
                    {artist.available_for_teaching ? 
                      <CheckCircle2 className="h-5 w-5 text-terracotta mr-3 shrink-0 mt-0.5" /> :
-                     <div className="h-5 w-5 rounded-full border-2 border-ink-light/20 mr-3 shrink-0 mt-0.5" />
+                     <div className="h-5 w-5 rounded-full border-2 border-whisper mr-3 shrink-0 mt-0.5" />
                    }
                    <span className={artist.available_for_teaching ? "text-ink font-medium leading-tight" : "text-ink-light leading-tight"}>Available for teaching and workshops</span>
                  </li>
                  <li className="flex items-start">
                    {artist.available_for_travel ? 
                      <CheckCircle2 className="h-5 w-5 text-terracotta mr-3 shrink-0 mt-0.5" /> :
-                     <div className="h-5 w-5 rounded-full border-2 border-ink-light/20 mr-3 shrink-0 mt-0.5" />
+                     <div className="h-5 w-5 rounded-full border-2 border-whisper mr-3 shrink-0 mt-0.5" />
                    }
-                   <span className={artist.available_for_travel ? "text-ink font-medium leading-tight" : "text-ink-light leading-tight"}>Available to travel within Bengal for work</span>
+                   <span className={artist.available_for_travel ? "text-ink font-medium leading-tight" : "text-ink-light leading-tight"}>Available to travel for work</span>
                  </li>
                </ul>
                
-               <div className="space-y-4 pt-6 border-t border-ink-light/10">
+               <div className="space-y-4 pt-6 border-t border-whisper">
                   <Link to={`/hire?artist=${artist.id}`} className="block w-full">
-                    <Button size="lg" className="w-full h-14 bg-ink hover:bg-ink-light text-white rounded-xl shadow-none transition-transform active:scale-[0.98]">Request Introduction</Button>
+                    <Button size="lg" className="w-full h-16 text-lg bg-ink hover:bg-ink-light text-white rounded-2xl shadow-none transition-transform active:scale-[0.98]">Request Introduction</Button>
                   </Link>
                   <p className="text-sm text-ink-light text-center leading-relaxed">
                     ShareNGrow personally reviews requests and connects you with the artist via WhatsApp. Contact details remain private.

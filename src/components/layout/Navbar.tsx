@@ -12,9 +12,7 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded bg-ink text-white font-medium font-sans text-lg">
-                S
-              </div>
+              <img src="/favicon.svg" alt="ShareNGrow Logo" className="h-8 w-8 object-contain" />
               <span className="text-xl font-medium font-sans tracking-tighter text-ink">
                 ShareNGrow
               </span>
@@ -80,9 +78,6 @@ export function Navbar() {
             onClick={() => setIsOpen(false)}
           >
             FAQ
-          </Link>
-          <Link to="/hire" onClick={() => setIsOpen(false)} className="block pt-4">
-            <Button className="w-full h-14 text-lg bg-ink hover:bg-ink-light text-white rounded-2xl transition-all duration-300 ease-out active:scale-[0.98] shadow-none">Get Started</Button>
           </Link>
         </div>
       )}

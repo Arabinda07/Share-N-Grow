@@ -8,7 +8,7 @@ export function FAQ() {
   const faqs = [
     {
       question: "What is ShareNGrow?",
-      answer: "ShareNGrow is a curated network connecting artists in Bengal with clients seeking their services. We help clients find talented drawing teachers, mural artists, live event sketchers, portrait artists, and workshop facilitators, all while protecting the privacy of both artists and clients."
+      answer: "ShareNGrow is a curated network connecting artists with clients seeking their services. We help clients find talented drawing teachers, mural artists, live event sketchers, portrait artists, and workshop facilitators, all while protecting the privacy of both artists and clients."
     },
     {
       question: "Is ShareNGrow free to use?",
@@ -48,7 +48,7 @@ export function FAQ() {
     },
     {
       question: "Do artists have to be located in Kolkata?",
-      answer: "Currently, our network primarily focuses on artists based in Bengal (including Kolkata, surrounding areas, and other cities in West Bengal). If you are willing to travel to these areas, you may still apply."
+      answer: "Currently, our network is open to artists everywhere. Let us know where you are based and we'll review your application."
     }
   ];
 
@@ -69,19 +69,18 @@ export function FAQ() {
         {faqs.map((faq, index) => (
           <Card 
             key={index} 
-            className="border border-slate-200/50 bg-white rounded-2xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] overflow-hidden cursor-pointer transition-all hover:border-terracotta/30"
+            className="border-whisper bg-white rounded-3xl shadow-none overflow-hidden cursor-pointer transition-all hover:border-ink/20"
             onClick={() => toggleAccordion(index)}
           >
-            <div className="p-6 flex justify-between items-center bg-white hover:bg-paper/30 transition-colors">
+            <div className="p-6 md:p-8 flex justify-between items-center bg-white">
               <h3 className="font-semibold text-lg text-ink pr-8">{faq.question}</h3>
-              <div className="text-terracotta shrink-0">
+              <div className="text-ink-light shrink-0">
                 {openIndex === index ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
               </div>
             </div>
             
             {openIndex === index && (
-              <CardContent className="px-6 pb-6 pt-0 bg-white">
-                 <div className="h-[1px] w-full bg-ink-light/10 mb-4" />
+              <CardContent className="px-6 md:px-8 pb-6 md:pb-8 pt-0 bg-white">
                  <p className="text-ink-light leading-relaxed text-base">{faq.answer}</p>
               </CardContent>
             )}
@@ -89,7 +88,7 @@ export function FAQ() {
         ))}
       </div>
 
-      <div className="mt-16 text-center bg-paper-dark p-8 rounded-[2rem] border border-ink-light/10">
+      <div className="mt-16 text-center bg-paper p-8 rounded-[2.5rem] border border-whisper">
         <h2 className="text-2xl font-bold text-ink mb-3 font-sans tracking-tight">Still have questions?</h2>
         <p className="text-ink-light mb-6">
           If you couldn't find the answer to your question, feel free to contact us or submit an inquiry, and our team will get back to you.

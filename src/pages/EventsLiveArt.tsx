@@ -67,21 +67,21 @@ export function EventsLiveArt() {
     <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 min-h-screen">
       <Helmet>
         <title>Hire Live Event Artists | ShareNGrow</title>
-        <meta name="description" content="Book live artists for weddings, events, and special gatherings in Bengal. Live sketching, guest caricatures, and event painting." />
+        <meta name="description" content="Book live artists for weddings, events, and special gatherings. Live sketching, guest caricatures, and event painting." />
         <link rel="canonical" href="https://share-n-grow.vercel.app/events-live-art" />
       </Helmet>
-      <div className="mb-16 mt-10 max-w-4xl mx-auto">
-        <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-bold tracking-tighter text-ink leading-tight font-sans">Book live artists for weddings and events.</h1>
-        <p className="mt-6 text-xl text-ink-light leading-relaxed">
+      <div className="mb-12 mt-6 max-w-4xl mx-auto px-4 md:px-0">
+        <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold tracking-tighter text-ink leading-[1.1] font-sans">Book live artists for weddings and events.</h1>
+        <p className="mt-4 md:mt-6 text-lg md:text-xl text-ink-light leading-relaxed">
           We bring fast-flow watercolor caricatures, live guest sketching, and live canvas painting to premium gatherings.
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-8 mb-20 max-w-4xl mx-auto">
-        <Card className="border border-whisper bg-paper-dark rounded-[2.5rem] shadow-none">
-          <CardContent className="p-10">
-            <h3 className="font-bold text-2xl mb-6 text-ink tracking-tight font-sans">Popular services</h3>
-            <ul className="list-none text-ink-light space-y-4 text-lg">
+      <div className="grid lg:grid-cols-2 gap-6 md:gap-8 mb-16 max-w-4xl mx-auto px-4 md:px-0">
+        <Card className="border border-whisper bg-paper-dark rounded-[1.5rem] md:rounded-[2.5rem] shadow-none">
+          <CardContent className="p-8 md:p-10">
+            <h3 className="font-bold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-sans">Popular services</h3>
+            <ul className="list-none text-ink-light space-y-3 md:space-y-4 text-base md:text-lg">
               <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Live guest sketching</li>
               <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Live canvas painting</li>
               <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Guest caricatures</li>
@@ -91,10 +91,10 @@ export function EventsLiveArt() {
           </CardContent>
         </Card>
         
-        <Card className="border border-whisper bg-white rounded-[2.5rem] shadow-none">
-          <CardContent className="p-10">
-            <h3 className="font-bold text-2xl mb-6 text-ink tracking-tight font-sans">Event details we need</h3>
-            <ul className="list-none text-ink-light space-y-4 text-lg">
+        <Card className="border border-whisper bg-white rounded-[1.5rem] md:rounded-[2.5rem] shadow-none">
+          <CardContent className="p-8 md:p-10">
+            <h3 className="font-bold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-sans">Event details we need</h3>
+            <ul className="list-none text-ink-light space-y-3 md:space-y-4 text-base md:text-lg">
               <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Event date and time</li>
               <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Venue location</li>
               <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Expected guest count</li>
@@ -105,7 +105,7 @@ export function EventsLiveArt() {
         </Card>
       </div>
 
-      <Card className="border-ink-light/20 bg-white rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] p-4 sm:p-8" id="request-form">
+      <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none p-4 sm:p-8" id="request-form">
         <CardContent className="pt-6">
           <form onSubmit={handleSubmit} className="space-y-8">
              {error && (
@@ -115,60 +115,60 @@ export function EventsLiveArt() {
             )}
             
             <div className="space-y-6">
-              <h3 className="font-semibold text-lg border-b border-ink-light/10 pb-2 text-ink">Client Details</h3>
+              <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Client Details</h3>
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Name *</label>
-                  <Input name="name" required placeholder="Full Name or Event Agency" className="rounded-xl border-ink-light/20" />
+                  <Input name="name" required placeholder="Full Name or Event Agency" className="rounded-xl border-whisper h-12" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">WhatsApp / Phone *</label>
-                  <Input name="phone" required placeholder="Phone number" className="rounded-xl border-ink-light/20" />
+                  <Input name="phone" required placeholder="Phone number" className="rounded-xl border-whisper h-12" />
                 </div>
               </div>
             </div>
 
-            <div className="space-y-6 pt-4">
-               <h3 className="font-semibold text-lg border-b border-ink-light/10 pb-2 text-ink">Event Details</h3>
+            <div className="space-y-6 pt-6">
+               <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Event Details</h3>
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Event Type *</label>
-                  <Input name="eventType" required placeholder="E.g. Wedding, Corporate Party, Birthday..." className="rounded-xl border-ink-light/20" />
+                  <Input name="eventType" required placeholder="E.g. Wedding, Corporate Party, Birthday..." className="rounded-xl border-whisper h-12" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Event Date *</label>
-                  <Input name="date" type="date" required className="rounded-xl border-ink-light/20" />
+                  <Input name="date" type="date" required className="rounded-xl border-whisper h-12" />
                 </div>
               </div>
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">City *</label>
-                  <Input name="city" required placeholder="E.g. Kolkata" className="rounded-xl border-ink-light/20" />
+                  <Input name="city" required placeholder="E.g. Kolkata" className="rounded-xl border-whisper h-12" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Venue Area *</label>
-                  <Input name="area" required placeholder="E.g. Rajarhat" className="rounded-xl border-ink-light/20" />
+                  <Input name="area" required placeholder="E.g. Rajarhat" className="rounded-xl border-whisper h-12" />
                 </div>
               </div>
               
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Guest Count</label>
-                  <Input name="guests" placeholder="Approximate number" className="rounded-xl border-ink-light/20" />
+                  <Input name="guests" placeholder="Approximate number" className="rounded-xl border-whisper h-12" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Duration Needed</label>
-                  <Input name="duration" placeholder="E.g. 3 hours" className="rounded-xl border-ink-light/20" />
+                  <Input name="duration" placeholder="E.g. 3 hours" className="rounded-xl border-whisper h-12" />
                 </div>
               </div>
             </div>
 
-            <div className="space-y-6 pt-4">
-               <h3 className="font-semibold text-lg border-b border-ink-light/10 pb-2 text-ink">Art Requirements</h3>
+            <div className="space-y-6 pt-6">
+               <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Art Requirements</h3>
                
                <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Specific Art Service Needed *</label>
-                  <select name="serviceSpecific" required className="flex h-12 w-full rounded-xl border border-ink-light/20 bg-white px-3 py-2 text-sm text-ink focus:ring-terracotta focus:outline-none transition-shadow">
+                  <select name="serviceSpecific" required className="flex h-12 w-full rounded-xl border border-whisper bg-white px-4 py-2 text-base text-ink focus:ring-ink focus:outline-none transition-shadow">
                     <option value="">Select...</option>
                     <option value="Live Sketching (Portraits)">Live Sketching (Guest Portraits)</option>
                     <option value="Live Painting (Event Scene)">Live Canvas Painting (Painting the event)</option>
@@ -180,29 +180,31 @@ export function EventsLiveArt() {
                
                <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Style Reference (Optional)</label>
-                  <Input name="reference" placeholder="Link to Pinterest board or Instagram post" className="rounded-xl border-ink-light/20" />
+                  <Input name="reference" placeholder="Link to Pinterest board or Instagram post" className="rounded-xl border-whisper h-12" />
                </div>
                
                <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Budget Range (Optional)</label>
-                  <Input name="budget" placeholder="Approximate budget in ₹" className="rounded-xl border-ink-light/20" />
+                  <Input name="budget" placeholder="Approximate budget in ₹" className="rounded-xl border-whisper h-12" />
                </div>
             </div>
             
-            <div className="space-y-2 pt-2">
+            <div className="space-y-2 pt-6">
               <label className="text-sm font-medium text-ink">Additional Notes</label>
-              <Textarea name="notes" placeholder="Any specific requirements for artist attire, setup space, or breaks?" className="min-h-[100px] rounded-xl border-ink-light/20" />
+              <Textarea name="notes" placeholder="Any specific requirements for artist attire, setup space, or breaks?" className="min-h-[140px] rounded-xl border-whisper p-4" />
             </div>
 
-            <Button type="submit" size="lg" className="w-full h-14 bg-ink hover:bg-ink-light text-white rounded-xl shadow-none transition-transform active:scale-[0.98] mt-4" disabled={isSubmitting || !hasSupabaseConfig}>
-              {isSubmitting ? (
-                <div className="flex space-x-2">
-                  <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse"></div>
-                  <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-200"></div>
-                  <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-400"></div>
-                </div>
-              ) : "Request Artist"}
-            </Button>
+            <div className="pt-6">
+              <Button type="submit" size="lg" className="w-full h-16 text-lg bg-ink hover:bg-ink-light text-white rounded-2xl shadow-none transition-transform active:scale-[0.98]" disabled={isSubmitting || !hasSupabaseConfig}>
+                {isSubmitting ? (
+                  <div className="flex space-x-2">
+                    <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse"></div>
+                    <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-200"></div>
+                    <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-400"></div>
+                  </div>
+                ) : "Request Artist"}
+              </Button>
+            </div>
           </form>
         </CardContent>
       </Card>

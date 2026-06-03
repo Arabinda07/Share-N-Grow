@@ -73,25 +73,25 @@ export function Collaborate() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 mb-12">
-        <Card className="border border-slate-200/50 bg-paper-dark rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
+        <Card className="border-whisper bg-paper rounded-[2.5rem] shadow-none">
           <CardContent className="p-8">
             <h3 className="font-semibold text-lg text-ink tracking-tight font-sans mb-3">For Schools & Colleges</h3>
              <p className="text-base text-ink-light leading-relaxed">Hire guest faculty, organise specialized art workshops, or find judges for cultural fests.</p>
           </CardContent>
         </Card>
-        <Card className="border border-slate-200/50 bg-white rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
+        <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none">
           <CardContent className="p-8">
             <h3 className="font-semibold text-lg text-ink tracking-tight font-sans mb-3">For Offices & Local Businesses</h3>
              <p className="text-base text-ink-light leading-relaxed">Team-building art workshops, office murals, or finding local art for your café walls.</p>
           </CardContent>
         </Card>
-        <Card className="border border-slate-200/50 bg-white rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
+        <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none">
           <CardContent className="p-8">
             <h3 className="font-semibold text-lg text-ink tracking-tight font-sans mb-3">For Events & Planners</h3>
              <p className="text-base text-ink-light leading-relaxed">Bulk hire live artists for large festivals, weddings, or corporate offsites.</p>
           </CardContent>
         </Card>
-        <Card className="border border-slate-200/50 bg-paper-dark rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
+        <Card className="border-whisper bg-paper rounded-[2.5rem] shadow-none">
           <CardContent className="p-8">
             <h3 className="font-semibold text-lg text-ink tracking-tight font-sans mb-3">For Cultural Groups & NGOs</h3>
              <p className="text-base text-ink-light leading-relaxed">Partner with our network for community art projects, charity auctions, or public installations.</p>
@@ -99,7 +99,7 @@ export function Collaborate() {
         </Card>
       </div>
 
-      <Card className="border-ink-light/20 bg-white rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] p-4 sm:p-8">
+      <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none p-4 sm:p-8">
         <CardContent className="pt-6">
           <form onSubmit={handleSubmit} className="space-y-8">
              {error && (
@@ -109,45 +109,45 @@ export function Collaborate() {
             )}
             
             <div className="space-y-6">
-              <h3 className="font-semibold text-lg border-b border-ink-light/10 pb-2 text-ink">Your Details</h3>
+              <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Your Details</h3>
               <div className="grid gap-6 sm:grid-cols-2">
                  <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Your Name *</label>
-                  <Input name="name" required placeholder="Full Name" className="rounded-xl border-ink-light/20" />
+                  <Input name="name" required placeholder="Full Name" className="rounded-xl border-whisper h-12" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Organisation Name *</label>
-                  <Input name="org" required placeholder="School, Company, NGO..." className="rounded-xl border-ink-light/20" />
+                  <Input name="org" required placeholder="School, Company, NGO..." className="rounded-xl border-whisper h-12" />
                 </div>
               </div>
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Your Role</label>
-                  <Input name="role" placeholder="E.g. Principal, HR Manager..." className="rounded-xl border-ink-light/20" />
+                  <Input name="role" placeholder="E.g. Principal, HR Manager..." className="rounded-xl border-whisper h-12" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">City *</label>
-                  <Input name="city" required placeholder="E.g. Kolkata" className="rounded-xl border-ink-light/20" />
+                  <Input name="city" required placeholder="E.g. Kolkata" className="rounded-xl border-whisper h-12" />
                 </div>
               </div>
                <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">WhatsApp / Phone *</label>
-                  <Input name="phone" required placeholder="Phone number" className="rounded-xl border-ink-light/20" />
+                  <Input name="phone" required placeholder="Phone number" className="rounded-xl border-whisper h-12" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Email Address</label>
-                  <Input name="email" type="email" placeholder="Optional" className="rounded-xl border-ink-light/20" />
+                  <Input name="email" type="email" placeholder="Optional" className="rounded-xl border-whisper h-12" />
                 </div>
               </div>
             </div>
 
-            <div className="space-y-6 pt-4">
-               <h3 className="font-semibold text-lg border-b border-ink-light/10 pb-2 text-ink">Partnership Details</h3>
+            <div className="space-y-6 pt-6">
+               <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Partnership Details</h3>
                
                <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Type of Collaboration *</label>
-                  <select name="collabType" required className="flex h-12 w-full rounded-xl border border-ink-light/20 bg-white px-3 py-2 text-sm text-ink focus:ring-terracotta focus:outline-none transition-shadow">
+                  <select name="collabType" required className="flex h-12 w-full rounded-xl border border-whisper bg-white px-4 py-2 text-base text-ink focus:ring-ink focus:outline-none transition-shadow">
                     <option value="">Select...</option>
                     <option value="School/College Program">School / College Art Program</option>
                     <option value="Corporate Workshop">Corporate Team Building Workshop</option>
@@ -160,30 +160,32 @@ export function Collaborate() {
 
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Description of your needs *</label>
-                  <Textarea name="description" required placeholder="Tell us what you are looking to achieve..." className="min-h-[120px] rounded-xl border-ink-light/20" />
+                  <Textarea name="description" required placeholder="Tell us what you are looking to achieve..." className="min-h-[140px] rounded-xl border-whisper p-4" />
                 </div>
                
                <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Preferred Timeline (Optional)</label>
-                  <Input name="timeline" placeholder="E.g. Next month, Ongoing..." className="rounded-xl border-ink-light/20" />
+                  <Input name="timeline" placeholder="E.g. Next month, Ongoing..." className="rounded-xl border-whisper h-12" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Budget Range (Optional)</label>
-                  <Input name="budget" placeholder="Approximate budget in ₹" className="rounded-xl border-ink-light/20" />
+                  <Input name="budget" placeholder="Approximate budget in ₹" className="rounded-xl border-whisper h-12" />
                 </div>
                </div>
             </div>
 
-            <Button type="submit" size="lg" className="w-full h-14 bg-ink hover:bg-ink-light text-white rounded-xl shadow-none transition-transform active:scale-[0.98] mt-4" disabled={isSubmitting || !hasSupabaseConfig}>
-              {isSubmitting ? (
-                <div className="flex space-x-2">
-                  <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse"></div>
-                  <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-200"></div>
-                  <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-400"></div>
-                </div>
-              ) : "Submit Proposal"}
-            </Button>
+            <div className="pt-6">
+              <Button type="submit" size="lg" className="w-full h-16 text-lg bg-ink hover:bg-ink-light text-white rounded-2xl shadow-none transition-transform active:scale-[0.98]" disabled={isSubmitting || !hasSupabaseConfig}>
+                {isSubmitting ? (
+                  <div className="flex space-x-2">
+                    <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse"></div>
+                    <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-200"></div>
+                    <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-400"></div>
+                  </div>
+                ) : "Submit Proposal"}
+              </Button>
+            </div>
           </form>
         </CardContent>
       </Card>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase, hasSupabaseConfig } from '../lib/supabase';
-import { Artist } from '../types';
+import { Artist, SERVICES } from '../types';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { MapPinIcon as MapPin, UserIcon as User, ExclamationCircleIcon as AlertCircle } from '@heroicons/react/24/outline';
@@ -19,7 +19,7 @@ export function ArtistsDirectory() {
     } else {
       setLoading(false);
     }
-  }, [cityFilter]);
+  }, [cityFilter, serviceFilter]);
 
   async function fetchArtists() {
     setLoading(true);
@@ -34,8 +34,11 @@ export function ArtistsDirectory() {
         query = query.eq('city', cityFilter);
       }
       
-      // Simplification for MVP: frontend filtering for services since it's a many-to-many
-      // In production, you'd join artist_services via Supabase
+      if (serviceFilter === 'drawing-teacher') {
+        query = query.eq('available_for_teaching', true);
+      } else if (serviceFilter === 'wall-mural' || serviceFilter === 'live-event-art') {
+        query = query.eq('available_for_commissions', true);
+      }
       
       const { data, error: fetchError } = await query;
       
@@ -62,19 +65,20 @@ export function ArtistsDirectory() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8 max-w-[1400px] min-h-screen">
-      <div className="mb-12">
-        <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">Approved Artists</h1>
-        <p className="mt-4 text-lg text-ink-light max-w-2xl">
-          Browse vetted local artists available for work in Bengal.
+    <div className="container mx-auto px-4 py-20 lg:py-32 xl:px-8 max-w-[1400px] min-h-[90vh]">
+      <div className="mb-14 md:mb-20 max-w-3xl">
+        <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold font-sans tracking-tighter text-ink leading-[1.05]">Approved Artists</h1>
+        <p className="mt-6 md:mt-8 text-xl md:text-2xl text-ink-light leading-snug">
+          Browse vetted local artists available for work.
         </p>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-4 mb-12">
+      <div className="flex flex-col sm:flex-row gap-4 mb-16">
         <select 
-          className="rounded-xl border border-ink-light/20 bg-white px-4 py-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-terracotta shadow-sm"
+          className="rounded-2xl border-2 border-whisper bg-transparent px-6 py-4 text-base font-medium text-ink focus:outline-none focus:border-ink transition-colors appearance-none cursor-pointer"
           value={cityFilter}
           onChange={(e) => setCityFilter(e.target.value)}
+          style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%231C1917' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: `right 1rem center`, backgroundRepeat: `no-repeat`, backgroundSize: `1.25em 1.25em`, paddingRight: `3rem` }}
         >
           <option value="">All Cities</option>
           <option value="Kolkata">Kolkata</option>
@@ -84,12 +88,16 @@ export function ArtistsDirectory() {
           <option value="Howrah">Howrah</option>
         </select>
         
-        {/* Placeholder for service filter - would require joins in real query */}
         <select 
-          className="rounded-xl border border-ink-light/20 bg-white px-4 py-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-terracotta shadow-sm opacity-60 cursor-not-allowed"
-          disabled
+          className="rounded-2xl border-2 border-whisper bg-transparent px-6 py-4 text-base font-medium text-ink focus:outline-none focus:border-ink transition-colors appearance-none cursor-pointer"
+          value={serviceFilter}
+          onChange={(e) => setServiceFilter(e.target.value)}
+          style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%231C1917' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: `right 1rem center`, backgroundRepeat: `no-repeat`, backgroundSize: `1.25em 1.25em`, paddingRight: `3rem` }}
         >
-          <option value="">Filter by Service (Coming Soon)</option>
+          <option value="">All Services</option>
+          {SERVICES.map((service) => (
+            <option key={service.id} value={service.id}>{service.title}</option>
+          ))}
         </select>
       </div>
 
@@ -116,44 +124,44 @@ export function ArtistsDirectory() {
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3 md:gap-8">
           {artists.map((artist) => (
-            <Card key={artist.id} className="border border-slate-200/50 bg-white rounded-[2.5rem] overflow-hidden flex flex-col transition-all hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] hover:-translate-y-1">
+            <Card key={artist.id} className="border border-whisper bg-white rounded-[2rem] overflow-hidden flex flex-col transition-all hover:bg-paper-dark shadow-none">
                {/* Cover Image Placeholder */}
-               <div className="h-56 bg-paper-dark relative overflow-hidden">
+               <div className="h-48 md:h-56 bg-paper relative overflow-hidden border-b border-whisper">
                  {/* In a real app, you'd fetch cover art. For now, solid color. */}
                  {artist.profile_image_url ? (
                    <img src={artist.profile_image_url} alt={artist.name} loading="lazy" className="w-full h-full object-cover" />
                  ) : (
-                   <div className="w-full h-full flex items-center justify-center text-ink-light/20 bg-gradient-to-br from-paper-dark to-ink-light/5">
-                     <User className="h-16 w-16 opacity-30" />
+                   <div className="w-full h-full flex items-center justify-center text-ink-light/20 bg-paper-dark">
+                     <User className="h-12 w-12 opacity-30" />
                    </div>
                  )}
                </div>
                
-               <CardContent className="p-8 flex flex-col flex-grow bg-white">
-                 <h2 className="text-2xl font-bold font-sans tracking-tight text-ink line-clamp-1">{artist.name}</h2>
-                 <p className="flex items-center text-sm text-ink-light mt-2 font-medium">
+               <CardContent className="p-6 md:p-8 flex flex-col flex-grow bg-transparent">
+                 <h2 className="text-xl md:text-2xl font-bold font-sans tracking-tight text-ink line-clamp-1">{artist.name}</h2>
+                 <p className="flex items-center text-sm md:text-base text-ink-light mt-2 font-medium">
                     <MapPin className="mr-1.5 h-4 w-4 text-terracotta shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></MapPin>
                     <span className="truncate">{artist.city}{artist.area ? `, ${artist.area}` : ''}</span>
                  </p>
                  
-                 <div className="flex flex-wrap gap-2 mt-6">
+                 <div className="flex flex-wrap gap-2 mt-5 md:mt-6">
                     {artist.mediums?.slice(0, 3).map((m) => (
-                      <span key={m} className="px-3 py-1 rounded-full bg-terracotta/10 text-terracotta uppercase tracking-wider text-[10px] font-bold truncate max-w-full">
+                      <span key={m} className="px-3 py-1 rounded-full bg-paper border border-whisper text-ink font-medium tracking-wide text-xs truncate max-w-full">
                         {m}
                       </span>
                     ))}
                     {artist.mediums && artist.mediums.length > 3 && (
-                      <span className="px-3 py-1 rounded-full bg-paper uppercase tracking-wider text-ink text-[10px] font-bold">+{artist.mediums.length - 3}</span>
+                      <span className="px-3 py-1 rounded-full bg-paper border border-whisper text-ink font-medium tracking-wide text-xs">+{artist.mediums.length - 3}</span>
                     )}
                  </div>
                  
-                 <p className="mt-6 text-base text-ink-light line-clamp-3 leading-relaxed">
+                 <p className="mt-5 md:mt-6 text-base text-ink-light line-clamp-3 leading-relaxed flex-grow">
                    {artist.bio || "No bio provided."}
                  </p>
                  
-                 <div className="mt-8 pt-6 flex gap-3 border-t border-ink-light/10">
+                 <div className="mt-6 md:mt-8 pt-6 flex gap-3 border-t border-whisper">
                    <Link to={`/artist/${artist.slug || artist.id}`} className="flex-1">
-                     <Button variant="outline" className="w-full h-12 rounded-xl bg-transparent border-ink-light/20 hover:bg-paper-dark shadow-none">View Profile</Button>
+                     <Button variant="outline" className="w-full h-12 rounded-xl bg-transparent border-whisper hover:bg-white text-ink shadow-none">View Profile</Button>
                    </Link>
                    <Link to={`/hire?artist=${artist.id}`} className="flex-1">
                      <Button className="w-full h-12 rounded-xl bg-ink hover:bg-ink-light text-white shadow-none transition-transform active:scale-[0.98]">Request</Button>

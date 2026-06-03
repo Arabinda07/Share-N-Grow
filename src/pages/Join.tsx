@@ -128,12 +128,12 @@ export function Join() {
     <div className="container mx-auto max-w-3xl px-4 py-24 sm:py-32 lg:px-8 min-h-[90vh]">
       <Helmet>
         <title>Apply as Artist | ShareNGrow</title>
-        <meta name="description" content="Apply to join our vetted community of local drawing teachers, muralists, and live event artists across Bengal." />
+        <meta name="description" content="Apply to join our vetted community of local drawing teachers, muralists, and live event artists." />
         <link rel="canonical" href="https://share-n-grow.vercel.app/join" />
       </Helmet>
-      <div className="mb-14 text-center">
-        <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-bold tracking-tighter text-ink leading-tight font-sans">Apply for the Directory</h1>
-        <p className="mt-6 text-xl text-ink-light max-w-2xl mx-auto leading-relaxed">
+      <div className="mb-10 md:mb-14 text-center px-4">
+        <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold tracking-tighter text-ink leading-[1.1] font-sans">Apply for the Directory</h1>
+        <p className="mt-4 md:mt-6 text-lg md:text-xl text-ink-light max-w-2xl mx-auto leading-relaxed">
           ShareNGrow is currently accepting artists for teaching, murals, live event art, workshops, portraits, and selected custom work.
         </p>
       </div>
@@ -145,17 +145,17 @@ export function Join() {
         </p>
       </div>
 
-      <Card className="border-ink-light/20 bg-white rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] p-4 sm:p-8">
+      <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none p-4 sm:p-8">
         <CardContent className="pt-6">
           {!hasSupabaseConfig && (
-             <div className="mb-6 flex items-start gap-3 rounded-md bg-red-50 p-4 text-red-900 border border-red-200">
+             <div className="mb-6 flex items-start gap-3 rounded-xl bg-red-50 p-4 text-red-900 border border-red-200">
                <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
                <p className="text-sm font-medium">Database is not configured. Please add Supabase credentials in the settings.</p>
              </div>
           )}
 
           {error && (
-            <div className="mb-6 rounded-md bg-red-50 p-4 text-sm text-red-900 border border-red-200">
+            <div className="mb-6 rounded-xl bg-red-50 p-4 text-sm text-red-900 border border-red-200">
               {error}
             </div>
           )}
@@ -164,139 +164,141 @@ export function Join() {
             <input type="text" name="_botcheck" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
 
             <div className="space-y-6">
-              <h3 className="font-semibold text-lg border-b border-ink-light/10 pb-2 text-ink">Basic Details</h3>
+              <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Basic Details</h3>
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Full Name *</label>
-                  <Input name="name" required placeholder="Artist Name" className="rounded-xl border-ink-light/20" />
+                  <Input name="name" required placeholder="Artist Name" className="rounded-xl border-whisper h-12" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">WhatsApp Number *</label>
-                  <Input name="contact" required placeholder="Phone number" className="rounded-xl border-ink-light/20" />
+                  <Input name="contact" required placeholder="Phone number" className="rounded-xl border-whisper h-12" />
                 </div>
               </div>
 
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Email Address (Optional)</label>
-                  <Input name="email" type="email" placeholder="email@example.com" className="rounded-xl border-ink-light/20" />
+                  <Input name="email" type="email" placeholder="email@example.com" className="rounded-xl border-whisper h-12" />
                 </div>
               </div>
 
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">City *</label>
-                  <Input name="city" required placeholder="E.g., Kolkata" className="rounded-xl border-ink-light/20" />
+                  <Input name="city" required placeholder="E.g., Kolkata" className="rounded-xl border-whisper h-12" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Area / Locality *</label>
-                  <Input name="area" required placeholder="E.g., Ballygunge" className="rounded-xl border-ink-light/20" />
+                  <Input name="area" required placeholder="E.g., Ballygunge" className="rounded-xl border-whisper h-12" />
                 </div>
               </div>
             </div>
             
-            <div className="space-y-6 pt-4">
-              <h3 className="font-semibold text-lg border-b border-ink-light/10 pb-2 text-ink">Your Art</h3>
+            <div className="space-y-6 pt-6">
+              <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Your Art</h3>
               <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Mediums you work with *</label>
-                  <Input name="mediums" required placeholder="E.g., Acrylic, Watercolour, Charcoal (comma separated)" className="rounded-xl border-ink-light/20" />
+                  <Input name="mediums" required placeholder="E.g., Acrylic, Watercolour, Charcoal (comma separated)" className="rounded-xl border-whisper h-12" />
               </div>
               
               <div className="space-y-3">
                 <label className="text-sm font-medium text-ink mb-1 block">Services you can offer (Select all that apply) *</label>
-                <div className="space-y-3 bg-paper-dark p-5 rounded-[1.5rem] border border-ink-light/10">
+                <div className="space-y-3 bg-paper p-6 rounded-[1.5rem] border border-whisper">
                     <div className="flex items-center gap-3">
-                      <input type="checkbox" id="service-drawing-teacher" name="service-drawing-teacher" className="rounded h-4 w-4 border-ink-light/20 text-terracotta focus:ring-terracotta" />
-                      <label htmlFor="service-drawing-teacher" className="text-sm text-ink-light leading-none">Drawing teacher</label>
+                      <input type="checkbox" id="service-drawing-teacher" name="service-drawing-teacher" className="rounded h-5 w-5 border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
+                      <label htmlFor="service-drawing-teacher" className="text-sm text-ink-light leading-none cursor-pointer">Drawing teacher</label>
                     </div>
                     <div className="flex items-center gap-3">
-                      <input type="checkbox" id="service-wall-mural" name="service-wall-mural" className="rounded h-4 w-4 border-ink-light/20 text-terracotta focus:ring-terracotta" />
-                      <label htmlFor="service-wall-mural" className="text-sm text-ink-light leading-none">Mural artist</label>
+                      <input type="checkbox" id="service-wall-mural" name="service-wall-mural" className="rounded h-5 w-5 border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
+                      <label htmlFor="service-wall-mural" className="text-sm text-ink-light leading-none cursor-pointer">Mural artist</label>
                     </div>
                     <div className="flex items-center gap-3">
-                      <input type="checkbox" id="service-live-event-art" name="service-live-event-art" className="rounded h-4 w-4 border-ink-light/20 text-terracotta focus:ring-terracotta" />
-                      <label htmlFor="service-live-event-art" className="text-sm text-ink-light leading-none">Live event artist</label>
+                      <input type="checkbox" id="service-live-event-art" name="service-live-event-art" className="rounded h-5 w-5 border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
+                      <label htmlFor="service-live-event-art" className="text-sm text-ink-light leading-none cursor-pointer">Live event artist</label>
                     </div>
                     <div className="flex items-center gap-3">
-                      <input type="checkbox" id="service-workshop" name="service-workshop" className="rounded h-4 w-4 border-ink-light/20 text-terracotta focus:ring-terracotta" />
-                      <label htmlFor="service-workshop" className="text-sm text-ink-light leading-none">Workshop facilitator</label>
+                      <input type="checkbox" id="service-workshop" name="service-workshop" className="rounded h-5 w-5 border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
+                      <label htmlFor="service-workshop" className="text-sm text-ink-light leading-none cursor-pointer">Workshop facilitator</label>
                     </div>
                     <div className="flex items-center gap-3">
-                      <input type="checkbox" id="service-portrait-custom-artwork" name="service-portrait-custom-artwork" className="rounded h-4 w-4 border-ink-light/20 text-terracotta focus:ring-terracotta" />
-                      <label htmlFor="service-portrait-custom-artwork" className="text-sm text-ink-light leading-none">Portrait/custom artist</label>
+                      <input type="checkbox" id="service-portrait-custom-artwork" name="service-portrait-custom-artwork" className="rounded h-5 w-5 border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
+                      <label htmlFor="service-portrait-custom-artwork" className="text-sm text-ink-light leading-none cursor-pointer">Portrait/custom artist</label>
                     </div>
                      <div className="flex items-center gap-3">
-                      <input type="checkbox" id="service-other" name="service-other" className="rounded h-4 w-4 border-ink-light/20 text-terracotta focus:ring-terracotta" />
-                      <label htmlFor="service-other" className="text-sm text-ink-light leading-none">Other</label>
+                      <input type="checkbox" id="service-other" name="service-other" className="rounded h-5 w-5 border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
+                      <label htmlFor="service-other" className="text-sm text-ink-light leading-none cursor-pointer">Other</label>
                     </div>
                 </div>
               </div>
               
               <div className="space-y-2 pt-2">
                   <label className="text-sm font-medium text-ink">Portfolio Link(s)</label>
-                  <Input name="portfolio" placeholder="Google Drive, Behance, or Website URL" className="rounded-xl border-ink-light/20" />
+                  <Input name="portfolio" placeholder="Google Drive, Behance, or Website URL" className="rounded-xl border-whisper h-12" />
               </div>
               
               <div className="space-y-2 pt-2">
                   <label className="text-sm font-medium text-ink">Upload Portfolio File (PDF/Image max 5MB)</label>
-                  <Input type="file" name="portfolio_file" accept=".pdf,.jpeg,.jpg,.png" className="rounded-xl border-ink-light/20 file:mr-4 file:rounded-full file:border-0 file:bg-paper-dark file:px-4 file:py-2 file:text-sm file:font-semibold hover:file:bg-paper-dark transition-all cursor-pointer" />
+                  <Input type="file" name="portfolio_file" accept=".pdf,.jpeg,.jpg,.png" className="rounded-xl border-whisper file:mr-4 file:rounded-xl file:border-0 file:bg-paper file:px-4 file:py-2 file:text-sm file:font-semibold hover:file:bg-paper-dark transition-all cursor-pointer h-12 pt-2" />
               </div>
               
               <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Instagram / Facebook Link</label>
-                  <Input name="social" placeholder="https://instagram.com/yourhandle" className="rounded-xl border-ink-light/20" />
+                  <Input name="social" placeholder="https://instagram.com/yourhandle" className="rounded-xl border-whisper h-12" />
               </div>
               
               <div className="space-y-2">
                   <label className="text-sm font-medium text-ink">Short Bio</label>
-                  <Textarea name="bio" placeholder="Tell us a bit about yourself and your artistic journey..." className="min-h-[100px] rounded-xl border-ink-light/20" />
+                  <Textarea name="bio" placeholder="Tell us a bit about yourself and your artistic journey..." className="min-h-[140px] rounded-xl border-whisper p-4" />
               </div>
             </div>
 
-             <div className="space-y-6 pt-4">
-              <h3 className="font-semibold text-lg border-b border-ink-light/10 pb-2 text-ink">Availability & Consent</h3>
+             <div className="space-y-6 pt-6">
+              <h3 className="font-semibold text-xl border-b border-whisper pb-4 text-ink">Availability & Consent</h3>
               
               <div className="space-y-4">
-                 <div className="flex items-start gap-3">
-                    <input type="checkbox" id="paid_work" name="paid_work" className="mt-0.5 h-4 w-4 rounded border-ink-light/20 text-terracotta focus:ring-terracotta" />
-                    <label htmlFor="paid_work" className="text-sm text-ink-light leading-relaxed">I am available to take on paid client work.</label>
+                 <div className="flex items-start gap-4">
+                    <input type="checkbox" id="paid_work" name="paid_work" className="mt-1 h-5 w-5 rounded border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
+                    <label htmlFor="paid_work" className="text-base text-ink-light leading-relaxed cursor-pointer">I am available to take on paid client work.</label>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <input type="checkbox" id="home_teaching" name="home_teaching" className="mt-0.5 h-4 w-4 rounded border-ink-light/20 text-terracotta focus:ring-terracotta" />
-                    <label htmlFor="home_teaching" className="text-sm text-ink-light leading-relaxed">I am available for home-visit teaching (if applying as teacher).</label>
+                  <div className="flex items-start gap-4">
+                    <input type="checkbox" id="home_teaching" name="home_teaching" className="mt-1 h-5 w-5 rounded border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
+                    <label htmlFor="home_teaching" className="text-base text-ink-light leading-relaxed cursor-pointer">I am available for home-visit teaching (if applying as teacher).</label>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <input type="checkbox" id="travel" name="travel" className="mt-0.5 h-4 w-4 rounded border-ink-light/20 text-terracotta focus:ring-terracotta" />
-                    <label htmlFor="travel" className="text-sm text-ink-light leading-relaxed">I am willing to travel outside my immediate area for projects.</label>
-                  </div>
-              </div>
-              
-              <div className="space-y-4 pt-6 border-t border-ink-light/10">
-                  <div className="flex items-start gap-3">
-                    <input type="checkbox" id="consent_public" name="consent_public" required className="mt-0.5 h-4 w-4 rounded border-ink-light/20 text-terracotta focus:ring-terracotta" />
-                    <label htmlFor="consent_public" className="text-sm text-ink-light leading-relaxed">I consent to having my public profile published on ShareNGrow if approved. (Private phone/email will not be shown).</label>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <input type="checkbox" id="consent_art" name="consent_art" required className="mt-0.5 h-4 w-4 rounded border-ink-light/20 text-terracotta focus:ring-terracotta" />
-                    <label htmlFor="consent_art" className="text-sm text-ink-light leading-relaxed">I consent to having my submitted artwork samples published on my profile.</label>
+                  <div className="flex items-start gap-4">
+                    <input type="checkbox" id="travel" name="travel" className="mt-1 h-5 w-5 rounded border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
+                    <label htmlFor="travel" className="text-base text-ink-light leading-relaxed cursor-pointer">I am willing to travel outside my immediate area for projects.</label>
                   </div>
               </div>
               
-               <div className="space-y-2 pt-4">
+              <div className="space-y-4 pt-6 border-t border-whisper">
+                  <div className="flex items-start gap-4">
+                    <input type="checkbox" id="consent_public" name="consent_public" required className="mt-1 h-5 w-5 rounded border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
+                    <label htmlFor="consent_public" className="text-base text-ink-light leading-relaxed cursor-pointer">I consent to having my public profile published on ShareNGrow if approved. (Private phone/email will not be shown).</label>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <input type="checkbox" id="consent_art" name="consent_art" required className="mt-1 h-5 w-5 rounded border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
+                    <label htmlFor="consent_art" className="text-base text-ink-light leading-relaxed cursor-pointer">I consent to having my submitted artwork samples published on my profile.</label>
+                  </div>
+              </div>
+              
+               <div className="space-y-2 pt-6">
                   <label className="text-sm font-medium text-ink">Message to Admins (Optional)</label>
-                  <Textarea name="message" placeholder="Anything else we should know?" className="rounded-xl border-ink-light/20" />
+                  <Textarea name="message" placeholder="Anything else we should know?" className="rounded-xl border-whisper min-h-[100px] p-4" />
               </div>
             </div>
 
-            <Button type="submit" size="lg" className="w-full h-14 bg-ink hover:bg-ink-light text-white rounded-xl transition-transform active:scale-[0.98] mt-4" disabled={isSubmitting || !hasSupabaseConfig}>
-              {isSubmitting ? (
-                <div className="flex space-x-2">
-                  <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse"></div>
-                  <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-200"></div>
-                  <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-400"></div>
-                </div>
-              ) : "Submit Application"}
-            </Button>
+            <div className="pt-6">
+              <Button type="submit" size="lg" className="w-full h-16 text-lg bg-ink hover:bg-ink-light text-white rounded-2xl transition-all duration-300 ease-out active:scale-[0.98]" disabled={isSubmitting || !hasSupabaseConfig}>
+                {isSubmitting ? (
+                  <div className="flex space-x-2">
+                    <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse"></div>
+                    <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-200"></div>
+                    <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-400"></div>
+                  </div>
+                ) : "Submit Application"}
+              </Button>
+            </div>
           </form>
         </CardContent>
       </Card>

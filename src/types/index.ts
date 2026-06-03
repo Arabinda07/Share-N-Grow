@@ -65,7 +65,7 @@ export const SERVICES = [
   {
     id: 'wall-mural',
     title: 'Wall Murals',
-    description: 'Custom murals for cafés, offices, schools, homes, and local businesses in Bengal.',
+    description: 'Custom murals for cafés, offices, schools, homes, and local businesses.',
     icon: 'brush'
   },
   {
