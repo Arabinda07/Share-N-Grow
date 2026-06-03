@@ -100,13 +100,13 @@ export function Home() {
       
       {/* Editorial Left-Aligned Hero */}
       <section className="relative px-6 pt-28 md:pt-40 pb-24 md:pb-48 lg:px-12 w-full max-w-7xl mx-auto flex flex-col items-start justify-center">
-        <h1 className="hero-element text-[clamp(2.75rem,8vw,7rem)] font-bold font-serif tracking-tighter text-ink leading-[1] mb-8 md:mb-10 max-w-[900px]">
+        <h1 className="text-[clamp(2.75rem,8vw,7rem)] font-bold font-serif tracking-tighter text-ink leading-[1] mb-8 md:mb-10 max-w-[900px] animate-in fade-in duration-1000 slide-in-from-bottom-8">
           Find the right <br /> local artist.
         </h1>
-        <p className="hero-element text-xl md:text-3xl text-ink-light leading-snug max-w-[35ch] mb-10 md:mb-14">
+        <p className="text-xl md:text-3xl text-ink-light leading-snug max-w-[35ch] mb-10 md:mb-14 animate-in fade-in duration-1000 delay-150 slide-in-from-bottom-8 fill-mode-both">
           Direct introductions to vetted muralists, drawing teachers, and live event artists. 
         </p>
-        <div className="hero-element flex flex-col sm:flex-row items-start justify-start gap-4 w-full">
+        <div className="flex flex-col sm:flex-row items-start justify-start gap-4 w-full animate-in fade-in duration-1000 delay-300 slide-in-from-bottom-8 fill-mode-both">
           <Link to="/hire">
             <Button size="lg" className="w-full sm:w-auto">
               Hire an Artist
