@@ -7,14 +7,74 @@ import { Card, CardContent } from '../components/ui/card';
 import { supabase, hasSupabaseConfig } from '../lib/supabase';
 import { CheckCircledIcon as CheckCircle2, ExclamationTriangleIcon as AlertCircle } from '@radix-ui/react-icons';
 import { Link } from 'react-router-dom';
+import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
 
 export function Join() {
+  const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
+  // Store form data between steps
+  const [formData, setFormData] = useState({
+    name: '', contact: '', email: '', city: '', area: '', 
+    mediums: '', portfolio: '', social: '', bio: '', message: '',
+    paid_work: false, home_teaching: false, travel: false, 
+    consent_public: false, consent_art: false
+  });
+  const [services, setServices] = useState<string[]>([]);
+  const [portfolioFile, setPortfolioFile] = useState<File | null>(null);
+
+  const totalSteps = 3;
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target as HTMLInputElement;
+    if (type === 'checkbox') {
+      const checked = (e.target as HTMLInputElement).checked;
+      setFormData(prev => ({ ...prev, [name]: checked }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleServiceChange = (service: string, checked: boolean) => {
+    setServices(prev => 
+      checked ? [...prev, service] : prev.filter(s => s !== service)
+    );
+  };
+
+  const nextStep = () => {
+    // Basic validation per step
+    if (currentStep === 1) {
+      if (!formData.name || !formData.contact || !formData.city || !formData.area) {
+        setError("Please fill in all required fields.");
+        return;
+      }
+    }
+    if (currentStep === 2) {
+      if (!formData.mediums || services.length === 0) {
+        setError("Please provide your mediums and select at least one service.");
+        return;
+      }
+    }
+    setError(null);
+    setCurrentStep(prev => Math.min(prev + 1, totalSteps));
+  };
+
+  const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (currentStep !== totalSteps) {
+      nextStep();
+      return;
+    }
+    
+    if (!formData.consent_public || !formData.consent_art) {
+        setError("Please agree to the consent terms to proceed.");
+        return;
+    }
+
     setError(null);
 
     if (!hasSupabaseConfig) {
@@ -22,14 +82,10 @@ export function Join() {
       return;
     }
 
-    const formData = new FormData(e.currentTarget);
-
-    // Initial Security: Honeypot check
-    // Bots usually fill hidden fields. If this is filled, it's likely a bot.
-    const honeypot = formData.get('_botcheck') as string;
-    if (honeypot) {
-      console.warn("Bot detected.");
-      // Silently succeed to trick bots
+    // Bot check could be done via a hidden field
+    const formElement = e.currentTarget;
+    const botCheck = (formElement.elements.namedItem('_botcheck') as HTMLInputElement)?.value;
+    if (botCheck) {
       setIsSuccess(true);
       return;
     }
@@ -38,18 +94,17 @@ export function Join() {
     
     // Process File Upload if provided
     let uploadedFileUrl = "";
-    const fileInput = formData.get('portfolio_file') as File;
-    if (fileInput && fileInput.size > 0) {
-      if (fileInput.size > 5 * 1024 * 1024) {
+    if (portfolioFile && portfolioFile.size > 0) {
+      if (portfolioFile.size > 5 * 1024 * 1024) {
         setError("File size must be under 5MB.");
         setIsSubmitting(false);
         return;
       }
-      const fileExt = fileInput.name.split('.').pop();
+      const fileExt = portfolioFile.name.split('.').pop();
       const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from('application-uploads')
-        .upload(fileName, fileInput);
+        .upload(fileName, portfolioFile);
 
       if (uploadError) {
         console.error("Upload error:", uploadError);
@@ -65,40 +120,33 @@ export function Join() {
       uploadedFileUrl = publicUrlData.publicUrl;
     }
 
-    const services = ['drawing-teacher', 'wall-mural', 'live-event-art', 'workshop', 'portrait-custom-artwork', 'other'];
-    const service_interest = services.filter(s => formData.get(`service-${s}`));
+    const mediumsArr = formData.mediums ? formData.mediums.split(',').map(s => s.trim()).filter(Boolean) : [];
     
-    // Naive split for MVP
-    const mediumsString = formData.get('mediums') as string;
-    const mediums = mediumsString ? mediumsString.split(',').map(s => s.trim()).filter(Boolean) : [];
-    
-    // Combine text portfolio links and the uploaded file link
-    let portfolioText = formData.get('portfolio') as string;
+    let portfolioText = formData.portfolio;
     if (uploadedFileUrl) {
        portfolioText = portfolioText ? `${portfolioText}\n\nUploaded File: ${uploadedFileUrl}` : `Uploaded File: ${uploadedFileUrl}`;
     }
 
     const data = {
-      name: formData.get('name') as string,
-      phone: formData.get('contact') as string,
-      email: formData.get('email') as string,
-      city: formData.get('city') as string,
-      area: formData.get('area') as string,
-      mediums,
-      service_interest,
+      name: formData.name,
+      phone: formData.contact,
+      email: formData.email,
+      city: formData.city,
+      area: formData.area,
+      mediums: mediumsArr,
+      service_interest: services,
       portfolio_links: portfolioText,
-      social_links: formData.get('social') as string,
-      short_bio: formData.get('bio') as string,
-      available_for_paid_work: formData.get('paid_work') === 'on',
-      available_for_home_teaching: formData.get('home_teaching') === 'on',
-      available_for_travel: formData.get('travel') === 'on',
-      consent_profile_public: formData.get('consent_public') === 'on',
-      consent_artwork_public: formData.get('consent_art') === 'on',
-      message: formData.get('message') as string,
+      social_links: formData.social,
+      short_bio: formData.bio,
+      available_for_paid_work: formData.paid_work,
+      available_for_home_teaching: formData.home_teaching,
+      available_for_travel: formData.travel,
+      consent_profile_public: formData.consent_public,
+      consent_artwork_public: formData.consent_art,
+      message: formData.message,
     };
 
     const { error: dbError } = await supabase.from('join_requests').insert([data]);
-
     setIsSubmitting(false);
 
     if (dbError) {
@@ -131,22 +179,30 @@ export function Join() {
         <meta name="description" content="Apply to join our vetted community of local drawing teachers, muralists, and live event artists." />
         <link rel="canonical" href="https://share-n-grow.vercel.app/join" />
       </Helmet>
-      <div className="mb-14 md:mb-20 px-4">
-        <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold tracking-tighter text-ink leading-[1.1] font-serif">Apply as an Artist</h1>
-        <p className="mt-4 md:mt-6 text-lg md:text-xl text-ink-light max-w-2xl leading-relaxed">
-          ShareNGrow is currently accepting artists for teaching, murals, live event art, workshops, portraits, and custom commissions.
-        </p>
+      
+      <div className="mb-12">
+        <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold tracking-tighter text-ink leading-[1.1] font-serif mb-4">Apply as an Artist</h1>
+        
+        {/* Progress Bar */}
+        <div className="flex items-center gap-2 mt-8 max-w-sm">
+          {[1, 2, 3].map((step) => (
+            <div key={step} className="flex-1 h-2 rounded-full bg-whisper overflow-hidden flex">
+              <div 
+                className={`h-full bg-ink transition-all duration-500 ease-out`}
+                style={{ width: currentStep >= step ? '100%' : '0%' }}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="flex justify-between max-w-sm mt-2">
+            <span className={`text-xs font-medium ${currentStep >= 1 ? 'text-ink' : 'text-ink-light'}`}>Basics</span>
+            <span className={`text-xs font-medium ${currentStep >= 2 ? 'text-ink' : 'text-ink-light'}`}>Art</span>
+            <span className={`text-xs font-medium ${currentStep >= 3 ? 'text-ink' : 'text-ink-light'}`}>Details</span>
+        </div>
       </div>
 
-      <div className="mb-8 rounded-[1.5rem] bg-paper-dark p-6 border border-ink-light/10">
-        <h3 className="text-ink font-semibold mb-2">Important Note</h3>
-        <p className="text-ink-light text-sm leading-relaxed">
-          Applying doesn't guarantee a spot. We review applications personally to make sure the network stays reliable for both artists and clients. We're looking for clear examples of your work and a professional approach.
-        </p>
-      </div>
-
-      <Card className="border border-whisper bg-white rounded-2xl shadow-none p-4 sm:p-8 md:p-12">
-        <CardContent className="pt-2 md:pt-4">
+      <Card className="border border-whisper bg-white rounded-[2rem] shadow-none p-6 sm:p-10 md:p-12 overflow-hidden relative">
+        <CardContent className="p-0">
           {!hasSupabaseConfig && (
              <div className="mb-8 flex items-start gap-3 rounded-xl bg-red-50 p-4 text-red-900 border border-red-100">
                <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
@@ -155,155 +211,206 @@ export function Join() {
           )}
 
           {error && (
-            <div className="mb-8 rounded-xl bg-red-50 p-4 text-sm text-red-900 border border-red-100">
+            <div className="mb-8 rounded-xl bg-red-50 p-4 text-sm text-red-900 border border-red-100 flex items-start gap-3">
+              <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-12">
+          <form onSubmit={handleSubmit}>
             <input type="text" name="_botcheck" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
 
-            <div className="space-y-8">
-              <h3 className="font-semibold text-xl text-ink">Basic Details</h3>
-              <div className="grid gap-6 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-ink">Full Name *</label>
-                  <Input name="name" required placeholder="Artist Name" className="rounded-xl border-whisper h-12" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-ink">WhatsApp Number *</label>
-                  <Input name="contact" required placeholder="Phone number" className="rounded-xl border-whisper h-12" />
-                </div>
-              </div>
-
-              <div className="grid gap-6 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-ink">Email Address (Optional)</label>
-                  <Input name="email" type="email" placeholder="email@example.com" className="rounded-xl border-whisper h-12" />
-                </div>
-              </div>
-
-              <div className="grid gap-6 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-ink">City *</label>
-                  <Input name="city" required placeholder="E.g., Kolkata" className="rounded-xl border-whisper h-12" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-ink">Area / Locality *</label>
-                  <Input name="area" required placeholder="E.g., Ballygunge" className="rounded-xl border-whisper h-12" />
-                </div>
-              </div>
-            </div>
-            
-            <div className="space-y-8">
-              <h3 className="font-semibold text-xl text-ink">Your Art</h3>
-              <div className="space-y-2">
-                  <label className="text-sm font-medium text-ink">Mediums you work with *</label>
-                  <Input name="mediums" required placeholder="E.g., Acrylic, Watercolour, Charcoal (comma separated)" className="rounded-xl border-whisper h-12" />
-              </div>
-              
-              <div className="space-y-3">
-                <label className="text-sm font-medium text-ink mb-1 block">Services you can offer (Select all that apply) *</label>
-                <div className="space-y-3 bg-paper p-6 rounded-2xl border border-whisper">
-                    <div className="flex items-center gap-3">
-                      <input type="checkbox" id="service-drawing-teacher" name="service-drawing-teacher" className="rounded h-5 w-5 border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
-                      <label htmlFor="service-drawing-teacher" className="text-sm text-ink-light leading-none cursor-pointer">Drawing teacher</label>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <input type="checkbox" id="service-wall-mural" name="service-wall-mural" className="rounded h-5 w-5 border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
-                      <label htmlFor="service-wall-mural" className="text-sm text-ink-light leading-none cursor-pointer">Mural artist</label>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <input type="checkbox" id="service-live-event-art" name="service-live-event-art" className="rounded h-5 w-5 border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
-                      <label htmlFor="service-live-event-art" className="text-sm text-ink-light leading-none cursor-pointer">Live event artist</label>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <input type="checkbox" id="service-workshop" name="service-workshop" className="rounded h-5 w-5 border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
-                      <label htmlFor="service-workshop" className="text-sm text-ink-light leading-none cursor-pointer">Workshop facilitator</label>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <input type="checkbox" id="service-portrait-custom-artwork" name="service-portrait-custom-artwork" className="rounded h-5 w-5 border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
-                      <label htmlFor="service-portrait-custom-artwork" className="text-sm text-ink-light leading-none cursor-pointer">Portrait/custom artist</label>
-                    </div>
-                     <div className="flex items-center gap-3">
-                      <input type="checkbox" id="service-other" name="service-other" className="rounded h-5 w-5 border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
-                      <label htmlFor="service-other" className="text-sm text-ink-light leading-none cursor-pointer">Other</label>
-                    </div>
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                <div className="space-y-2 pt-2">
-                    <label className="text-sm font-medium text-ink">Portfolio Link(s)</label>
-                    <Input name="portfolio" placeholder="Google Drive, Behance, or Website URL" className="rounded-xl border-whisper h-12" />
+            {/* Step 1: Basics */}
+            {currentStep === 1 && (
+              <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
+                <div>
+                  <h3 className="font-semibold text-2xl text-ink font-serif tracking-tight mb-2">Let's start with the basics</h3>
+                  <p className="text-ink-light">How can we contact you?</p>
                 </div>
                 
-                <div className="space-y-2 pt-2">
-                    <label className="text-sm font-medium text-ink">Upload Portfolio File (PDF/Image max 5MB)</label>
-                    <Input type="file" name="portfolio_file" accept=".pdf,.jpeg,.jpg,.png" className="rounded-xl border-whisper file:mr-4 file:rounded-xl file:border-0 file:bg-paper file:px-4 file:py-2 file:text-sm file:font-semibold hover:file:bg-paper-dark transition-all cursor-pointer h-12 pt-2 text-ink-light" />
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-ink">Full Name *</label>
+                    <Input name="name" required value={formData.name} onChange={handleInputChange} placeholder="E.g. Arijit Sen" className="rounded-xl border-whisper h-14 bg-paper focus:bg-white transition-colors" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-ink">WhatsApp Number *</label>
+                    <Input name="contact" required value={formData.contact} onChange={handleInputChange} placeholder="+91" className="rounded-xl border-whisper h-14 bg-paper focus:bg-white transition-colors" />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-ink">Email Address (Optional)</label>
+                  <Input name="email" type="email" value={formData.email} onChange={handleInputChange} placeholder="email@example.com" className="rounded-xl border-whisper h-14 bg-paper focus:bg-white transition-colors" />
+                </div>
+
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-ink">City *</label>
+                    <Input name="city" required value={formData.city} onChange={handleInputChange} placeholder="E.g. Kolkata" className="rounded-xl border-whisper h-14 bg-paper focus:bg-white transition-colors" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-ink">Area / Locality *</label>
+                    <Input name="area" required value={formData.area} onChange={handleInputChange} placeholder="E.g. Ballygunge" className="rounded-xl border-whisper h-14 bg-paper focus:bg-white transition-colors" />
+                  </div>
                 </div>
               </div>
-              
-              <div className="space-y-2">
-                  <label className="text-sm font-medium text-ink">Instagram / Facebook Link</label>
-                  <Input name="social" placeholder="https://instagram.com/yourhandle" className="rounded-xl border-whisper h-12" />
-              </div>
-              
-              <div className="space-y-2">
-                  <label className="text-sm font-medium text-ink">Short Bio</label>
-                  <Textarea name="bio" placeholder="Tell us a bit about yourself and your artistic journey..." className="min-h-[140px] rounded-xl border-whisper p-4" />
-              </div>
-            </div>
+            )}
 
-             <div className="space-y-8">
-              <h3 className="font-semibold text-xl text-ink">Availability & Consent</h3>
-              
-              <div className="space-y-4">
-                 <div className="flex items-start gap-4">
-                    <input type="checkbox" id="paid_work" name="paid_work" className="mt-1 h-5 w-5 rounded border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
-                    <label htmlFor="paid_work" className="text-base text-ink-light leading-relaxed cursor-pointer">I am available to take on paid client work.</label>
+            {/* Step 2: Art */}
+            {currentStep === 2 && (
+              <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
+                <div>
+                  <h3 className="font-semibold text-2xl text-ink font-serif tracking-tight mb-2">Tell us about your art</h3>
+                  <p className="text-ink-light">What do you do and where can we see it?</p>
+                </div>
+                
+                <div className="space-y-2">
+                    <label className="text-sm font-medium text-ink">Mediums you work with *</label>
+                    <Input name="mediums" required value={formData.mediums} onChange={handleInputChange} placeholder="E.g., Acrylic, Watercolour, Charcoal" className="rounded-xl border-whisper h-14 bg-paper focus:bg-white transition-colors" />
+                </div>
+                
+                <div className="space-y-4">
+                  <label className="text-sm font-medium text-ink block">Services you can offer (Select all that apply) *</label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {[
+                      { id: 'drawing-teacher', label: 'Drawing teacher' },
+                      { id: 'wall-mural', label: 'Mural artist' },
+                      { id: 'live-event-art', label: 'Live event artist' },
+                      { id: 'workshop', label: 'Workshop facilitator' },
+                      { id: 'portrait-custom-artwork', label: 'Portrait / Custom artist' },
+                      { id: 'other', label: 'Other' },
+                    ].map(service => (
+                      <label key={service.id} className={`flex items-center gap-3 p-4 rounded-xl border transition-all cursor-pointer ${services.includes(service.id) ? 'border-ink bg-ink/5' : 'border-whisper bg-paper hover:bg-paper-dark'}`}>
+                         <input 
+                           type="checkbox" 
+                           checked={services.includes(service.id)} 
+                           onChange={(e) => handleServiceChange(service.id, e.target.checked)}
+                           className="rounded border-whisper text-ink focus:ring-ink focus:ring-offset-paper h-5 w-5" 
+                          />
+                         <span className="text-sm font-medium text-ink">{service.label}</span>
+                      </label>
+                    ))}
                   </div>
-                  <div className="flex items-start gap-4">
-                    <input type="checkbox" id="home_teaching" name="home_teaching" className="mt-1 h-5 w-5 rounded border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
-                    <label htmlFor="home_teaching" className="text-base text-ink-light leading-relaxed cursor-pointer">I am available for home-visit teaching (if applying as teacher).</label>
+                </div>
+                
+                <div className="space-y-4 pt-4">
+                  <div className="space-y-2">
+                      <label className="text-sm font-medium text-ink">Portfolio Link</label>
+                      <Input name="portfolio" value={formData.portfolio} onChange={handleInputChange} placeholder="Google Drive, Behance, or Website URL" className="rounded-xl border-whisper h-14 bg-paper focus:bg-white transition-colors" />
                   </div>
-                  <div className="flex items-start gap-4">
-                    <input type="checkbox" id="travel" name="travel" className="mt-1 h-5 w-5 rounded border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
-                    <label htmlFor="travel" className="text-base text-ink-light leading-relaxed cursor-pointer">I am willing to travel outside my immediate area for projects.</label>
+                  
+                  <div className="space-y-2 pt-2 relative">
+                      <label className="text-sm font-medium text-ink">Or Upload a Portfolio File <span className="text-ink-light font-normal">(PDF/Image max 5MB)</span></label>
+                      <div className="relative">
+                          <Input 
+                            type="file" 
+                            name="portfolio_file" 
+                            accept=".pdf,.jpeg,.jpg,.png" 
+                            onChange={(e) => {
+                                if (e.target.files && e.target.files.length > 0) {
+                                    setPortfolioFile(e.target.files[0]);
+                                } else {
+                                    setPortfolioFile(null);
+                                }
+                            }}
+                            className="rounded-xl border-whisper file:mr-4 file:rounded-full file:border-0 file:bg-white file:border-whisper file:border-solid file:border file:px-4 file:py-1.5 file:text-sm file:font-semibold hover:file:bg-paper-dark transition-all cursor-pointer h-14 pt-2.5 text-ink-light bg-paper focus:bg-white" 
+                          />
+                      </div>
                   </div>
+                </div>
+                
+                <div className="space-y-2">
+                    <label className="text-sm font-medium text-ink">Instagram / Facebook Link</label>
+                    <Input name="social" value={formData.social} onChange={handleInputChange} placeholder="https://instagram.com/yourhandle" className="rounded-xl border-whisper h-14 bg-paper focus:bg-white transition-colors" />
+                </div>
               </div>
-              
-              <div className="space-y-4 pt-4 border-t border-whisper">
-                  <div className="flex items-start gap-4 mt-8">
-                    <input type="checkbox" id="consent_public" name="consent_public" required className="mt-1 h-5 w-5 rounded border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
-                    <label htmlFor="consent_public" className="text-base text-ink-light leading-relaxed cursor-pointer">I consent to having my public profile published on ShareNGrow if approved. (Private phone/email will not be shown).</label>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <input type="checkbox" id="consent_art" name="consent_art" required className="mt-1 h-5 w-5 rounded border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
-                    <label htmlFor="consent_art" className="text-base text-ink-light leading-relaxed cursor-pointer">I consent to having my submitted artwork samples published on my profile.</label>
-                  </div>
-              </div>
-              
-               <div className="space-y-2 pt-4">
-                  <label className="text-sm font-medium text-ink">Message to Admins (Optional)</label>
-                  <Textarea name="message" placeholder="Anything else we should know?" className="rounded-xl border-whisper min-h-[100px] p-4" />
-              </div>
-            </div>
+            )}
 
-            <div>
-              <Button type="submit" size="lg" className="w-full h-16 text-lg bg-ink hover:bg-ink-light text-white rounded-2xl transition-all duration-300 ease-out active:scale-[0.98]" disabled={isSubmitting || !hasSupabaseConfig}>
+            {/* Step 3: Details */}
+            {currentStep === 3 && (
+              <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
+                <div>
+                  <h3 className="font-semibold text-2xl text-ink font-serif tracking-tight mb-2">Final touches</h3>
+                  <p className="text-ink-light">Bio, availability, and consent.</p>
+                </div>
+
+                <div className="space-y-2">
+                    <label className="text-sm font-medium text-ink">Short Bio</label>
+                    <Textarea name="bio" value={formData.bio} onChange={handleInputChange} placeholder="Tell us a bit about yourself and your artistic journey (Optional but recommended)..." className="min-h-[120px] rounded-xl border-whisper p-4 bg-paper focus:bg-white transition-colors" />
+                </div>
+
+                <div className="space-y-4">
+                  <label className="text-sm font-medium text-ink block">Availability</label>
+                  <div className="space-y-3 bg-paper p-5 rounded-2xl border border-whisper">
+                     <div className="flex items-start gap-4">
+                        <input type="checkbox" id="paid_work" name="paid_work" checked={formData.paid_work} onChange={handleInputChange} className="mt-1 h-5 w-5 rounded border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
+                        <label htmlFor="paid_work" className="text-sm font-medium text-ink leading-relaxed cursor-pointer">I am available to take on paid client work.</label>
+                      </div>
+                      <div className="flex items-start gap-4">
+                        <input type="checkbox" id="home_teaching" name="home_teaching" checked={formData.home_teaching} onChange={handleInputChange} className="mt-1 h-5 w-5 rounded border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
+                        <label htmlFor="home_teaching" className="text-sm font-medium text-ink leading-relaxed cursor-pointer">I am available for home-visit teaching (if applying as teacher).</label>
+                      </div>
+                      <div className="flex items-start gap-4">
+                        <input type="checkbox" id="travel" name="travel" checked={formData.travel} onChange={handleInputChange} className="mt-1 h-5 w-5 rounded border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
+                        <label htmlFor="travel" className="text-sm font-medium text-ink leading-relaxed cursor-pointer">I am willing to travel outside my immediate area for projects.</label>
+                      </div>
+                  </div>
+                </div>
+                
+                <div className="space-y-4 pt-4 border-t border-whisper">
+                    <div className="flex items-start gap-4">
+                      <input type="checkbox" id="consent_public" name="consent_public" checked={formData.consent_public} onChange={handleInputChange} required className="mt-1 h-5 w-5 rounded border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
+                      <label htmlFor="consent_public" className="text-sm text-ink-light leading-relaxed cursor-pointer">I consent to having my public profile published on ShareNGrow if approved. <strong className="font-medium text-ink">(Private phone/email will not be shown).</strong> *</label>
+                    </div>
+                    <div className="flex items-start gap-4">
+                      <input type="checkbox" id="consent_art" name="consent_art" checked={formData.consent_art} onChange={handleInputChange} required className="mt-1 h-5 w-5 rounded border-whisper text-ink focus:ring-ink focus:ring-offset-paper" />
+                      <label htmlFor="consent_art" className="text-sm text-ink-light leading-relaxed cursor-pointer">I consent to having my submitted artwork samples published on my profile. *</label>
+                    </div>
+                </div>
+                
+                 <div className="space-y-2 pt-2">
+                    <label className="text-sm font-medium text-ink">Message to Admins (Optional)</label>
+                    <Textarea name="message" value={formData.message} onChange={handleInputChange} placeholder="Anything else we should know?" className="rounded-xl border-whisper min-h-[100px] p-4 bg-paper focus:bg-white transition-colors" />
+                </div>
+              </div>
+            )}
+
+            <div className="flex items-center gap-4 mt-12 pt-6 border-t border-whisper">
+              {currentStep > 1 && (
+                <Button type="button" variant="outline" size="lg" onClick={prevStep} className="h-14 px-6 rounded-xl border-whisper hover:bg-paper-dark group">
+                  <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" /> Back
+                </Button>
+              )}
+              
+              <Button 
+                type="submit" 
+                size="lg" 
+                className={`h-14 flex-1 text-base bg-ink hover:bg-ink-light text-white rounded-xl transition-all duration-300 ease-out active:scale-[0.98] ${currentStep === 1 ? 'w-full' : ''}`} 
+                disabled={isSubmitting || !hasSupabaseConfig}
+              >
                 {isSubmitting ? (
                   <div className="flex space-x-2">
                     <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse"></div>
                     <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-200"></div>
                     <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-400"></div>
                   </div>
-                ) : "Submit Application"}
+                ) : currentStep === totalSteps ? (
+                   "Submit Application"
+                ) : (
+                  <>Next Step <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" /></>
+                )}
               </Button>
             </div>
           </form>
         </CardContent>
       </Card>
+      
+       <div className="mt-8 rounded-[1.5rem] bg-paper p-6 border border-whisper text-center">
+        <p className="text-ink-light text-sm leading-relaxed">
+          Applying doesn't guarantee a spot. We review applications personally to make sure the network stays reliable for both artists and clients. We're looking for clear examples of your work and a professional approach.
+        </p>
+      </div>
     </div>
   );
 }

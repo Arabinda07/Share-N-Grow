@@ -20,6 +20,7 @@ const EventsLiveArt = lazy(() => import('./pages/EventsLiveArt').then(module => 
 const Collaborate = lazy(() => import('./pages/Collaborate').then(module => ({ default: module.Collaborate })));
 const ArtistsDirectory = lazy(() => import('./pages/ArtistsDirectory').then(module => ({ default: module.ArtistsDirectory })));
 const ArtistProfile = lazy(() => import('./pages/ArtistProfile').then(module => ({ default: module.ArtistProfile })));
+const Showcase = lazy(() => import('./pages/Showcase').then(module => ({ default: module.Showcase })));
 const FAQ = lazy(() => import('./pages/FAQ').then(module => ({ default: module.FAQ })));
 const Privacy = lazy(() => import('./pages/Privacy').then(module => ({ default: module.Privacy })));
 const Terms = lazy(() => import('./pages/Terms').then(module => ({ default: module.Terms })));
@@ -54,6 +55,7 @@ export default function App() {
                 <Route path="/events-live-art" element={<EventsLiveArt />} />
                 <Route path="/collaborate" element={<Collaborate />} />
                 <Route path="/directory" element={<ArtistsDirectory />} />
+                <Route path="/showcase" element={<Showcase />} />
                 <Route path="/artist/:id" element={<ArtistProfile />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/privacy" element={<Privacy />} />

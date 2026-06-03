@@ -26,6 +26,9 @@ export function Navbar() {
             <Link to="/directory" className="text-sm font-medium text-ink hover:text-terracotta transition-colors duration-300">
               Directory
             </Link>
+            <Link to="/showcase" className="text-sm font-medium text-ink hover:text-terracotta transition-colors duration-300">
+              Showcase
+            </Link>
             <Link to="/hire" className="text-sm font-medium text-ink hover:text-terracotta transition-colors duration-300">
               Hire Talent
             </Link>
@@ -75,6 +78,13 @@ export function Navbar() {
             onClick={() => setIsOpen(false)}
           >
             Directory
+          </Link>
+          <Link 
+            to="/showcase" 
+            className="block text-lg font-medium text-ink w-full py-2 hover:text-terracotta transition-colors duration-300"
+            onClick={() => setIsOpen(false)}
+          >
+            Showcase
           </Link>
           <Link 
             to="/hire" 

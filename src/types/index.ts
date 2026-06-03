@@ -53,6 +53,17 @@ export type Artist = {
   available_for_travel: boolean;
   status: 'pending' | 'approved' | 'rejected';
   created_at: string;
+  is_featured?: boolean;
+};
+
+export type Artwork = {
+  id: string;
+  artist_id: string;
+  title: string;
+  description: string | null;
+  image_url: string;
+  created_at: string;
+  is_featured: boolean;
 };
 
 export const SERVICES = [
