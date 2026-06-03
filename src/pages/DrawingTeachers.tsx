@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
@@ -62,6 +63,11 @@ export function DrawingTeachers() {
 
   return (
     <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 min-h-screen">
+      <Helmet>
+        <title>Find Drawing Teachers | ShareNGrow</title>
+        <meta name="description" content="Find the perfect drawing teacher for your child in Bengal. We match you with vetted local art instructors for home visits or studio classes." />
+        <link rel="canonical" href="https://share-n-grow.vercel.app/drawing-teachers" />
+      </Helmet>
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">Find a drawing teacher for your child.</h1>
         <p className="mt-4 text-lg text-ink-light max-w-2xl mx-auto">

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
@@ -64,6 +65,11 @@ export function EventsLiveArt() {
 
   return (
     <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 min-h-screen">
+      <Helmet>
+        <title>Hire Live Event Artists | ShareNGrow</title>
+        <meta name="description" content="Book live artists for weddings, events, and special gatherings in Bengal. Live sketching, guest caricatures, and event painting." />
+        <link rel="canonical" href="https://share-n-grow.vercel.app/events-live-art" />
+      </Helmet>
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">Book live artists for weddings, events, and special gatherings.</h1>
         <p className="mt-4 text-lg text-ink-light max-w-2xl mx-auto">

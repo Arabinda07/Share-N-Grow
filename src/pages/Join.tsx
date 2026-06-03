@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
@@ -21,15 +22,61 @@ export function Join() {
       return;
     }
 
-    setIsSubmitting(true);
     const formData = new FormData(e.currentTarget);
+
+    // Initial Security: Honeypot check
+    // Bots usually fill hidden fields. If this is filled, it's likely a bot.
+    const honeypot = formData.get('_botcheck') as string;
+    if (honeypot) {
+      console.warn("Bot detected.");
+      // Silently succeed to trick bots
+      setIsSuccess(true);
+      return;
+    }
+
+    setIsSubmitting(true);
     
+    // Process File Upload if provided
+    let uploadedFileUrl = "";
+    const fileInput = formData.get('portfolio_file') as File;
+    if (fileInput && fileInput.size > 0) {
+      if (fileInput.size > 5 * 1024 * 1024) {
+        setError("File size must be under 5MB.");
+        setIsSubmitting(false);
+        return;
+      }
+      const fileExt = fileInput.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('application-uploads')
+        .upload(fileName, fileInput);
+
+      if (uploadError) {
+        console.error("Upload error:", uploadError);
+        setError("Failed to upload portfolio file. Please try again.");
+        setIsSubmitting(false);
+        return;
+      }
+      
+      const { data: publicUrlData } = supabase.storage
+        .from('application-uploads')
+        .getPublicUrl(fileName);
+        
+      uploadedFileUrl = publicUrlData.publicUrl;
+    }
+
     const services = ['drawing-teacher', 'wall-mural', 'live-event-art', 'workshop', 'portrait-custom-artwork', 'other'];
     const service_interest = services.filter(s => formData.get(`service-${s}`));
     
     // Naive split for MVP
     const mediumsString = formData.get('mediums') as string;
     const mediums = mediumsString ? mediumsString.split(',').map(s => s.trim()).filter(Boolean) : [];
+    
+    // Combine text portfolio links and the uploaded file link
+    let portfolioText = formData.get('portfolio') as string;
+    if (uploadedFileUrl) {
+       portfolioText = portfolioText ? `${portfolioText}\n\nUploaded File: ${uploadedFileUrl}` : `Uploaded File: ${uploadedFileUrl}`;
+    }
 
     const data = {
       name: formData.get('name') as string,
@@ -39,7 +86,7 @@ export function Join() {
       area: formData.get('area') as string,
       mediums,
       service_interest,
-      portfolio_links: formData.get('portfolio') as string,
+      portfolio_links: portfolioText,
       social_links: formData.get('social') as string,
       short_bio: formData.get('bio') as string,
       available_for_paid_work: formData.get('paid_work') === 'on',
@@ -79,6 +126,11 @@ export function Join() {
 
   return (
     <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 min-h-screen">
+      <Helmet>
+        <title>Apply as Artist | ShareNGrow</title>
+        <meta name="description" content="Apply to join our vetted community of local drawing teachers, muralists, and live event artists across Bengal." />
+        <link rel="canonical" href="https://share-n-grow.vercel.app/join" />
+      </Helmet>
       <div className="mb-10 text-center">
         <h1 className="text-4xl font-bold tracking-tight text-ink sm:text-5xl font-sans">Apply for the Directory</h1>
         <p className="mt-4 text-lg text-ink-light max-w-2xl mx-auto">
@@ -109,6 +161,8 @@ export function Join() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-8">
+            <input type="text" name="_botcheck" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+
             <div className="space-y-6">
               <h3 className="font-semibold text-lg border-b border-ink-light/10 pb-2 text-ink">Basic Details</h3>
               <div className="grid gap-6 sm:grid-cols-2">
@@ -179,8 +233,13 @@ export function Join() {
               </div>
               
               <div className="space-y-2 pt-2">
-                  <label className="text-sm font-medium text-ink">Portfolio Link(s) *</label>
-                  <Input name="portfolio" required placeholder="Google Drive, Behance, or Website URL" className="rounded-xl border-ink-light/20" />
+                  <label className="text-sm font-medium text-ink">Portfolio Link(s)</label>
+                  <Input name="portfolio" placeholder="Google Drive, Behance, or Website URL" className="rounded-xl border-ink-light/20" />
+              </div>
+              
+              <div className="space-y-2 pt-2">
+                  <label className="text-sm font-medium text-ink">Upload Portfolio File (PDF/Image max 5MB)</label>
+                  <Input type="file" name="portfolio_file" accept=".pdf,.jpeg,.jpg,.png" className="rounded-xl border-ink-light/20 file:mr-4 file:rounded-full file:border-0 file:bg-paper-dark file:px-4 file:py-2 file:text-sm file:font-semibold hover:file:bg-paper-dark transition-all cursor-pointer" />
               </div>
               
               <div className="space-y-2">

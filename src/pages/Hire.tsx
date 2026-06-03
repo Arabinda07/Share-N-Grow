@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
@@ -19,13 +20,20 @@ export function Hire() {
     e.preventDefault();
     setError(null);
 
+    const formData = new FormData(e.currentTarget);
+    const honeypot = formData.get('_botcheck') as string;
+    if (honeypot) {
+      console.warn("Bot detected.");
+      setIsSuccess(true);
+      return;
+    }
+
     if (!hasSupabaseConfig) {
       setError("Database is not configured. (Developer: check Supabase credentials)");
       return;
     }
 
     setIsSubmitting(true);
-    const formData = new FormData(e.currentTarget);
     const data = {
       name: formData.get('name') as string,
       phone: formData.get('contact') as string,
@@ -69,6 +77,11 @@ export function Hire() {
 
   return (
     <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 min-h-screen">
+      <Helmet>
+        <title>Hire an Artist | ShareNGrow</title>
+        <meta name="description" content="Request custom art work, murals, live event art, or find a drawing teacher in Bengal. We match you with vetted local professionals." />
+        <link rel="canonical" href="https://share-n-grow.vercel.app/hire" />
+      </Helmet>
       <div className="mb-10 text-center">
         <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">Request Custom Work</h1>
         <p className="mt-4 text-lg text-ink-light max-w-2xl mx-auto">
@@ -99,6 +112,8 @@ export function Hire() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-8">
+             <input type="text" name="_botcheck" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+
              <div className="space-y-6">
                <h3 className="font-semibold text-lg border-b border-ink-light/10 pb-2 text-ink">Client Details</h3>
               <div className="grid gap-6 sm:grid-cols-2">

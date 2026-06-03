@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
@@ -64,6 +65,11 @@ export function WallMurals() {
 
   return (
     <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 min-h-screen">
+      <Helmet>
+        <title>Hire Wall Mural Artists | ShareNGrow</title>
+        <meta name="description" content="Turn a blank wall into a custom painted space. Hire local wall mural artists in Bengal for cafes, schools, offices, or homes." />
+        <link rel="canonical" href="https://share-n-grow.vercel.app/wall-murals" />
+      </Helmet>
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">Turn a blank wall into a custom painted space.</h1>
         <p className="mt-4 text-lg text-ink-light max-w-2xl mx-auto">

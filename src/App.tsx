@@ -5,7 +5,8 @@
 
 import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Navbar } from './components/layout/Navbar';
+import { HelmetProvider } from 'react-helmet-async';
+import { Navbar } from './components/layout/Navbar'; 
 import { Footer } from './components/layout/Footer';
 
 // Lazy load pages for better performance (bundle splitting)
@@ -34,28 +35,30 @@ const PageLoader = () => (
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <div className="min-h-screen flex flex-col bg-paper font-sans text-ink">
-        <Navbar />
-        <main className="flex-grow">
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/hire" element={<Hire />} />
-              <Route path="/join" element={<Join />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/drawing-teachers" element={<DrawingTeachers />} />
-              <Route path="/wall-murals" element={<WallMurals />} />
-              <Route path="/events-live-art" element={<EventsLiveArt />} />
-              <Route path="/collaborate" element={<Collaborate />} />
-              <Route path="/directory" element={<ArtistsDirectory />} />
-              <Route path="/artist/:id" element={<ArtistProfile />} />
-              <Route path="/faq" element={<FAQ />} />
-            </Routes>
-          </Suspense>
-        </main>
-        <Footer />
-      </div>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <div className="min-h-screen flex flex-col bg-paper font-sans text-ink">
+          <Navbar />
+          <main className="flex-grow">
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/hire" element={<Hire />} />
+                <Route path="/join" element={<Join />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/drawing-teachers" element={<DrawingTeachers />} />
+                <Route path="/wall-murals" element={<WallMurals />} />
+                <Route path="/events-live-art" element={<EventsLiveArt />} />
+                <Route path="/collaborate" element={<Collaborate />} />
+                <Route path="/directory" element={<ArtistsDirectory />} />
+                <Route path="/artist/:id" element={<ArtistProfile />} />
+                <Route path="/faq" element={<FAQ />} />
+              </Routes>
+            </Suspense>
+          </main>
+          <Footer />
+        </div>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }

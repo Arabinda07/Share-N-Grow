@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { SwatchIcon as Palette, PaintBrushIcon as Brush, UsersIcon as Users, ShieldCheckIcon as ShieldCheck, MapPinIcon as MapPin, ArrowRightIcon as ArrowRight } from '@heroicons/react/24/outline';
@@ -6,43 +7,34 @@ import { SwatchIcon as Palette, PaintBrushIcon as Brush, UsersIcon as Users, Shi
 export function Home() {
   return (
     <div className="flex flex-col bg-paper min-h-screen">
-      {/* Hero Section - Asymmetrical Split */}
-      <section className="relative px-4 pt-24 pb-32 sm:px-6 lg:px-8 max-w-[1400px] mx-auto w-full">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center rounded-full border border-ink-light/20 bg-paper-dark px-3 py-1 text-sm font-medium text-ink-light mb-8">
-              <MapPin className="mr-2 h-4 w-4 text-terracotta" />
-              <span>Available across Bengal</span>
-            </div>
-            <h1 className="text-5xl font-bold font-sans tracking-tighter text-ink sm:text-6xl md:text-7xl leading-[1.1] mb-6">
-              Hire local artists for your next project.
-            </h1>
-            <p className="text-lg text-ink-light md:text-xl leading-relaxed max-w-[55ch] mb-10">
-              Connect directly with vetted drawing teachers, muralists, and live event artists. We review portfolios and handle introductions to keep the process simple and secure.
-            </p>
-            <div className="flex flex-col sm:flex-row items-start gap-4">
-              <Link to="/hire">
-                <Button size="lg" className="w-full sm:w-auto h-12 px-8 text-base shadow-sm bg-ink hover:bg-ink-light text-white rounded-full transition-transform active:scale-[0.98]">
-                  Request an artist
-                </Button>
-              </Link>
-              <Link to="/join">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto h-12 px-8 text-base bg-transparent border-ink-light/20 text-ink hover:bg-paper-dark shadow-none rounded-full transition-transform active:scale-[0.98]">
-                  Apply as artist
-                </Button>
-              </Link>
-            </div>
-          </div>
-          
-          {/* Aesthetic Asymmetrical Asset Placeholder */}
-          <div className="relative hidden lg:block h-[600px] w-full rounded-[2.5rem] overflow-hidden bg-paper-dark border border-ink-light/10">
-             <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-terracotta/40 via-transparent to-transparent"></div>
-             {/* This simulates a beautiful, clean display area for artist works. No stock photos, just a structural placeholder that feels architectural */}
-             <div className="absolute inset-x-8 bottom-8 top-24 rounded-2xl bg-white shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] border border-ink-light/5 p-8 flex flex-col justify-end">
-                <div className="h-4 w-1/3 bg-paper-dark rounded-full mb-3" />
-                <div className="h-3 w-1/2 bg-paper-dark rounded-full opacity-50" />
-             </div>
-          </div>
+      <Helmet>
+        <title>ShareNGrow | Hire Local Artists in Bengal</title>
+        <meta name="description" content="Connect directly with vetted drawing teachers, muralists, and live event artists across Bengal. Hire local artists for your next project." />
+        <link rel="canonical" href="https://share-n-grow.vercel.app/" />
+      </Helmet>
+      {/* Hero Section */}
+      <section className="relative px-4 pt-24 pb-32 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full text-center flex flex-col items-center">
+        <div className="inline-flex items-center rounded-full border border-ink-light/20 bg-paper-dark px-3 py-1 text-sm font-medium text-ink-light mb-8">
+          <MapPin className="mr-2 h-4 w-4 text-terracotta" />
+          <span>Available across Bengal</span>
+        </div>
+        <h1 className="text-5xl font-bold font-sans tracking-tighter text-ink sm:text-6xl md:text-7xl leading-[1.1] mb-6">
+          Hire local artists for your next project.
+        </h1>
+        <p className="text-lg text-ink-light md:text-xl leading-relaxed max-w-[55ch] mx-auto mb-10">
+          Connect directly with vetted drawing teachers, muralists, and live event artists. We review portfolios and handle introductions to keep the process simple and secure.
+        </p>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+          <Link to="/hire">
+            <Button size="lg" className="w-full sm:w-auto h-12 px-8 text-base shadow-sm bg-ink hover:bg-ink-light text-white rounded-full transition-transform active:scale-[0.98]">
+              Request an artist
+            </Button>
+          </Link>
+          <Link to="/join">
+            <Button size="lg" variant="outline" className="w-full sm:w-auto h-12 px-8 text-base bg-transparent border-ink-light/20 text-ink hover:bg-paper-dark shadow-none rounded-full transition-transform active:scale-[0.98]">
+              Apply as artist
+            </Button>
+          </Link>
         </div>
       </section>
 
