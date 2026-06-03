@@ -64,9 +64,9 @@ export function Hire() {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center p-4 py-20 text-center">
         <CheckCircle2 className="mb-6 h-16 w-16 text-terracotta" />
-        <h2 className="mb-4 text-3xl font-bold text-ink">Request Received</h2>
+        <h2 className="mb-4 text-3xl font-bold text-ink">We have your request.</h2>
         <p className="mx-auto mb-8 max-w-md text-ink-light">
-          Thanks. We have received your request. A ShareNGrow admin will review it and contact you on WhatsApp if we can suggest suitable artists.
+          We'll review your project details and message you on WhatsApp to set up an introduction.
         </p>
         <Link to="/">
           <Button variant="outline">Return to Home</Button>
@@ -76,16 +76,16 @@ export function Hire() {
   }
 
   return (
-    <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 min-h-screen">
+    <div className="container mx-auto max-w-3xl px-4 py-24 sm:py-32 lg:px-8 min-h-[90vh]">
       <Helmet>
         <title>Hire an Artist | ShareNGrow</title>
         <meta name="description" content="Request custom art work, murals, live event art, or find a drawing teacher in Bengal. We match you with vetted local professionals." />
         <link rel="canonical" href="https://share-n-grow.vercel.app/hire" />
       </Helmet>
       <div className="mb-10 text-center">
-        <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">Request Custom Work</h1>
+        <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">Hire an artist</h1>
         <p className="mt-4 text-lg text-ink-light max-w-2xl mx-auto">
-          ShareNGrow will manually review your requirements and match you with suitable artists from the vetted community.
+          Tell us what you need. We'll review the brief and introduce you to an artist who can do it.
         </p>
       </div>
 
@@ -107,7 +107,7 @@ export function Hire() {
           {preselectedArtistId && (
             <div className="mb-6 rounded-md bg-paper-dark p-4 text-sm text-ink flex items-start gap-3 border border-ink-light/10">
                <CheckCircle2 className="mt-0.5 h-5 w-5 text-pine shrink-0" />
-               <p>We've noted that you found an artist you'd like to work with. We will prioritize introducing them if they are available.</p>
+               <p>We see you selected an artist. We'll reach out to them first to check availability.</p>
             </div>
           )}
 
@@ -195,7 +195,7 @@ export function Hire() {
             <div className="flex items-start gap-3 pt-6">
                <input id="consent" type="checkbox" required className="mt-1 h-4 w-4 border-ink-light/20 text-terracotta focus:ring-terracotta rounded" />
                <label htmlFor="consent" className="text-sm text-ink-light leading-relaxed">
-                 I agree to be contacted by ShareNGrow via WhatsApp or phone about this request. I understand that my details are kept private.
+                 I agree to be contacted via WhatsApp or phone. My details won't be made public.
                </label>
             </div>
 
@@ -206,7 +206,7 @@ export function Hire() {
                   <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-200"></div>
                   <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-400"></div>
                 </div>
-              ) : "Submit Secure Request"}
+              ) : "Send Request"}
             </Button>
           </form>
         </CardContent>

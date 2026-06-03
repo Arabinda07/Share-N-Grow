@@ -68,35 +68,35 @@ export function DrawingTeachers() {
         <meta name="description" content="Find the perfect drawing teacher for your child in Bengal. We match you with vetted local art instructors for home visits or studio classes." />
         <link rel="canonical" href="https://share-n-grow.vercel.app/drawing-teachers" />
       </Helmet>
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">Find a drawing teacher for your child.</h1>
-        <p className="mt-4 text-lg text-ink-light max-w-2xl mx-auto">
-          Share your location, preferred timing, and your child's age. We will try to suggest suitable drawing teachers from the ShareNGrow network.
+      <div className="mb-20 max-w-3xl">
+        <h1 className="text-5xl md:text-6xl font-bold font-sans tracking-tight text-ink leading-tight">Find a drawing teacher for your child.</h1>
+        <p className="mt-6 text-xl text-ink-light leading-relaxed">
+          Tell us where you are and when you want classes. We'll introduce you to an instructor who fits your schedule.
         </p>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2 mb-12">
-        <Card className="border border-slate-200/50 bg-white rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
-          <CardContent className="p-8">
-            <h3 className="font-semibold text-xl mb-4 text-ink tracking-tight font-sans">What children can learn</h3>
-            <ul className="list-disc list-inside text-ink-light space-y-2 text-base">
-              <li>Basic drawing & sketching</li>
-              <li>Colouring (crayons, pastels, watercolours)</li>
-              <li>Craft and creative expression</li>
-              <li>School art project support</li>
-              <li>Hobby art and relaxation</li>
+      <div className="grid md:grid-cols-2 gap-8 mb-12">
+        <Card className="border border-whisper bg-paper-dark rounded-[2rem] shadow-none">
+          <CardContent className="p-10">
+            <h3 className="font-semibold text-2xl mb-6 text-ink tracking-tight font-sans">What they can learn</h3>
+            <ul className="list-none text-ink-light space-y-4 text-lg">
+              <li className="flex items-start"><span className="text-terracotta mr-3">•</span> Basic drawing & sketching</li>
+              <li className="flex items-start"><span className="text-terracotta mr-3">•</span> Coloring (crayons, pastels, water-colors)</li>
+              <li className="flex items-start"><span className="text-terracotta mr-3">•</span> Craft and creative expression</li>
+              <li className="flex items-start"><span className="text-terracotta mr-3">•</span> School art project support</li>
+              <li className="flex items-start"><span className="text-terracotta mr-3">•</span> Hobby art and relaxation</li>
             </ul>
           </CardContent>
         </Card>
         
-        <Card className="border border-slate-200/50 bg-white rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
-          <CardContent className="p-8">
-            <h3 className="font-semibold text-xl mb-4 text-ink tracking-tight font-sans">Class formats</h3>
-            <ul className="list-disc list-inside text-ink-light space-y-2 text-base">
-              <li>Home visits</li>
-              <li>Teacher's location / studio</li>
-              <li>Small group classes</li>
-              <li>Online sessions</li>
+        <Card className="border border-whisper bg-white rounded-[2rem] shadow-none">
+          <CardContent className="p-10">
+            <h3 className="font-semibold text-2xl mb-6 text-ink tracking-tight font-sans">Class formats</h3>
+            <ul className="list-none text-ink-light space-y-4 text-lg">
+              <li className="flex items-start"><span className="text-terracotta mr-3">•</span> Home visits</li>
+              <li className="flex items-start"><span className="text-terracotta mr-3">•</span> Teacher's location / studio</li>
+              <li className="flex items-start"><span className="text-terracotta mr-3">•</span> Small group classes</li>
+              <li className="flex items-start"><span className="text-terracotta mr-3">•</span> Online sessions</li>
             </ul>
           </CardContent>
         </Card>
@@ -108,7 +108,7 @@ export function DrawingTeachers() {
           Safety note
         </h3>
         <p className="text-ink-light text-sm leading-relaxed">
-          For children's classes, we recommend that a parent or guardian stays involved during sessions. ShareNGrow reviews artist profiles and basic details before making introductions, but parents should speak directly with the teacher before confirming.
+          We verify portfolios and basic details before any introduction, but we recommend parents talk to the teacher directly and stay involved during early sessions.
         </p>
       </div>
 

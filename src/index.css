@@ -5,13 +5,13 @@
   --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
   
-  --color-paper: #f9fafb;
-  --color-paper-dark: #f1f5f9;
-  --color-ink: #09090b;
-  --color-ink-light: #52525b;
-  --color-terracotta: #10b981; /* Shift to Emerald */
-  --color-terracotta-dark: #059669;
-  --color-pine: #047857;
+  --color-paper: #FBFBFB;
+  --color-paper-dark: #F5F5F4;
+  --color-ink: #1C1917;
+  --color-ink-light: #57534E;
+  --color-terracotta: #C05621;
+  --color-terracotta-dark: #9C4221;
+  --color-whisper: rgba(28, 25, 23, 0.1);
 }
 
 @layer utilities {

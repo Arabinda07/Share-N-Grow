@@ -71,34 +71,34 @@ export function WallMurals() {
         <link rel="canonical" href="https://share-n-grow.vercel.app/wall-murals" />
       </Helmet>
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">Turn a blank wall into a custom painted space.</h1>
+        <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">Turn a blank wall into art.</h1>
         <p className="mt-4 text-lg text-ink-light max-w-2xl mx-auto">
-          Share your wall size, location, and style idea. We will try to connect you with suitable mural artists.
+          Tell us the wall size, location, and what you want to paint. We'll introduce you to muralists who do exactly this.
         </p>
       </div>
 
       <div className="grid gap-8 md:grid-cols-2 mb-12">
         <Card className="border border-slate-200/50 bg-paper-dark rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
           <CardContent className="p-8">
-            <h3 className="font-semibold text-xl mb-4 text-ink tracking-tight font-sans">Suitable for</h3>
+            <h3 className="font-semibold text-xl mb-4 text-ink tracking-tight font-sans">Who asks for this?</h3>
             <ul className="list-disc list-inside text-ink-light space-y-2 text-base">
               <li>Cafés and restaurants</li>
               <li>Offices and co-working spaces</li>
-              <li>Schools and play schools</li>
+              <li>Schools and play spaces</li>
               <li>Gyms and studios</li>
-              <li>Homes and private spaces</li>
+              <li>Private residences</li>
             </ul>
           </CardContent>
         </Card>
         
         <Card className="border border-slate-200/50 bg-white rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
           <CardContent className="p-8">
-            <h3 className="font-semibold text-xl mb-4 text-ink tracking-tight font-sans">How mural projects work</h3>
+            <h3 className="font-semibold text-xl mb-4 text-ink tracking-tight font-sans">How it works</h3>
             <ol className="list-decimal list-inside text-ink-light space-y-2 text-base">
-              <li>Share wall photo and approximate size</li>
-              <li>Artist suggests concept or Quote</li>
-              <li>Timeline and material needs are discussed</li>
-              <li>Work starts after confirmation</li>
+              <li>Send us wall dimensions and a reference idea.</li>
+              <li>An artist sends back a concept and a quote.</li>
+              <li>You talk timeline, scaffolding, and paint costs.</li>
+              <li>They paint.</li>
             </ol>
           </CardContent>
         </Card>

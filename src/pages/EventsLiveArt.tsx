@@ -71,16 +71,16 @@ export function EventsLiveArt() {
         <link rel="canonical" href="https://share-n-grow.vercel.app/events-live-art" />
       </Helmet>
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">Book live artists for weddings, events, and special gatherings.</h1>
+        <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">Book live artists for weddings and events.</h1>
         <p className="mt-4 text-lg text-ink-light max-w-2xl mx-auto">
-          Live sketching, guest caricatures, event painting, and custom art experiences.
+          We bring fast-flow watercolor caricatures, live guest sketching, and live canvas painting to premium gatherings.
         </p>
       </div>
 
       <div className="grid gap-8 md:grid-cols-2 mb-12">
         <Card className="border border-slate-200/50 bg-paper-dark rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
           <CardContent className="p-8">
-            <h3 className="font-semibold text-xl mb-4 text-ink tracking-tight font-sans">Popular Services</h3>
+            <h3 className="font-semibold text-xl mb-4 text-ink tracking-tight font-sans">Popular services</h3>
             <ul className="list-disc list-inside text-ink-light space-y-2 text-base">
               <li>Live guest sketching</li>
               <li>Live canvas painting</li>
@@ -93,7 +93,7 @@ export function EventsLiveArt() {
         
         <Card className="border border-slate-200/50 bg-white rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
           <CardContent className="p-8">
-            <h3 className="font-semibold text-xl mb-4 text-ink tracking-tight font-sans">What we need to know</h3>
+            <h3 className="font-semibold text-xl mb-4 text-ink tracking-tight font-sans">Event details we need</h3>
             <ul className="list-disc list-inside text-ink-light space-y-2 text-base">
               <li>Event date and time</li>
               <li>Venue location</li>

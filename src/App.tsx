@@ -39,7 +39,7 @@ export default function App() {
       <BrowserRouter>
         <div className="min-h-screen flex flex-col bg-paper font-sans text-ink">
           <Navbar />
-          <main className="flex-grow">
+          <main className="flex-grow overflow-x-hidden w-full max-w-full">
             <Suspense fallback={<PageLoader />}>
               <Routes>
                 <Route path="/" element={<Home />} />

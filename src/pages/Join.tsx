@@ -125,7 +125,7 @@ export function Join() {
   }
 
   return (
-    <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 min-h-screen">
+    <div className="container mx-auto max-w-3xl px-4 py-24 sm:py-32 lg:px-8 min-h-[90vh]">
       <Helmet>
         <title>Apply as Artist | ShareNGrow</title>
         <meta name="description" content="Apply to join our vetted community of local drawing teachers, muralists, and live event artists across Bengal." />
