@@ -169,7 +169,9 @@ export function Admin() {
             </h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {inquiries.length === 0 ? (
-                <p className="text-ink-light text-sm py-4">No inquiries found.</p>
+                <div className="md:col-span-2 lg:col-span-3 py-12 text-center rounded-3xl border border-dashed border-whisper bg-white/50">
+                  <p className="text-ink-light font-medium">No client inquiries found.</p>
+                </div>
               ) : inquiries.map((req) => (
                 <Card key={req.id} className="border border-whisper bg-white shadow-none rounded-2xl">
                   <CardContent className="p-6 flex flex-col h-full">
@@ -220,7 +222,9 @@ export function Admin() {
             </h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {applications.length === 0 ? (
-                <p className="text-ink-light text-sm py-4">No applications found.</p>
+                <div className="md:col-span-2 lg:col-span-3 py-12 text-center rounded-3xl border border-dashed border-whisper bg-white/50">
+                  <p className="text-ink-light font-medium">No artist applications found.</p>
+                </div>
               ) : applications.map((app) => (
                 <Card key={app.id} className="border border-whisper bg-white shadow-none rounded-2xl">
                   <CardContent className="p-6 flex flex-col h-full">

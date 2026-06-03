@@ -1,10 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-sans: "Raleway", ui-sans-serif, system-ui, sans-serif;
+  --font-serif:
+    "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times,
+    serif;
 
-  
   --color-paper: var(--app-paper);
   --color-paper-dark: var(--app-paper-dark);
   --color-ink: var(--app-ink);
@@ -19,33 +20,33 @@
 
 :root {
   /* Sunlit Atrium Palette */
-  --app-paper: oklch(99% 0.01 100);      /* Crisp Morning Canvas */
+  --app-paper: oklch(99% 0.01 100); /* Crisp Morning Canvas */
   --app-paper-dark: oklch(96% 0.01 100); /* Soft Atrium Shadow */
-  --app-ink: oklch(25% 0.02 200);        /* Deep Slate */
-  --app-ink-light: oklch(50% 0.02 200);  /* Soft Slate */
-  
+  --app-ink: oklch(25% 0.02 200); /* Deep Slate */
+  --app-ink-light: oklch(50% 0.02 200); /* Soft Slate */
+
   --app-terracotta: oklch(55% 0.16 142); /* Vibrant Leaf Green (Primary) */
   --app-terracotta-dark: oklch(48% 0.14 142);
-  
-  --app-secondary: oklch(80% 0.14 70);   /* Sunlit Yellow / Morning Ray */
+
+  --app-secondary: oklch(80% 0.14 70); /* Sunlit Yellow / Morning Ray */
   --app-secondary-dark: oklch(72% 0.14 70);
-  
-  --app-whisper: oklch(25% 0.02 200 / 0.10); /* Transparent Slate Border */
+
+  --app-whisper: oklch(25% 0.02 200 / 0.1); /* Transparent Slate Border */
   --app-white: oklch(100% 0 0);
 }
 
 .dark {
-  --app-paper: oklch(20% 0.02 200);      /* Night Slate Canvas */
+  --app-paper: oklch(20% 0.02 200); /* Night Slate Canvas */
   --app-paper-dark: oklch(24% 0.02 200); /* Elevated Night Slate */
-  --app-ink: oklch(95% 0.01 200);        /* Pale Slate Text */
-  --app-ink-light: oklch(75% 0.01 200);  /* Muted Slate Text */
-  
+  --app-ink: oklch(95% 0.01 200); /* Pale Slate Text */
+  --app-ink-light: oklch(75% 0.01 200); /* Muted Slate Text */
+
   --app-terracotta: oklch(65% 0.16 142); /* Bright Leaf Green */
   --app-terracotta-dark: oklch(58% 0.14 142);
-  
-  --app-secondary: oklch(85% 0.14 70);   /* Soft Sun */
+
+  --app-secondary: oklch(85% 0.14 70); /* Soft Sun */
   --app-secondary-dark: oklch(78% 0.12 70);
-  
+
   --app-whisper: oklch(95% 0.01 200 / 0.12);
   --app-white: oklch(24% 0.01 200);
 }
@@ -60,6 +61,11 @@
   .animate-slide-down-fade {
     animation: slideDownFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     opacity: 0;
+  }
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    mix-blend-mode: multiply;
   }
 }
 
@@ -86,16 +92,22 @@ body {
     max-width: 65ch;
     line-height: 1.65;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     letter-spacing: -0.02em;
   }
-  
+
   h1 {
     line-height: 1.1;
   }
-  
-  h2, h3 {
+
+  h2,
+  h3 {
     line-height: 1.25;
   }
 }
@@ -108,4 +120,3 @@ html {
   background-color: var(--app-terracotta);
   color: var(--app-paper);
 }
-

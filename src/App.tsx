@@ -68,6 +68,9 @@ const Terms = lazy(() =>
 const Contact = lazy(() =>
   import("./pages/Contact").then((module) => ({ default: module.Contact })),
 );
+const NotFound = lazy(() =>
+  import("./pages/NotFound").then((module) => ({ default: module.NotFound })),
+);
 
 // Loading fallback
 const PageLoader = () => (
@@ -85,10 +88,19 @@ export default function App() {
     <HelmetProvider>
       <BrowserRouter>
         <ScrollToTop />
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 bg-white px-4 py-2 rounded-xl border border-ink text-ink font-medium shadow-lg"
+        >
+          Skip to content
+        </a>
         <div className="min-h-screen flex flex-col bg-paper font-sans text-ink relative">
           <Navbar />
           <Suspense fallback={<PageLoader />}>
-            <main className="flex-grow overflow-x-hidden w-full max-w-full">
+            <main
+              id="main-content"
+              className="flex-grow overflow-x-hidden w-full max-w-full relative z-0"
+            >
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/hire" element={<Hire />} />
@@ -105,6 +117,7 @@ export default function App() {
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
             <Footer />

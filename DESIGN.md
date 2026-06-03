@@ -35,14 +35,14 @@ _(Note: The "AI Purple/Neon" aesthetic, oversaturated colors, and cold blues are
 
 ## 3. Typography Rules
 
-- **Font Family:** `Montserrat` for body text and sans-serif uses, `Playfair Display` for display/headlines to give elegant, warm, traditional art vibes. _(Inter and generic system standard web fonts are banned for display text)._
+- **Font Family:** `Raleway` for body text and sans-serif uses, `Playfair Display` for display/headlines to give elegant, warm, structural, and artistic vibes. _(Inter and generic system standard web fonts are banned for display text)._
 - **Display/Headlines:** Track-tight (`tracking-tight`), weight-driven hierarchy (Bold 700+). Generous sizing (`text-4xl` to `text-5xl`). Never screaming, just confident.
 - **Body:** Relaxed leading (`leading-relaxed`), typically 65-character max-width, strictly colored in Ink Light for reduced fatigue. Minimum size `text-base` (never shrink below 14px/16px).
 - **Hierarchy:** Established through scale and color contrast (Headline = Ink, Body = Ink Light), rather than purely making things bolder.
 
 ## 4. Component Stylings
 
-- **Cards & Containers:** Ultra-generous border radii (`rounded-[2rem]` or `32px`). Pure white fill with a wide, diffused whisper shadow (`shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]`). Internal padding is strictly generous (`p-6` to `p-8`).
+- **Cards & Containers:** Ultra-generous border radii (`rounded-[2rem]` or `32px`). Pure white fill with a wide, diffused whisper shadow (`shadow-[0_8px_30px_oklch(25%_0.02_200_/_0.04)]`—tinted shadows aligned to `Ink` color instead of pure black). Internal padding is strictly generous (`p-6` to `p-8`).
 - **Buttons:** Pill-like or heavily rounded (`rounded-xl`). Primary buttons use solid Ink fill with white text; active states feature a tactile push `active:scale-[0.98]`. No outer glow. Hover states slightly lift and lighten.
 - **Inputs & Textareas:** Large click targets (`min-h-[48px]`), highly rounded (`rounded-xl`), label above in pure Ink, input placeholder in faint Ink Light. Focus rings jump to the Terracotta accent.
 - **Loaders:** Skeletal shimmer matching the exact bounding box of the expected layout. No circular generic spinners.
