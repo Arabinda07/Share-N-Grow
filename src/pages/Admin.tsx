@@ -3,7 +3,7 @@ import { supabase, hasSupabaseConfig } from '../lib/supabase';
 import { Inquiry, JoinRequest } from '../types';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { formatDistanceToNow } from 'date-fns';
-import { ExclamationCircleIcon as AlertCircle, CalendarIcon as Calendar } from '@heroicons/react/24/outline';
+import { ExclamationTriangleIcon as AlertCircle, CalendarIcon as Calendar } from '@radix-ui/react-icons';
 
 export function Admin() {
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
@@ -168,7 +168,7 @@ export function Admin() {
       <div className="container mx-auto flex min-h-[60vh] max-w-sm flex-col items-center justify-center px-4">
         <Card className="w-full overflow-hidden border-ink-light/20 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] rounded-[2rem]">
           <CardContent className="p-8">
-            <h2 className="mb-6 text-2xl font-bold text-center tracking-tight text-ink font-sans">Admin Login</h2>
+            <h2 className="mb-6 text-2xl font-bold text-center tracking-tight text-ink font-serif">Admin Login</h2>
             {authError && (
               <div className="mb-4 text-xs font-semibold text-red-600 bg-red-50 p-3 rounded-xl border border-red-100">
                 {authError}
@@ -207,7 +207,7 @@ export function Admin() {
   return (
     <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8 min-h-screen">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">Admin Dashboard</h1>
+        <h1 className="text-4xl font-bold font-serif tracking-tight text-ink sm:text-5xl">Admin Dashboard</h1>
         <button 
           onClick={handleLogOut}
           className="rounded-xl px-4 py-2 border border-ink-light/20 text-sm font-medium hover:bg-paper-dark transition-colors"
@@ -228,7 +228,7 @@ export function Admin() {
         <div className="space-y-12">
           {/* Inquiries */}
           <section>
-            <h2 className="mb-6 text-xl flex items-center font-semibold text-ink border-b border-ink-light/10 pb-4 font-sans tracking-tight">
+            <h2 className="mb-6 text-xl flex items-center font-semibold text-ink border-b border-ink-light/10 pb-4 font-serif tracking-tight">
               Recent Client Inquiries
               <span className="ml-3 rounded-full bg-paper-dark px-3 py-1 text-xs font-bold text-terracotta border border-ink-light/10">
                 {inquiries.length} requests
@@ -241,7 +241,7 @@ export function Admin() {
                 <Card key={req.id} className="border-ink-light/20 bg-white shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] rounded-[2rem]">
                   <CardContent className="p-6 flex flex-col h-full">
                     <div className="flex justify-between items-start mb-4">
-                      <h3 className="font-semibold text-lg line-clamp-1 text-ink font-sans tracking-tight">{req.name}</h3>
+                      <h3 className="font-semibold text-lg line-clamp-1 text-ink font-serif tracking-tight">{req.name}</h3>
                       <span className="rounded-full bg-paper-dark border border-ink-light/10 px-3 py-1 text-xs capitalize text-ink-light font-bold">
                         {req.status}
                       </span>
@@ -279,7 +279,7 @@ export function Admin() {
 
           {/* Applications */}
           <section>
-            <h2 className="mb-6 text-xl flex items-center font-semibold text-ink border-b border-ink-light/10 pb-4 font-sans tracking-tight">
+            <h2 className="mb-6 text-xl flex items-center font-semibold text-ink border-b border-ink-light/10 pb-4 font-serif tracking-tight">
               Artist Join Requests
               <span className="ml-3 rounded-full bg-paper border border-ink-light/10 px-3 py-1 text-xs font-bold text-ink-light">
                 {applications.length} applied
@@ -292,7 +292,7 @@ export function Admin() {
                 <Card key={app.id} className="border-ink-light/20 bg-white shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] rounded-[2rem]">
                   <CardContent className="p-6 flex flex-col h-full">
                     <div className="flex justify-between items-start mb-4">
-                      <h3 className="font-semibold text-lg line-clamp-1 text-ink font-sans tracking-tight">{app.name}</h3>
+                      <h3 className="font-semibold text-lg line-clamp-1 text-ink font-serif tracking-tight">{app.name}</h3>
                       <span className="rounded-full bg-paper border border-ink-light/10 px-3 py-1 text-xs capitalize text-ink-light font-bold">
                         {app.status}
                       </span>

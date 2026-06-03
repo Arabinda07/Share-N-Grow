@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
-import { Bars3Icon as Menu } from '@heroicons/react/24/outline';
+import { HamburgerMenuIcon as Menu, SunIcon, MoonIcon } from '@radix-ui/react-icons';
 import { Button } from '../ui/button';
 import { useState } from 'react';
+import { useTheme } from '../../hooks/use-theme';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-ink-light/10 bg-white/80 backdrop-blur-md">
@@ -13,7 +15,7 @@ export function Navbar() {
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-3">
               <img src="/favicon.svg" alt="ShareNGrow Logo" className="h-8 w-8 object-contain" />
-              <span className="text-xl font-medium font-sans tracking-tighter text-ink">
+              <span className="text-xl font-medium font-serif tracking-tighter text-ink">
                 ShareNGrow
               </span>
             </Link>
@@ -33,18 +35,34 @@ export function Navbar() {
             <Link to="/faq" className="text-sm font-medium text-ink hover:text-terracotta transition-colors duration-300">
               FAQ
             </Link>
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full border border-whisper bg-paper hover:bg-paper-dark transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <SunIcon className="w-5 h-5 text-ink" /> : <MoonIcon className="w-5 h-5 text-ink" />}
+            </button>
             <Link to="/hire">
               <Button size="sm" className="bg-ink hover:bg-ink-light text-white rounded-xl px-6 h-10 transition-all duration-300 ease-out active:scale-[0.98] shadow-none">Get Started</Button>
             </Link>
           </nav>
 
           {/* Mobile Menu Toggle */}
-          <button 
-            className="md:hidden p-2 text-ink-light"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            <Menu className="h-6 w-6" />
-          </button>
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full border border-whisper bg-paper hover:bg-paper-dark transition-colors text-ink"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <SunIcon className="w-5 h-5" /> : <MoonIcon className="w-5 h-5" />}
+            </button>
+            <button 
+              className="p-2 text-ink-light"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              <Menu className="h-6 w-6 text-ink" />
+            </button>
+          </div>
         </div>
       </div>
 

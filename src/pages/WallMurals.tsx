@@ -6,7 +6,7 @@ import { Textarea } from '../components/ui/textarea';
 import { Card, CardContent } from '../components/ui/card';
 import React, { useState } from 'react';
 import { supabase, hasSupabaseConfig } from '../lib/supabase';
-import { CheckCircleIcon as CheckCircle2 } from '@heroicons/react/24/outline';
+import { CheckCircledIcon as CheckCircle2 } from '@radix-ui/react-icons';
 
 export function WallMurals() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -71,7 +71,7 @@ export function WallMurals() {
         <link rel="canonical" href="https://share-n-grow.vercel.app/wall-murals" />
       </Helmet>
       <div className="mb-12 mt-6 max-w-4xl mx-auto px-4 md:px-0">
-        <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold tracking-tighter text-ink leading-[1.1] font-sans">Turn a blank wall into art.</h1>
+        <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold tracking-tighter text-ink leading-[1.1] font-serif">Turn a blank wall into art.</h1>
         <p className="mt-4 md:mt-6 text-lg md:text-xl text-ink-light leading-relaxed">
           Tell us the wall size, location, and what you want to paint. We'll introduce you to muralists who do exactly this.
         </p>
@@ -80,7 +80,7 @@ export function WallMurals() {
       <div className="grid lg:grid-cols-2 gap-6 md:gap-8 mb-16 max-w-4xl mx-auto px-4 md:px-0">
         <Card className="border border-whisper bg-paper-dark rounded-[1.5rem] md:rounded-[2.5rem] shadow-none">
           <CardContent className="p-8 md:p-10">
-            <h3 className="font-bold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-sans">Who asks for this?</h3>
+            <h3 className="font-bold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-serif">Who asks for this?</h3>
             <ul className="list-none text-ink-light space-y-3 md:space-y-4 text-base md:text-lg">
               <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Cafés and restaurants</li>
               <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Offices and co-working spaces</li>
@@ -93,7 +93,7 @@ export function WallMurals() {
         
         <Card className="border border-whisper bg-white rounded-[1.5rem] md:rounded-[2.5rem] shadow-none">
           <CardContent className="p-8 md:p-10">
-            <h3 className="font-bold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-sans">How it works</h3>
+            <h3 className="font-bold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-serif">How it works</h3>
             <ol className="list-none text-ink-light space-y-3 md:space-y-4 text-base md:text-lg counter-reset-works">
               <li className="flex items-start"><span className="font-mono text-xs bg-ink text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 mt-1 shrink-0">1</span> Send us wall dimensions and a reference idea.</li>
               <li className="flex items-start"><span className="font-mono text-xs bg-ink text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 mt-1 shrink-0">2</span> An artist sends back a concept and a quote.</li>

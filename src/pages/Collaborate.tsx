@@ -4,7 +4,7 @@ import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Card, CardContent } from '../components/ui/card';
 import { supabase, hasSupabaseConfig } from '../lib/supabase';
-import { CheckCircleIcon as CheckCircle2 } from '@heroicons/react/24/outline';
+import { CheckCircledIcon as CheckCircle2 } from '@radix-ui/react-icons';
 import { Link } from 'react-router-dom';
 
 export function Collaborate() {
@@ -65,9 +65,9 @@ export function Collaborate() {
 
   return (
     <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 min-h-screen">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold tracking-tight text-ink sm:text-5xl font-sans">Collaborate with ShareNGrow.</h1>
-        <p className="mt-4 text-lg text-ink-light max-w-2xl mx-auto">
+      <div className="mb-14 md:mb-20 px-4">
+        <h1 className="text-4xl font-bold tracking-tight text-ink sm:text-5xl font-serif">Collaborate with ShareNGrow.</h1>
+        <p className="mt-4 text-lg text-ink-light max-w-2xl">
           We partner with schools, offices, cafés, NGOs, colleges, cultural groups, and event partners to bring more art into local spaces.
         </p>
       </div>
@@ -75,25 +75,25 @@ export function Collaborate() {
       <div className="grid gap-6 md:grid-cols-2 mb-12">
         <Card className="border-whisper bg-paper rounded-[2.5rem] shadow-none">
           <CardContent className="p-8">
-            <h3 className="font-semibold text-lg text-ink tracking-tight font-sans mb-3">For Schools & Colleges</h3>
+            <h3 className="font-semibold text-lg text-ink tracking-tight font-serif mb-3">For Schools & Colleges</h3>
              <p className="text-base text-ink-light leading-relaxed">Hire guest faculty, organise specialized art workshops, or find judges for cultural fests.</p>
           </CardContent>
         </Card>
         <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none">
           <CardContent className="p-8">
-            <h3 className="font-semibold text-lg text-ink tracking-tight font-sans mb-3">For Offices & Local Businesses</h3>
+            <h3 className="font-semibold text-lg text-ink tracking-tight font-serif mb-3">For Offices & Local Businesses</h3>
              <p className="text-base text-ink-light leading-relaxed">Team-building art workshops, office murals, or finding local art for your café walls.</p>
           </CardContent>
         </Card>
         <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none">
           <CardContent className="p-8">
-            <h3 className="font-semibold text-lg text-ink tracking-tight font-sans mb-3">For Events & Planners</h3>
+            <h3 className="font-semibold text-lg text-ink tracking-tight font-serif mb-3">For Events & Planners</h3>
              <p className="text-base text-ink-light leading-relaxed">Bulk hire live artists for large festivals, weddings, or corporate offsites.</p>
           </CardContent>
         </Card>
         <Card className="border-whisper bg-paper rounded-[2.5rem] shadow-none">
           <CardContent className="p-8">
-            <h3 className="font-semibold text-lg text-ink tracking-tight font-sans mb-3">For Cultural Groups & NGOs</h3>
+            <h3 className="font-semibold text-lg text-ink tracking-tight font-serif mb-3">For Cultural Groups & NGOs</h3>
              <p className="text-base text-ink-light leading-relaxed">Partner with our network for community art projects, charity auctions, or public installations.</p>
           </CardContent>
         </Card>

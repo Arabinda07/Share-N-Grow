@@ -4,7 +4,8 @@ import { supabase, hasSupabaseConfig } from '../lib/supabase';
 import { Artist } from '../types';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { MapPinIcon as MapPin, UserIcon as User, CheckCircleIcon as CheckCircle2, SwatchIcon as Palette, ExclamationCircleIcon as AlertCircle } from '@heroicons/react/24/outline';
+import { PersonIcon as User, CheckCircledIcon as CheckCircle2, ExclamationTriangleIcon as AlertCircle } from '@radix-ui/react-icons';
+import { MapPin, Palette } from '@phosphor-icons/react';
 
 const Instagram = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -88,7 +89,7 @@ export function ArtistProfile() {
       <div className="container mx-auto py-32 px-4 text-center">
         <div className="py-12 px-6 bg-red-50 rounded-[2rem] border border-red-100 flex flex-col items-center max-w-2xl mx-auto">
           <AlertCircle className="h-10 w-10 text-red-400 mb-4" />
-          <h2 className="text-xl font-bold font-sans tracking-tight mb-2 text-red-900">Something went wrong</h2>
+          <h2 className="text-xl font-bold font-serif tracking-tight mb-2 text-red-900">Something went wrong</h2>
           <p className="text-red-700 mb-6">{error}</p>
           <Button onClick={() => window.location.reload()} variant="outline" className="bg-white border-red-200 text-red-700 hover:bg-red-50 rounded-full px-6">Reload Page</Button>
         </div>
@@ -99,7 +100,7 @@ export function ArtistProfile() {
   if (!artist) {
     return (
       <div className="container mx-auto py-32 px-4 text-center">
-        <h2 className="text-2xl font-bold font-sans tracking-tight mb-4 text-ink">Artist Not Found</h2>
+        <h2 className="text-2xl font-bold font-serif tracking-tight mb-4 text-ink">Artist Not Found</h2>
         <p className="text-ink-light mb-8">The artist you are looking for does not exist or has not been approved yet.</p>
         <Link to="/directory">
           <Button variant="outline" className="rounded-full px-6 shadow-none">Browse Directory</Button>
@@ -124,9 +125,9 @@ export function ArtistProfile() {
                 )}
              </div>
              <div>
-               <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">{artist.name}</h1>
+               <h1 className="text-4xl font-bold font-serif tracking-tight text-ink sm:text-5xl">{artist.name}</h1>
                <p className="flex items-center font-medium text-ink-light mt-3 text-lg">
-                  <MapPin className="mr-2 h-5 w-5 text-terracotta" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></MapPin>
+                  <MapPin className="mr-2 h-5 w-5 text-terracotta" />
                   {artist.city}{artist.area ? `, ${artist.area}` : ''}
                </p>
                <div className="flex items-center gap-4 mt-6">
@@ -140,13 +141,13 @@ export function ArtistProfile() {
           </div>
 
           <div className="prose prose-stone max-w-none">
-            <h3 className="text-2xl font-semibold mb-4 text-ink font-sans tracking-tight">Biography</h3>
+            <h3 className="text-2xl font-semibold mb-4 text-ink font-serif tracking-tight">Biography</h3>
             <p className="text-lg text-ink-light whitespace-pre-wrap leading-relaxed">{artist.bio || "No biography provided."}</p>
           </div>
           
           <div className="grid gap-8 sm:grid-cols-2">
             <div>
-              <h3 className="text-lg font-semibold mb-4 text-ink font-sans">Mediums</h3>
+              <h3 className="text-lg font-semibold mb-4 text-ink font-serif">Mediums</h3>
               <div className="flex flex-wrap gap-2">
                 {artist.mediums?.length > 0 ? (
                    artist.mediums.map(m => (
@@ -161,7 +162,7 @@ export function ArtistProfile() {
             </div>
             
              <div>
-              <h3 className="text-lg font-semibold mb-4 text-ink font-sans">Languages</h3>
+              <h3 className="text-lg font-semibold mb-4 text-ink font-serif">Languages</h3>
                <div className="flex flex-wrap gap-2">
                 {artist.languages?.length > 0 ? (
                    artist.languages.map(l => (
@@ -177,7 +178,7 @@ export function ArtistProfile() {
           </div>
 
           <div>
-             <h3 className="text-2xl font-semibold mb-6 text-ink font-sans tracking-tight">Portfolio Samples</h3>
+             <h3 className="text-2xl font-semibold mb-6 text-ink font-serif tracking-tight">Portfolio Samples</h3>
              <div className="bg-paper p-12 rounded-[2.5rem] border border-whisper text-center text-ink-light flex flex-col items-center justify-center min-h-[300px]">
                <div className="h-16 w-16 mb-4 rounded-2xl bg-white border border-whisper flex items-center justify-center shadow-sm">
                  <Palette className="h-8 w-8 opacity-20" />
@@ -191,7 +192,7 @@ export function ArtistProfile() {
         <div className="space-y-6">
           <Card className="border-whisper bg-white rounded-[2.5rem] shadow-none sticky top-24">
             <CardContent className="p-8">
-               <h3 className="font-semibold text-xl mb-6 text-ink tracking-tight font-sans">Availability</h3>
+               <h3 className="font-semibold text-xl mb-6 text-ink tracking-tight font-serif">Availability</h3>
                <ul className="space-y-5 mb-8">
                  <li className="flex items-start">
                    {artist.available_for_commissions ? 

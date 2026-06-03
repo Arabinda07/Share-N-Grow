@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
-import { ArrowRightIcon as ArrowRight } from '@heroicons/react/24/outline';
+import { WhatsappLogo } from '@phosphor-icons/react';
+import { ArrowRightIcon as ArrowRight } from '@radix-ui/react-icons';
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -13,11 +14,11 @@ gsap.registerPlugin(ScrollTrigger);
 // Mobile Contextual Bottom Sticky CTA
 const MobileBottomCTA = () => (
   <div className="md:hidden fixed bottom-6 left-0 right-0 z-40 px-4 pointer-events-none flex justify-center">
-    <div className="bg-ink/90 backdrop-blur-md text-white p-2 rounded-full shadow-2xl flex items-center justify-between pointer-events-auto border border-white/10 w-full max-w-[320px] transition-transform duration-300">
-      <span className="text-sm font-medium pl-4 opacity-90">Ready to start?</span>
-      <Link to="/hire" className="bg-white text-ink hover:bg-paper font-semibold text-sm px-6 py-2.5 rounded-full transition-transform active:scale-95 shadow-sm">
-        Hire an Artist
-      </Link>
+    <div className="bg-ink/90 backdrop-blur-md text-white p-2.5 rounded-full shadow-2xl flex items-center justify-between pointer-events-auto border border-white/10 w-full max-w-[340px] transition-transform duration-300">
+      <span className="text-sm font-medium pl-4 opacity-90 pr-2">Are you an artist?</span>
+      <a href="https://chat.whatsapp.com/JtEre6AP4zaEXgJVu8edVe" target="_blank" rel="noopener noreferrer" className="bg-[#25D366] text-[#FFFFFF] hover:bg-[#1DA851] font-semibold text-sm px-5 py-2.5 rounded-full transition-transform active:scale-95 shadow-sm inline-flex items-center gap-2">
+        <WhatsappLogo weight="fill" className="w-4 h-4" /> Join Us
+      </a>
     </div>
   </div>
 );
@@ -92,7 +93,7 @@ export function Home() {
       
       {/* Editorial Left-Aligned Hero */}
       <section className="relative px-6 pt-28 md:pt-40 pb-24 md:pb-48 lg:px-12 w-full max-w-7xl mx-auto flex flex-col items-start justify-center">
-        <h1 className="hero-element text-[clamp(2.75rem,8vw,7rem)] font-bold font-sans tracking-tighter text-ink leading-[1] mb-8 md:mb-10 max-w-[900px]">
+        <h1 className="hero-element text-[clamp(2.75rem,8vw,7rem)] font-bold font-serif tracking-tighter text-ink leading-[1] mb-8 md:mb-10 max-w-[900px]">
           Find the right <br /> local artist.
         </h1>
         <p className="hero-element text-xl md:text-3xl text-ink-light leading-snug max-w-[35ch] mb-10 md:mb-14">
@@ -152,7 +153,7 @@ export function Home() {
       {/* GSAP Pinned Scrubbing Text */}
       <section className="reveal-section py-32 md:py-48 bg-ink text-white relative flex flex-col justify-center min-h-[60vh] md:min-h-[80vh]">
          <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-            <h2 className="reveal-text text-3xl md:text-6xl lg:text-[5rem] font-sans font-medium leading-[1.1] md:leading-[1.05] tracking-tight text-white text-left max-w-5xl">
+            <h2 className="reveal-text text-3xl md:text-6xl lg:text-[5rem] font-serif font-medium leading-[1.1] md:leading-[1.05] tracking-tight text-white text-left max-w-5xl">
               Tell us what you need. We skip the job boards and introduce you straight to an artist who can do it.
             </h2>
          </div>
@@ -162,7 +163,7 @@ export function Home() {
       <section className="workflow-container py-24 md:py-56 px-6 lg:px-12 bg-paper">
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-12 md:gap-16 lg:gap-32 items-start">
           <div className="workflow-title lg:col-span-6 md:h-[50vh] flex flex-col justify-center">
-            <h2 className="text-[clamp(2.5rem,6vw,5rem)] font-bold font-sans tracking-tight text-ink mb-4 md:mb-8 leading-[1]">How it works</h2>
+            <h2 className="text-[clamp(2.5rem,6vw,5rem)] font-bold font-serif tracking-tight text-ink mb-4 md:mb-8 leading-[1]">How it works</h2>
             <p className="text-xl md:text-2xl text-ink-light leading-snug">We read your brief. We check portfolios. We make the intro.</p>
           </div>
           <div className="lg:col-span-6 space-y-16 md:space-y-32 py-10 md:py-[25vh]">
@@ -184,6 +185,27 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      {/* WhatsApp Community Section */}
+      <section className="py-24 md:py-32 px-6 lg:px-12 bg-white border-t border-whisper flex justify-center">
+        <div className="max-w-4xl w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
+          <div className="max-w-2xl">
+            <div className="h-16 w-16 bg-[#25D366]/10 rounded-2xl flex items-center justify-center mb-6">
+              <WhatsappLogo className="w-8 h-8 text-[#25D366]" weight="regular" />
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold font-serif tracking-tight text-ink mb-4">Join the Community</h2>
+            <p className="text-lg md:text-xl text-ink-light leading-relaxed">
+              Our main goal is to connect artists and clients directly. Join our WhatsApp community to stay updated on new projects, workshops, and calls for artists.
+            </p>
+          </div>
+          <div className="shrink-0">
+            <a href="https://chat.whatsapp.com/JtEre6AP4zaEXgJVu8edVe" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 text-base md:text-lg font-medium rounded-2xl text-[#FFFFFF] bg-[#25D366] hover:bg-[#1DA851] shadow-lg shadow-[#25D366]/20 transition-all active:scale-[0.98]">
+              Join the Community
+            </a>
+          </div>
+        </div>
+      </section>
+
       <MobileBottomCTA />
     </div>
   );

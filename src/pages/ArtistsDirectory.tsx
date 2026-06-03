@@ -3,7 +3,8 @@ import { supabase, hasSupabaseConfig } from '../lib/supabase';
 import { Artist, SERVICES } from '../types';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { MapPinIcon as MapPin, UserIcon as User, ExclamationCircleIcon as AlertCircle } from '@heroicons/react/24/outline';
+import { MapPin } from '@phosphor-icons/react';
+import { PersonIcon as User, ExclamationTriangleIcon as AlertCircle } from '@radix-ui/react-icons';
 import { Link } from 'react-router-dom';
 
 export function ArtistsDirectory() {
@@ -58,7 +59,7 @@ export function ArtistsDirectory() {
   if (!hasSupabaseConfig) {
     return (
       <div className="container mx-auto py-20 px-4 text-center">
-        <h2 className="text-2xl font-bold font-sans tracking-tight mb-4 text-ink">Directory Not Ready</h2>
+        <h2 className="text-2xl font-bold font-serif tracking-tight mb-4 text-ink">Directory Not Ready</h2>
         <p className="text-ink-light">Please configure the database to view artists.</p>
       </div>
     );
@@ -67,7 +68,7 @@ export function ArtistsDirectory() {
   return (
     <div className="container mx-auto px-4 py-20 lg:py-32 xl:px-8 max-w-[1400px] min-h-[90vh]">
       <div className="mb-14 md:mb-20 max-w-3xl">
-        <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold font-sans tracking-tighter text-ink leading-[1.05]">Approved Artists</h1>
+        <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold font-serif tracking-tighter text-ink leading-[1.05]">Approved Artists</h1>
         <p className="mt-6 md:mt-8 text-xl md:text-2xl text-ink-light leading-snug">
           Browse vetted local artists available for work.
         </p>
@@ -138,7 +139,7 @@ export function ArtistsDirectory() {
                </div>
                
                <CardContent className="p-6 md:p-8 flex flex-col flex-grow bg-transparent">
-                 <h2 className="text-xl md:text-2xl font-bold font-sans tracking-tight text-ink line-clamp-1">{artist.name}</h2>
+                 <h2 className="text-xl md:text-2xl font-bold font-serif tracking-tight text-ink line-clamp-1">{artist.name}</h2>
                  <p className="flex items-center text-sm md:text-base text-ink-light mt-2 font-medium">
                     <MapPin className="mr-1.5 h-4 w-4 text-terracotta shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></MapPin>
                     <span className="truncate">{artist.city}{artist.area ? `, ${artist.area}` : ''}</span>

@@ -6,7 +6,7 @@ import { Textarea } from '../components/ui/textarea';
 import { Card, CardContent } from '../components/ui/card';
 import React, { useState } from 'react';
 import { supabase, hasSupabaseConfig } from '../lib/supabase';
-import { CheckCircleIcon as CheckCircle2, ExclamationCircleIcon as AlertCircle } from '@heroicons/react/24/outline';
+import { CheckCircledIcon as CheckCircle2, ExclamationTriangleIcon as AlertCircle } from '@radix-ui/react-icons';
 
 export function DrawingTeachers() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -69,7 +69,7 @@ export function DrawingTeachers() {
         <link rel="canonical" href="https://share-n-grow.vercel.app/drawing-teachers" />
       </Helmet>
       <div className="mb-12 md:mb-20 max-w-3xl px-4 md:px-0">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-sans tracking-tight text-ink leading-tight">Find a drawing teacher for your child.</h1>
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-serif tracking-tight text-ink leading-tight">Find a drawing teacher for your child.</h1>
         <p className="mt-4 md:mt-6 text-lg md:text-xl text-ink-light leading-relaxed">
           Tell us where you are and when you want classes. We'll introduce you to an instructor who fits your schedule.
         </p>
@@ -78,7 +78,7 @@ export function DrawingTeachers() {
       <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-12 px-4 md:px-0">
         <Card className="border border-whisper bg-paper-dark rounded-[1.5rem] md:rounded-[2rem] shadow-none">
           <CardContent className="p-8 md:p-10">
-            <h3 className="font-semibold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-sans">What they can learn</h3>
+            <h3 className="font-semibold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-serif">What they can learn</h3>
             <ul className="list-none text-ink-light space-y-3 md:space-y-4 text-base md:text-lg">
               <li className="flex items-start"><span className="text-terracotta mr-3">•</span> Basic drawing & sketching</li>
               <li className="flex items-start"><span className="text-terracotta mr-3">•</span> Coloring (crayons, pastels, water-colors)</li>
@@ -91,7 +91,7 @@ export function DrawingTeachers() {
         
         <Card className="border border-whisper bg-white rounded-[1.5rem] md:rounded-[2rem] shadow-none">
           <CardContent className="p-8 md:p-10">
-            <h3 className="font-semibold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-sans">Class formats</h3>
+            <h3 className="font-semibold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-serif">Class formats</h3>
             <ul className="list-none text-ink-light space-y-3 md:space-y-4 text-base md:text-lg">
               <li className="flex items-start"><span className="text-terracotta mr-3">•</span> Home visits</li>
               <li className="flex items-start"><span className="text-terracotta mr-3">•</span> Teacher's location / studio</li>
@@ -107,7 +107,7 @@ export function DrawingTeachers() {
            <AlertCircle className="w-6 h-6 text-terracotta" />
         </div>
         <div>
-          <h3 className="text-ink font-semibold text-lg mb-1 font-sans tracking-tight">
+          <h3 className="text-ink font-semibold text-lg mb-1 font-serif tracking-tight">
             Safety note
           </h3>
           <p className="text-ink-light leading-relaxed">

@@ -6,7 +6,7 @@ import { Textarea } from '../components/ui/textarea';
 import { Card, CardContent } from '../components/ui/card';
 import React, { useState } from 'react';
 import { supabase, hasSupabaseConfig } from '../lib/supabase';
-import { CheckCircleIcon as CheckCircle2 } from '@heroicons/react/24/outline';
+import { CheckCircledIcon as CheckCircle2 } from '@radix-ui/react-icons';
 
 export function EventsLiveArt() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -71,7 +71,7 @@ export function EventsLiveArt() {
         <link rel="canonical" href="https://share-n-grow.vercel.app/events-live-art" />
       </Helmet>
       <div className="mb-12 mt-6 max-w-4xl mx-auto px-4 md:px-0">
-        <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold tracking-tighter text-ink leading-[1.1] font-sans">Book live artists for weddings and events.</h1>
+        <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold tracking-tighter text-ink leading-[1.1] font-serif">Book live artists for weddings and events.</h1>
         <p className="mt-4 md:mt-6 text-lg md:text-xl text-ink-light leading-relaxed">
           We bring fast-flow watercolor caricatures, live guest sketching, and live canvas painting to premium gatherings.
         </p>
@@ -80,7 +80,7 @@ export function EventsLiveArt() {
       <div className="grid lg:grid-cols-2 gap-6 md:gap-8 mb-16 max-w-4xl mx-auto px-4 md:px-0">
         <Card className="border border-whisper bg-paper-dark rounded-[1.5rem] md:rounded-[2.5rem] shadow-none">
           <CardContent className="p-8 md:p-10">
-            <h3 className="font-bold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-sans">Popular services</h3>
+            <h3 className="font-bold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-serif">Popular services</h3>
             <ul className="list-none text-ink-light space-y-3 md:space-y-4 text-base md:text-lg">
               <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Live guest sketching</li>
               <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Live canvas painting</li>
@@ -93,7 +93,7 @@ export function EventsLiveArt() {
         
         <Card className="border border-whisper bg-white rounded-[1.5rem] md:rounded-[2.5rem] shadow-none">
           <CardContent className="p-8 md:p-10">
-            <h3 className="font-bold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-sans">Event details we need</h3>
+            <h3 className="font-bold text-xl md:text-2xl mb-4 md:mb-6 text-ink tracking-tight font-serif">Event details we need</h3>
             <ul className="list-none text-ink-light space-y-3 md:space-y-4 text-base md:text-lg">
               <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Event date and time</li>
               <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Venue location</li>

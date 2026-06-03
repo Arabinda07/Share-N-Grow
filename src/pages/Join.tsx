@@ -5,7 +5,7 @@ import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Card, CardContent } from '../components/ui/card';
 import { supabase, hasSupabaseConfig } from '../lib/supabase';
-import { CheckCircleIcon as CheckCircle2, ExclamationCircleIcon as AlertCircle } from '@heroicons/react/24/outline';
+import { CheckCircledIcon as CheckCircle2, ExclamationTriangleIcon as AlertCircle } from '@radix-ui/react-icons';
 import { Link } from 'react-router-dom';
 
 export function Join() {
@@ -131,9 +131,9 @@ export function Join() {
         <meta name="description" content="Apply to join our vetted community of local drawing teachers, muralists, and live event artists." />
         <link rel="canonical" href="https://share-n-grow.vercel.app/join" />
       </Helmet>
-      <div className="mb-10 md:mb-14 text-center px-4">
-        <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold tracking-tighter text-ink leading-[1.1] font-sans">Apply for the Directory</h1>
-        <p className="mt-4 md:mt-6 text-lg md:text-xl text-ink-light max-w-2xl mx-auto leading-relaxed">
+      <div className="mb-14 md:mb-20 px-4">
+        <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold tracking-tighter text-ink leading-[1.1] font-serif">Apply for the Directory</h1>
+        <p className="mt-4 md:mt-6 text-lg md:text-xl text-ink-light max-w-2xl leading-relaxed">
           ShareNGrow is currently accepting artists for teaching, murals, live event art, workshops, portraits, and selected custom work.
         </p>
       </div>

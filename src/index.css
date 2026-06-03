@@ -1,17 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+
   
-  --color-paper: #FBFBFB;
-  --color-paper-dark: #F5F5F4;
-  --color-ink: #1C1917;
-  --color-ink-light: #57534E;
-  --color-terracotta: #C05621;
-  --color-terracotta-dark: #9C4221;
-  --color-whisper: rgba(28, 25, 23, 0.1);
+  --color-paper: var(--app-paper);
+  --color-paper-dark: var(--app-paper-dark);
+  --color-ink: var(--app-ink);
+  --color-ink-light: var(--app-ink-light);
+  --color-terracotta: var(--app-terracotta);
+  --color-terracotta-dark: var(--app-terracotta-dark);
+  --color-whisper: var(--app-whisper);
+  --color-white: var(--app-white);
+}
+
+:root {
+  --app-paper: #FBFBFB;
+  --app-paper-dark: #F5F5F4;
+  --app-ink: #1C1917;
+  --app-ink-light: #57534E;
+  --app-terracotta: #C05621;
+  --app-terracotta-dark: #9C4221;
+  --app-whisper: rgba(28, 25, 23, 0.1);
+  --app-white: #FFFFFF;
+}
+
+.dark {
+  --app-paper: #121212;
+  --app-paper-dark: #1C1C1C;
+  --app-ink: #E5E5E5;
+  --app-ink-light: #A3A3A3;
+  --app-terracotta: #E27B49;
+  --app-terracotta-dark: #C05621;
+  --app-whisper: rgba(255, 255, 255, 0.15);
+  --app-white: #1E1E1E; /* Make cards have depth against the #121212 bg */
 }
 
 @layer utilities {
@@ -24,10 +48,29 @@
 }
 
 body {
-  background-color: var(--color-paper);
-  color: var(--color-ink);
+  background-color: var(--app-paper);
+  color: var(--app-ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  p {
+    max-width: 65ch;
+    line-height: 1.65;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.02em;
+  }
+  
+  h1 {
+    line-height: 1.1;
+  }
+  
+  h2, h3 {
+    line-height: 1.25;
+  }
 }
 
 html {
@@ -35,7 +78,7 @@ html {
 }
 
 ::selection {
-  background-color: var(--color-terracotta);
-  color: var(--color-paper);
+  background-color: var(--app-terracotta);
+  color: var(--app-paper);
 }
 

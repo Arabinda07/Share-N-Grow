@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Card, CardContent } from '../components/ui/card';
-import { ChevronDownIcon as ChevronDown, ChevronUpIcon as ChevronUp } from '@heroicons/react/24/outline';
+import { ChevronDownIcon as ChevronDown, ChevronUpIcon as ChevronUp } from '@radix-ui/react-icons';
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -58,9 +58,9 @@ export function FAQ() {
 
   return (
     <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8 max-w-4xl min-h-screen">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">Frequently Asked Questions</h1>
-        <p className="mt-4 text-lg text-ink-light">
+      <div className="mb-14 md:mb-20 px-4">
+        <h1 className="text-4xl font-bold font-serif tracking-tight text-ink sm:text-5xl">Frequently Asked Questions</h1>
+        <p className="mt-4 text-lg text-ink-light max-w-2xl">
           Everything you need to know about how ShareNGrow works.
         </p>
       </div>
@@ -88,8 +88,8 @@ export function FAQ() {
         ))}
       </div>
 
-      <div className="mt-16 text-center bg-paper p-8 rounded-[2.5rem] border border-whisper">
-        <h2 className="text-2xl font-bold text-ink mb-3 font-sans tracking-tight">Still have questions?</h2>
+      <div className="mt-16 bg-paper p-8 rounded-[2.5rem] border border-whisper flex flex-col items-start text-left">
+        <h2 className="text-2xl font-bold text-ink mb-3 font-serif tracking-tight">Still have questions?</h2>
         <p className="text-ink-light mb-6">
           If you couldn't find the answer to your question, feel free to contact us or submit an inquiry, and our team will get back to you.
         </p>

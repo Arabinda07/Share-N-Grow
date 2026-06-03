@@ -6,7 +6,7 @@ import { Textarea } from '../components/ui/textarea';
 import { Card, CardContent } from '../components/ui/card';
 import { SERVICES } from '../types';
 import { supabase, hasSupabaseConfig } from '../lib/supabase';
-import { CheckCircleIcon as CheckCircle2, ExclamationCircleIcon as AlertCircle } from '@heroicons/react/24/outline';
+import { CheckCircledIcon as CheckCircle2, ExclamationTriangleIcon as AlertCircle } from '@radix-ui/react-icons';
 import { Link, useSearchParams } from 'react-router-dom';
 
 export function Hire() {
@@ -82,9 +82,9 @@ export function Hire() {
         <meta name="description" content="Request custom art work, murals, live event art, or find a drawing teacher. We match you with vetted local professionals." />
         <link rel="canonical" href="https://share-n-grow.vercel.app/hire" />
       </Helmet>
-      <div className="mb-10 md:mb-14 text-center px-4">
-        <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold font-sans tracking-tighter text-ink leading-[1.1]">Hire an artist</h1>
-        <p className="mt-4 md:mt-6 text-lg md:text-xl text-ink-light max-w-2xl mx-auto leading-relaxed">
+      <div className="mb-14 md:mb-20 px-4">
+        <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold font-serif tracking-tighter text-ink leading-[1.1]">Hire an artist</h1>
+        <p className="mt-4 md:mt-6 text-lg md:text-xl text-ink-light max-w-2xl leading-relaxed">
           Tell us what you need. We'll review the brief and introduce you to an artist who can do it.
         </p>
       </div>

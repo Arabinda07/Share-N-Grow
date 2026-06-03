@@ -21,6 +21,9 @@ const Collaborate = lazy(() => import('./pages/Collaborate').then(module => ({ d
 const ArtistsDirectory = lazy(() => import('./pages/ArtistsDirectory').then(module => ({ default: module.ArtistsDirectory })));
 const ArtistProfile = lazy(() => import('./pages/ArtistProfile').then(module => ({ default: module.ArtistProfile })));
 const FAQ = lazy(() => import('./pages/FAQ').then(module => ({ default: module.FAQ })));
+const Privacy = lazy(() => import('./pages/Privacy').then(module => ({ default: module.Privacy })));
+const Terms = lazy(() => import('./pages/Terms').then(module => ({ default: module.Terms })));
+const Contact = lazy(() => import('./pages/Contact').then(module => ({ default: module.Contact })));
 
 // Loading fallback
 const PageLoader = () => (
@@ -37,7 +40,7 @@ export default function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
-        <div className="min-h-screen flex flex-col bg-paper font-sans text-ink relative">
+        <div className="min-h-screen flex flex-col bg-paper font-serif text-ink relative">
           <Navbar />
           <main className="flex-grow overflow-x-hidden w-full max-w-full">
             <Suspense fallback={<PageLoader />}>
@@ -53,6 +56,9 @@ export default function App() {
                 <Route path="/directory" element={<ArtistsDirectory />} />
                 <Route path="/artist/:id" element={<ArtistProfile />} />
                 <Route path="/faq" element={<FAQ />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/contact" element={<Contact />} />
               </Routes>
             </Suspense>
           </main>
