@@ -131,9 +131,9 @@ export function Join() {
         <meta name="description" content="Apply to join our vetted community of local drawing teachers, muralists, and live event artists across Bengal." />
         <link rel="canonical" href="https://share-n-grow.vercel.app/join" />
       </Helmet>
-      <div className="mb-10 text-center">
-        <h1 className="text-4xl font-bold tracking-tight text-ink sm:text-5xl font-sans">Apply for the Directory</h1>
-        <p className="mt-4 text-lg text-ink-light max-w-2xl mx-auto">
+      <div className="mb-14 text-center">
+        <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-bold tracking-tighter text-ink leading-tight font-sans">Apply for the Directory</h1>
+        <p className="mt-6 text-xl text-ink-light max-w-2xl mx-auto leading-relaxed">
           ShareNGrow is currently accepting artists for teaching, murals, live event art, workshops, portraits, and selected custom work.
         </p>
       </div>

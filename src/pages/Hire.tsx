@@ -82,9 +82,9 @@ export function Hire() {
         <meta name="description" content="Request custom art work, murals, live event art, or find a drawing teacher in Bengal. We match you with vetted local professionals." />
         <link rel="canonical" href="https://share-n-grow.vercel.app/hire" />
       </Helmet>
-      <div className="mb-10 text-center">
-        <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">Hire an artist</h1>
-        <p className="mt-4 text-lg text-ink-light max-w-2xl mx-auto">
+      <div className="mb-14 text-center">
+        <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-bold font-sans tracking-tighter text-ink leading-tight">Hire an artist</h1>
+        <p className="mt-6 text-xl text-ink-light max-w-2xl mx-auto leading-relaxed">
           Tell us what you need. We'll review the brief and introduce you to an artist who can do it.
         </p>
       </div>

@@ -26,5 +26,16 @@
 body {
   background-color: var(--color-paper);
   color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: var(--color-terracotta);
+  color: var(--color-paper);
 }
 

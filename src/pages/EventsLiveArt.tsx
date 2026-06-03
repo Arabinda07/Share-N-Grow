@@ -70,36 +70,36 @@ export function EventsLiveArt() {
         <meta name="description" content="Book live artists for weddings, events, and special gatherings in Bengal. Live sketching, guest caricatures, and event painting." />
         <link rel="canonical" href="https://share-n-grow.vercel.app/events-live-art" />
       </Helmet>
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">Book live artists for weddings and events.</h1>
-        <p className="mt-4 text-lg text-ink-light max-w-2xl mx-auto">
+      <div className="mb-16 mt-10 max-w-4xl mx-auto">
+        <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-bold tracking-tighter text-ink leading-tight font-sans">Book live artists for weddings and events.</h1>
+        <p className="mt-6 text-xl text-ink-light leading-relaxed">
           We bring fast-flow watercolor caricatures, live guest sketching, and live canvas painting to premium gatherings.
         </p>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2 mb-12">
-        <Card className="border border-slate-200/50 bg-paper-dark rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
-          <CardContent className="p-8">
-            <h3 className="font-semibold text-xl mb-4 text-ink tracking-tight font-sans">Popular services</h3>
-            <ul className="list-disc list-inside text-ink-light space-y-2 text-base">
-              <li>Live guest sketching</li>
-              <li>Live canvas painting</li>
-              <li>Guest caricatures</li>
-              <li>Event art booths</li>
-              <li>Custom event gifts for guests</li>
+      <div className="grid lg:grid-cols-2 gap-8 mb-20 max-w-4xl mx-auto">
+        <Card className="border border-whisper bg-paper-dark rounded-[2.5rem] shadow-none">
+          <CardContent className="p-10">
+            <h3 className="font-bold text-2xl mb-6 text-ink tracking-tight font-sans">Popular services</h3>
+            <ul className="list-none text-ink-light space-y-4 text-lg">
+              <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Live guest sketching</li>
+              <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Live canvas painting</li>
+              <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Guest caricatures</li>
+              <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Event art booths</li>
+              <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Custom event gifts for guests</li>
             </ul>
           </CardContent>
         </Card>
         
-        <Card className="border border-slate-200/50 bg-white rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
-          <CardContent className="p-8">
-            <h3 className="font-semibold text-xl mb-4 text-ink tracking-tight font-sans">Event details we need</h3>
-            <ul className="list-disc list-inside text-ink-light space-y-2 text-base">
-              <li>Event date and time</li>
-              <li>Venue location</li>
-              <li>Expected guest count</li>
-              <li>Duration of the service</li>
-              <li>Preferred style of art</li>
+        <Card className="border border-whisper bg-white rounded-[2.5rem] shadow-none">
+          <CardContent className="p-10">
+            <h3 className="font-bold text-2xl mb-6 text-ink tracking-tight font-sans">Event details we need</h3>
+            <ul className="list-none text-ink-light space-y-4 text-lg">
+              <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Event date and time</li>
+              <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Venue location</li>
+              <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Expected guest count</li>
+              <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Duration of the service</li>
+              <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Preferred style of art</li>
             </ul>
           </CardContent>
         </Card>

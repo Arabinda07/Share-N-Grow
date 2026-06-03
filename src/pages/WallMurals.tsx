@@ -70,35 +70,35 @@ export function WallMurals() {
         <meta name="description" content="Turn a blank wall into a custom painted space. Hire local wall mural artists in Bengal for cafes, schools, offices, or homes." />
         <link rel="canonical" href="https://share-n-grow.vercel.app/wall-murals" />
       </Helmet>
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold font-sans tracking-tight text-ink sm:text-5xl">Turn a blank wall into art.</h1>
-        <p className="mt-4 text-lg text-ink-light max-w-2xl mx-auto">
+      <div className="mb-16 mt-10 max-w-4xl mx-auto">
+        <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-bold tracking-tighter text-ink leading-tight font-sans">Turn a blank wall into art.</h1>
+        <p className="mt-6 text-xl text-ink-light leading-relaxed">
           Tell us the wall size, location, and what you want to paint. We'll introduce you to muralists who do exactly this.
         </p>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2 mb-12">
-        <Card className="border border-slate-200/50 bg-paper-dark rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
-          <CardContent className="p-8">
-            <h3 className="font-semibold text-xl mb-4 text-ink tracking-tight font-sans">Who asks for this?</h3>
-            <ul className="list-disc list-inside text-ink-light space-y-2 text-base">
-              <li>Cafés and restaurants</li>
-              <li>Offices and co-working spaces</li>
-              <li>Schools and play spaces</li>
-              <li>Gyms and studios</li>
-              <li>Private residences</li>
+      <div className="grid lg:grid-cols-2 gap-8 mb-20 max-w-4xl mx-auto">
+        <Card className="border border-whisper bg-paper-dark rounded-[2.5rem] shadow-none">
+          <CardContent className="p-10">
+            <h3 className="font-bold text-2xl mb-6 text-ink tracking-tight font-sans">Who asks for this?</h3>
+            <ul className="list-none text-ink-light space-y-4 text-lg">
+              <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Cafés and restaurants</li>
+              <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Offices and co-working spaces</li>
+              <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Schools and play spaces</li>
+              <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Gyms and studios</li>
+              <li className="flex items-start"><span className="text-pine mr-3 font-bold">•</span> Private residences</li>
             </ul>
           </CardContent>
         </Card>
         
-        <Card className="border border-slate-200/50 bg-white rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
-          <CardContent className="p-8">
-            <h3 className="font-semibold text-xl mb-4 text-ink tracking-tight font-sans">How it works</h3>
-            <ol className="list-decimal list-inside text-ink-light space-y-2 text-base">
-              <li>Send us wall dimensions and a reference idea.</li>
-              <li>An artist sends back a concept and a quote.</li>
-              <li>You talk timeline, scaffolding, and paint costs.</li>
-              <li>They paint.</li>
+        <Card className="border border-whisper bg-white rounded-[2.5rem] shadow-none">
+          <CardContent className="p-10">
+            <h3 className="font-bold text-2xl mb-6 text-ink tracking-tight font-sans">How it works</h3>
+            <ol className="list-none text-ink-light space-y-4 text-lg counter-reset-works">
+              <li className="flex items-start"><span className="font-mono text-xs bg-ink text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 mt-1 shrink-0">1</span> Send us wall dimensions and a reference idea.</li>
+              <li className="flex items-start"><span className="font-mono text-xs bg-ink text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 mt-1 shrink-0">2</span> An artist sends back a concept and a quote.</li>
+              <li className="flex items-start"><span className="font-mono text-xs bg-ink text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 mt-1 shrink-0">3</span> You talk timeline, scaffolding, and paint costs.</li>
+              <li className="flex items-start"><span className="font-mono text-xs bg-ink text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 mt-1 shrink-0">4</span> They paint.</li>
             </ol>
           </CardContent>
         </Card>

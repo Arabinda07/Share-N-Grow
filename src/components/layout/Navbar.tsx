@@ -11,32 +11,32 @@ export function Navbar() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-ink text-white font-bold font-sans">
+            <Link to="/" className="flex items-center gap-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded bg-ink text-white font-medium font-sans text-lg">
                 S
               </div>
-              <span className="text-xl font-bold font-sans tracking-tight text-ink">
+              <span className="text-xl font-medium font-sans tracking-tighter text-ink">
                 ShareNGrow
               </span>
             </Link>
           </div>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-6">
-            <Link to="/directory" className="text-sm font-medium text-ink hover:text-terracotta transition-colors">
+          <nav className="hidden md:flex items-center gap-8">
+            <Link to="/directory" className="text-sm font-medium text-ink hover:text-terracotta transition-colors duration-300">
               Directory
             </Link>
-            <Link to="/hire" className="text-sm font-medium text-ink hover:text-terracotta transition-colors">
+            <Link to="/hire" className="text-sm font-medium text-ink hover:text-terracotta transition-colors duration-300">
               Hire Talent
             </Link>
-            <Link to="/join" className="text-sm font-medium text-ink hover:text-terracotta transition-colors">
+            <Link to="/join" className="text-sm font-medium text-ink hover:text-terracotta transition-colors duration-300">
               Apply as Artist
             </Link>
-            <Link to="/faq" className="text-sm font-medium text-ink hover:text-terracotta transition-colors">
+            <Link to="/faq" className="text-sm font-medium text-ink hover:text-terracotta transition-colors duration-300">
               FAQ
             </Link>
             <Link to="/hire">
-              <Button size="sm" className="bg-ink hover:bg-ink-light text-white rounded-full transition-transform active:scale-[0.98] shadow-none">Get Started</Button>
+              <Button size="sm" className="bg-ink hover:bg-ink-light text-white rounded-xl px-6 h-10 transition-all duration-300 ease-out active:scale-[0.98] shadow-none">Get Started</Button>
             </Link>
           </nav>
 
@@ -52,37 +52,37 @@ export function Navbar() {
 
       {/* Mobile Nav */}
       {isOpen && (
-        <div className="md:hidden border-t border-ink-light/10 bg-white px-4 py-4 space-y-3 shadow-lg">
+        <div className="md:hidden border-t border-ink-light/10 bg-white px-6 py-6 space-y-4 shadow-xl rounded-b-[2rem]">
           <Link 
             to="/directory" 
-            className="block text-base font-medium text-ink w-full p-2 hover:text-terracotta transition-colors"
+            className="block text-lg font-medium text-ink w-full py-2 hover:text-terracotta transition-colors duration-300"
             onClick={() => setIsOpen(false)}
           >
             Directory
           </Link>
           <Link 
             to="/hire" 
-            className="block text-base font-medium text-ink w-full p-2 hover:text-terracotta transition-colors"
+            className="block text-lg font-medium text-ink w-full py-2 hover:text-terracotta transition-colors duration-300"
             onClick={() => setIsOpen(false)}
           >
             Hire Talent
           </Link>
           <Link 
             to="/join" 
-            className="block text-base font-medium text-ink w-full p-2 hover:text-terracotta transition-colors"
+            className="block text-lg font-medium text-ink w-full py-2 hover:text-terracotta transition-colors duration-300"
             onClick={() => setIsOpen(false)}
           >
             Apply as Artist
           </Link>
           <Link 
             to="/faq" 
-            className="block text-base font-medium text-ink w-full p-2 hover:text-terracotta transition-colors"
+            className="block text-lg font-medium text-ink w-full py-2 hover:text-terracotta transition-colors duration-300"
             onClick={() => setIsOpen(false)}
           >
             FAQ
           </Link>
-          <Link to="/hire" onClick={() => setIsOpen(false)} className="block pt-2">
-            <Button className="w-full bg-ink hover:bg-ink-light text-white rounded-full transition-transform active:scale-[0.98] shadow-none">Get Started</Button>
+          <Link to="/hire" onClick={() => setIsOpen(false)} className="block pt-4">
+            <Button className="w-full h-14 text-lg bg-ink hover:bg-ink-light text-white rounded-2xl transition-all duration-300 ease-out active:scale-[0.98] shadow-none">Get Started</Button>
           </Link>
         </div>
       )}
