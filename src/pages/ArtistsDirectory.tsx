@@ -5,7 +5,7 @@ import { Artist, SERVICES } from '../types';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { MapPin } from '@phosphor-icons/react';
-import { PersonIcon as User, ExclamationTriangleIcon as AlertCircle } from '@radix-ui/react-icons';
+import { PersonIcon as User, ExclamationTriangleIcon as AlertCircle, ChevronDownIcon } from '@radix-ui/react-icons';
 import { Link } from 'react-router-dom';
 
 export function ArtistsDirectory() {
@@ -65,31 +65,39 @@ export function ArtistsDirectory() {
       </div>
 
       <div className="flex flex-col sm:flex-row gap-4 mb-16">
-        <select 
-          className="rounded-2xl border-2 border-whisper bg-transparent px-6 py-4 text-base font-medium text-ink focus:outline-none focus:border-ink transition-colors appearance-none cursor-pointer"
-          value={cityFilter}
-          onChange={(e) => setCityFilter(e.target.value)}
-          style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%231C1917' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: `right 1rem center`, backgroundRepeat: `no-repeat`, backgroundSize: `1.25em 1.25em`, paddingRight: `3rem` }}
-        >
-          <option value="">All Cities</option>
-          <option value="Kolkata">Kolkata</option>
-          <option value="Durgapur">Durgapur</option>
-          <option value="Asansol">Asansol</option>
-          <option value="Siliguri">Siliguri</option>
-          <option value="Howrah">Howrah</option>
-        </select>
+        <div className="relative w-full sm:w-64">
+          <select 
+            className="w-full rounded-2xl border-2 border-whisper bg-white dark:bg-paper-dark px-6 py-4 text-base font-medium text-ink focus:outline-none focus:border-ink transition-colors appearance-none cursor-pointer pr-12"
+            value={cityFilter}
+            onChange={(e) => setCityFilter(e.target.value)}
+          >
+            <option value="" className="text-ink bg-white dark:bg-paper-dark">All Cities</option>
+            <option value="Kolkata" className="text-ink bg-white dark:bg-paper-dark">Kolkata</option>
+            <option value="Durgapur" className="text-ink bg-white dark:bg-paper-dark">Durgapur</option>
+            <option value="Asansol" className="text-ink bg-white dark:bg-paper-dark">Asansol</option>
+            <option value="Siliguri" className="text-ink bg-white dark:bg-paper-dark">Siliguri</option>
+            <option value="Howrah" className="text-ink bg-white dark:bg-paper-dark">Howrah</option>
+          </select>
+          <div className="absolute inset-y-0 right-5 flex items-center pointer-events-none">
+            <ChevronDownIcon className="w-5 h-5 text-ink" />
+          </div>
+        </div>
         
-        <select 
-          className="rounded-2xl border-2 border-whisper bg-transparent px-6 py-4 text-base font-medium text-ink focus:outline-none focus:border-ink transition-colors appearance-none cursor-pointer"
-          value={serviceFilter}
-          onChange={(e) => setServiceFilter(e.target.value)}
-          style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%231C1917' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: `right 1rem center`, backgroundRepeat: `no-repeat`, backgroundSize: `1.25em 1.25em`, paddingRight: `3rem` }}
-        >
-          <option value="">All Services</option>
-          {SERVICES.map((service) => (
-            <option key={service.id} value={service.id}>{service.title}</option>
-          ))}
-        </select>
+        <div className="relative w-full sm:w-64">
+          <select 
+            className="w-full rounded-2xl border-2 border-whisper bg-white dark:bg-paper-dark px-6 py-4 text-base font-medium text-ink focus:outline-none focus:border-ink transition-colors appearance-none cursor-pointer pr-12"
+            value={serviceFilter}
+            onChange={(e) => setServiceFilter(e.target.value)}
+          >
+            <option value="" className="text-ink bg-white dark:bg-paper-dark">All Services</option>
+            {SERVICES.map((service) => (
+              <option key={service.id} value={service.id} className="text-ink bg-white dark:bg-paper-dark">{service.title}</option>
+            ))}
+          </select>
+          <div className="absolute inset-y-0 right-5 flex items-center pointer-events-none">
+            <ChevronDownIcon className="w-5 h-5 text-ink" />
+          </div>
+        </div>
       </div>
 
       {loading ? (

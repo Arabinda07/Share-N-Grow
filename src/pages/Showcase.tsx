@@ -97,7 +97,7 @@ export function Showcase() {
                 {art.artist && (
                   <div className="flex items-center justify-between pt-4 border-t border-whisper">
                     <span className="text-sm font-medium text-ink">By {art.artist.name}</span>
-                    <Link to={`/artist/${art.artist.slug || art.artist.id}`} className="text-sm font-semibold text-terracotta hover:text-pine transition-colors">
+                    <Link to={`/artist/${art.artist.slug || art.artist.id}`} className="text-sm font-semibold text-terracotta hover:text-terracotta-dark transition-colors">
                       View Profile
                     </Link>
                   </div>
@@ -117,7 +117,7 @@ export function Showcase() {
       {hasSupabaseConfig && (
         <section className="px-6 lg:px-12 max-w-7xl mx-auto">
           <div className="flex items-center gap-3 mb-10 border-b border-whisper pb-4">
-             <Star weight="fill" className="text-pine w-6 h-6" />
+             <Star weight="fill" className="text-terracotta w-6 h-6" />
              <h2 className="text-2xl font-bold font-serif tracking-tight text-ink">Top Artists of the Week</h2>
           </div>
           

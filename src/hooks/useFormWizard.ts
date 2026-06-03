@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export function useFormWizard<T>(initialData: T, totalSteps: number) {
   const [currentStep, setCurrentStep] = useState(1);

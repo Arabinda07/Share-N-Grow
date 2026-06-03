@@ -6,19 +6,36 @@ A warm, human-centric, and highly curated interface that feels like a sunlit art
 
 ## 2. Color Palette & Roles
 
-- **Canvas / Paper** (`#FBFBFB`) — The primary page background. A warm, breathable neutral.
-- **Pure Surface** (`#FFFFFF`) — Card, modal, and input fill. Creates subtle elevation against the canvas.
-- **Paper Dark** (`#F5F5F4` / Stone 100) — Secondary container fills, muted highlight sections, and empty state backgrounds.
-- **Charcoal Ink** (`#1C1917` / Stone 900) — Primary headline and body text. Deep, legible zinc-depth, never pure black.
-- **Ink Light** (`#57534E` / Stone 600) — Secondary text, helper labels, and metadata.
-- **Terracotta Accent** (`#C05621` or similar earthy rust/orange) — The single semantic accent. Used for checkmarks, focus rings, subtle icons, and micro-interactions. Represents the earthy, clay hues common in traditional art.
-- **Whisper Border** (`rgba(28, 25, 23, 0.1)`) — Semi-transparent faint borders for structure without optical heaviness.
+- **Canvas / Paper** (`oklch(98.5% 0.005 140)`) — The primary page background. A warm, breathable neutral canvas.
+- **Pure Surface** (`oklch(100% 0 0)`) — Card, modal, and input fill. Creates subtle elevation against the canvas.
+- **Paper Dark** (`oklch(96% 0.01 140)`) — Secondary container fills, muted highlight sections, and empty state backgrounds.
+- **Charcoal Ink** (`oklch(25% 0.02 140)`) — Primary headline and body text. Deep, legible zinc-depth, tinted slightly with sage to match the palette, never pure black.
+- **Ink Light** (`oklch(45% 0.01 140)`) — Secondary text, helper labels, and metadata.
+- **Sage Accent (Legacy class: Terracotta)** (`oklch(55% 0.12 140)`) — The single semantic accent. Used for checkmarks, focus rings, subtle icons, and micro-interactions. A deep, tactile green reflecting growth and community.
+- **Sage Accent Dark** (`oklch(45% 0.10 140)`) — Hover state for the accent.
+- **Whisper Border** (`oklch(25% 0.02 140 / 0.1)`) — Semi-transparent faint borders for structure without optical heaviness.
+
+_Note: We utilize the CSS class names `terracotta` purely for backward-compatibility in the component codebase, mapped structurally to our chosen accent color._
+
+### Alternative High-End Color Combinations
+
+1. **The Classic Gallery (Slate & Cobalt)**
+   - Minimal crisp cool-white papers. Base Hue: `260`
+   - High-contrast rich charcoal typography.
+   - Accent: Vibrant Yves Klein Blue / Cobalt `oklch(45% 0.15 260)`.
+   - *Vibe:* Modern, premium, very art-forward (Artsy/SuperRare).
+
+2. **Modern Editorial (Warm Cream & Plum)**
+   - Warm cream papers. Base Hue: `340`
+   - Deep espresso typography. 
+   - Accent: Rich Aubergine / Plum `oklch(45% 0.12 340)`.
+   - *Vibe:* Sophisticated, highly curated, distinct from tech.
 
 _(Note: The "AI Purple/Neon" aesthetic, oversaturated colors, and cold blues are strictly banned. The palette remains strictly within these warm, earthy, high-contrast bounds)._
 
 ## 3. Typography Rules
 
-- **Font Family:** `Outfit`, `Satoshi`, or `Geist` — Clean, modern sans-serifs that retain warmth and approachability. _(Inter and generic system standard web fonts are banned for display text)._
+- **Font Family:** `Montserrat` for body text and sans-serif uses, `Playfair Display` for display/headlines to give elegant, warm, traditional art vibes. _(Inter and generic system standard web fonts are banned for display text)._
 - **Display/Headlines:** Track-tight (`tracking-tight`), weight-driven hierarchy (Bold 700+). Generous sizing (`text-4xl` to `text-5xl`). Never screaming, just confident.
 - **Body:** Relaxed leading (`leading-relaxed`), typically 65-character max-width, strictly colored in Ink Light for reduced fatigue. Minimum size `text-base` (never shrink below 14px/16px).
 - **Hierarchy:** Established through scale and color contrast (Headline = Ink, Body = Ink Light), rather than purely making things bolder.

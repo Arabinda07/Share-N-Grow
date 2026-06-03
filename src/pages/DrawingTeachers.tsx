@@ -4,53 +4,92 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Card, CardContent } from '../components/ui/card';
-import React, { useState } from 'react';
+import React from 'react';
 import { api } from '../lib/api';
 import { hasSupabaseConfig } from '../lib/supabase';
 import { CheckCircledIcon as CheckCircle2, ExclamationTriangleIcon as AlertCircle } from '@radix-ui/react-icons';
+import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
+import { useFormWizard } from '../hooks/useFormWizard';
+import { WizardProgress } from '../components/ui/wizard-progress';
 
 export function DrawingTeachers() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const wizard = useFormWizard({
+    name: '', phone: '', city: '', area: '',
+    age: '', mode: '', goal: '',
+    timing: '', budget: '', notes: '',
+    consent: false
+  }, 3);
+
+  const { formData, handleInputChange, currentStep, isSubmitting, isSuccess, error } = wizard;
+
+  const validateStep = (step: number, data: typeof formData) => {
+    if (step === 1) {
+      if (!data.name || !data.phone || !data.city || !data.area) {
+        return "Please fill out required fields before proceeding.";
+      }
+    }
+    if (step === 2) {
+      if (!data.age || !data.mode || !data.goal) {
+         return "Please provide age, class mode, and goal.";
+      }
+    }
+    return null;
+  };
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setError(null);
-
-    if (!hasSupabaseConfig) {
-      setError("Database is not configured. (Developer: check Supabase credentials)");
+    if (currentStep !== wizard.totalSteps) {
+      wizard.nextStep(validateStep);
       return;
     }
 
-    setIsSubmitting(true);
-    const formData = new FormData(e.currentTarget);
+    if (!formData.consent) {
+       wizard.setError("Please accept the terms to submit your request.");
+       return;
+    }
+
+    wizard.setError(null);
+
+    if (!hasSupabaseConfig) {
+      wizard.setError("Database is not configured. (Developer: check Supabase credentials)");
+      return;
+    }
+
+    // Bot check
+    const formElement = e.currentTarget;
+    const botCheck = (formElement.elements.namedItem('_botcheck') as HTMLInputElement)?.value;
+    if (botCheck) {
+      wizard.setIsSuccess(true);
+      return;
+    }
+
+    wizard.setIsSubmitting(true);
     const data = {
-      name: formData.get('name') as string,
-      phone: formData.get('phone') as string,
-      city: formData.get('city') as string,
-      area: formData.get('area') as string,
+      name: formData.name,
+      phone: formData.phone,
+      city: formData.city,
+      area: formData.area,
       service_needed: 'drawing-teacher',
-      budget_range: formData.get('budget') as string,
-      description: `Child Age: ${formData.get('age')}\nClass Mode: ${formData.get('mode')}\nTiming: ${formData.get('timing')}\nGoal: ${formData.get('goal')}\nNotes: ${formData.get('notes')}`,
+      budget_range: formData.budget,
+      description: `Child Age: ${formData.age}\nClass Mode: ${formData.mode}\nTiming: ${formData.timing}\nGoal: ${formData.goal}\nNotes: ${formData.notes}`,
     };
 
     const { error: dbError } = await api.submitInquiry(data);
 
-    setIsSubmitting(false);
+    wizard.setIsSubmitting(false);
 
     if (dbError) {
       console.error(dbError);
-      setError("Something went wrong submitting your request. Please try again.");
+      wizard.setError("Something went wrong submitting your request. Please try again.");
     } else {
-      setIsSuccess(true);
+      wizard.setIsSuccess(true);
     }
   }
 
   if (isSuccess) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center p-4 py-20 text-center">
-        <CheckCircle2 className="mb-6 h-16 w-16 text-pine" />
+        <CheckCircle2 className="mb-6 h-16 w-16 text-terracotta" />
         <h2 className="mb-4 text-3xl font-bold font-serif text-ink">We have your request.</h2>
         <p className="mx-auto mb-8 max-w-md text-ink-light">
           We'll review your request and message you on WhatsApp to suggest suitable teachers.
@@ -69,11 +108,18 @@ export function DrawingTeachers() {
         <meta name="description" content="Find the perfect drawing teacher for your child. We match you with vetted local art instructors for home visits or studio classes." />
         <link rel="canonical" href="https://share-n-grow.vercel.app/drawing-teachers" />
       </Helmet>
+      
       <div className="mb-12 md:mb-20 max-w-3xl px-4 md:px-0">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-serif tracking-tight text-ink leading-tight">Find a drawing teacher for your child.</h1>
-        <p className="mt-4 md:mt-6 text-lg md:text-xl text-ink-light leading-relaxed">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-serif tracking-tight text-ink leading-tight mb-6">Find a drawing teacher for your child.</h1>
+        <p className="text-lg md:text-xl text-ink-light leading-relaxed mb-8">
           Tell us where you are and when you want classes. We'll introduce you to an instructor who fits your schedule.
         </p>
+        <WizardProgress 
+          currentStep={currentStep} 
+          totalSteps={wizard.totalSteps} 
+          steps={[{ label: 'Parent' }, { label: 'Preferences' }, { label: 'Details' }]}
+          activeColor="bg-terracotta"
+        />
       </div>
 
       <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-12 px-4 md:px-0">
@@ -117,99 +163,149 @@ export function DrawingTeachers() {
         </div>
       </div>
 
-      <Card className="border border-whisper bg-white rounded-2xl shadow-none p-4 sm:p-8 md:p-10" id="request-form">
-        <CardContent className="pt-2 md:pt-4">
-          <form onSubmit={handleSubmit} className="space-y-12">
-             {error && (
-              <div className="mb-8 rounded-xl bg-red-50 p-4 text-sm text-red-900 border border-red-100">
-                {error}
-              </div>
-            )}
-            
-            <div className="space-y-8">
-              <h3 className="font-semibold text-xl text-ink">Parent Details</h3>
-              <div className="grid gap-6 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-ink">Parent Name *</label>
-                  <Input name="name" required placeholder="Full Name" className="rounded-xl border-whisper h-12" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-ink">WhatsApp / Phone *</label>
-                  <Input name="phone" required placeholder="Phone number" className="rounded-xl border-whisper h-12" />
-                </div>
-              </div>
-            </div>
+      <Card className="border border-whisper bg-white rounded-[2rem] shadow-none p-6 sm:p-10 md:p-12 overflow-hidden relative" id="request-form">
+        <CardContent className="p-0">
+          {!hasSupabaseConfig && (
+             <div className="mb-8 flex items-start gap-3 rounded-xl bg-red-50 p-4 text-red-900 border border-red-100">
+               <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
+               <p className="text-sm font-medium">Database is not configured. Please add Supabase credentials in the settings.</p>
+             </div>
+          )}
 
-            <div className="space-y-8">
-               <h3 className="font-semibold text-xl text-ink">Location & Student</h3>
-              <div className="grid gap-6 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-ink">City *</label>
-                  <Input name="city" required placeholder="E.g. Kolkata" className="rounded-xl border-whisper h-12" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-ink">Area / Locality *</label>
-                  <Input name="area" required placeholder="E.g. Salt Lake" className="rounded-xl border-whisper h-12" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                 <label className="text-sm font-medium text-ink">Child's Age *</label>
-                 <Input name="age" required placeholder="E.g. 7 years old" className="rounded-xl border-whisper h-12" />
-              </div>
+          {error && (
+            <div className="mb-8 rounded-xl bg-red-50 p-4 text-sm text-red-900 border border-red-100 flex items-start gap-3">
+               <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
+               {error}
             </div>
+          )}
 
-            <div className="space-y-8">
-               <h3 className="font-semibold text-xl text-ink">Class Preferences</h3>
-               <div className="grid gap-6 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-ink">Preferred Class Mode *</label>
-                  <select name="mode" required className="flex h-12 w-full rounded-xl border border-whisper bg-white px-4 py-2 text-base text-ink focus:ring-ink focus:outline-none transition-shadow">
-                    <option value="">Select mode...</option>
-                    <option value="Home Visit">Home Visit</option>
-                    <option value="Teacher Location">Teacher's Location</option>
-                    <option value="Online">Online</option>
-                    <option value="Group Class">Small Group Class</option>
-                    <option value="Any">Any</option>
-                  </select>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-ink">Goal *</label>
-                  <select name="goal" required className="flex h-12 w-full rounded-xl border border-whisper bg-white px-4 py-2 text-base text-ink focus:ring-ink focus:outline-none transition-shadow">
-                    <option value="">Select primary goal...</option>
-                    <option value="Hobby & Fun">Hobby & Fun</option>
-                    <option value="School Support">School Support</option>
-                    <option value="Beginner Basics">Beginner Basics</option>
-                    <option value="Advanced / Competitions">Advanced / Competitions</option>
-                  </select>
-                </div>
+          <form onSubmit={handleSubmit}>
+             <input type="text" name="_botcheck" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+
+             {/* Step 1: Parent Details & Location */}
+             {currentStep === 1 && (
+               <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
+                  <div>
+                    <h3 className="font-semibold text-2xl text-ink font-serif tracking-tight mb-2">Parent Details</h3>
+                    <p className="text-ink-light">How can we contact you?</p>
+                  </div>
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-ink">Parent Name *</label>
+                      <Input name="name" required value={formData.name} onChange={handleInputChange} placeholder="Full Name" className="rounded-xl border-whisper h-14 bg-paper focus:bg-white transition-colors" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-ink">WhatsApp / Phone *</label>
+                      <Input name="phone" required value={formData.phone} onChange={handleInputChange} placeholder="Phone number" className="rounded-xl border-whisper h-14 bg-paper focus:bg-white transition-colors" />
+                    </div>
+                  </div>
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-ink">City *</label>
+                      <Input name="city" required value={formData.city} onChange={handleInputChange} placeholder="E.g. Kolkata" className="rounded-xl border-whisper h-14 bg-paper focus:bg-white transition-colors" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-ink">Area / Locality *</label>
+                      <Input name="area" required value={formData.area} onChange={handleInputChange} placeholder="E.g. Salt Lake" className="rounded-xl border-whisper h-14 bg-paper focus:bg-white transition-colors" />
+                    </div>
+                  </div>
                </div>
-               
-               <div className="grid gap-6 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-ink">Preferred Days/Timing *</label>
-                  <Input name="timing" required placeholder="E.g. Weekends morning" className="rounded-xl border-whisper h-12" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-ink">Monthly Budget (Optional)</label>
-                  <Input name="budget" placeholder="Approximate budget in ₹" className="rounded-xl border-whisper h-12" />
-                </div>
-               </div>
-            </div>
-            
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-ink">Additional Notes</label>
-              <Textarea name="notes" placeholder="Any specific requirements or things the teacher should know?" className="min-h-[140px] rounded-xl border-whisper p-4" />
-            </div>
+             )}
 
-            <div>
-              <Button type="submit" size="lg" className="w-full h-16 text-lg bg-ink hover:bg-ink-light text-white rounded-2xl shadow-none transition-transform active:scale-[0.98]" disabled={isSubmitting || !hasSupabaseConfig}>
+             {/* Step 2: Class Preferences */}
+             {currentStep === 2 && (
+               <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
+                  <div>
+                    <h3 className="font-semibold text-2xl text-ink font-serif tracking-tight mb-2">Class Preferences</h3>
+                    <p className="text-ink-light">Tell us about the student and required classes.</p>
+                  </div>
+                  
+                  <div className="space-y-2">
+                     <label className="text-sm font-medium text-ink">Child's Age *</label>
+                     <Input name="age" required value={formData.age} onChange={handleInputChange} placeholder="E.g. 7 years old" className="rounded-xl border-whisper h-14 bg-paper focus:bg-white transition-colors" />
+                  </div>
+                  
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-ink">Preferred Class Mode *</label>
+                      <select name="mode" required value={formData.mode} onChange={handleInputChange} className="flex h-14 w-full rounded-xl border border-whisper bg-paper px-4 py-2 text-base text-ink focus:ring-ink focus:outline-none focus:bg-white transition-colors appearance-none">
+                        <option value="">Select mode...</option>
+                        <option value="Home Visit">Home Visit</option>
+                        <option value="Teacher Location">Teacher's Location</option>
+                        <option value="Online">Online</option>
+                        <option value="Group Class">Small Group Class</option>
+                        <option value="Any">Any</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-ink">Goal *</label>
+                      <select name="goal" required value={formData.goal} onChange={handleInputChange} className="flex h-14 w-full rounded-xl border border-whisper bg-paper px-4 py-2 text-base text-ink focus:ring-ink focus:outline-none focus:bg-white transition-colors appearance-none">
+                        <option value="">Select primary goal...</option>
+                        <option value="Hobby & Fun">Hobby & Fun</option>
+                        <option value="School Support">School Support</option>
+                        <option value="Beginner Basics">Beginner Basics</option>
+                        <option value="Advanced / Competitions">Advanced / Competitions</option>
+                      </select>
+                    </div>
+                  </div>
+               </div>
+             )}
+             
+             {/* Step 3: Details */}
+             {currentStep === 3 && (
+                <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
+                  <div>
+                    <h3 className="font-semibold text-2xl text-ink font-serif tracking-tight mb-2">Timing & Notes</h3>
+                    <p className="text-ink-light">Any specific schedule or requests?</p>
+                  </div>
+                  
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-ink">Preferred Days/Timing</label>
+                      <Input name="timing" value={formData.timing} onChange={handleInputChange} placeholder="E.g. Weekends morning" className="rounded-xl border-whisper h-14 bg-paper focus:bg-white transition-colors" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-ink">Monthly Budget (Optional)</label>
+                      <Input name="budget" value={formData.budget} onChange={handleInputChange} placeholder="Approximate budget in ₹" className="rounded-xl border-whisper h-14 bg-paper focus:bg-white transition-colors" />
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-ink">Additional Notes</label>
+                    <Textarea name="notes" value={formData.notes} onChange={handleInputChange} placeholder="Any specific requirements or things the teacher should know?" className="min-h-[120px] rounded-xl border-whisper p-4 bg-paper focus:bg-white transition-colors" />
+                  </div>
+                  
+                  <div className="flex items-start gap-4 pt-6 border-t border-whisper">
+                     <input id="consent" name="consent" type="checkbox" checked={formData.consent} onChange={handleInputChange} required className="mt-1 h-5 w-5 border-whisper text-ink focus:ring-ink focus:ring-offset-paper rounded" />
+                     <label htmlFor="consent" className="text-sm font-medium text-ink leading-relaxed cursor-pointer">
+                       I agree to be contacted via WhatsApp or phone. My details won't be made public. *
+                     </label>
+                  </div>
+                </div>
+             )}
+
+            <div className="flex items-center gap-4 mt-12 pt-6 border-t border-whisper">
+              {currentStep > 1 && (
+                <Button type="button" variant="outline" size="lg" onClick={wizard.prevStep} className="h-14 px-6 rounded-xl border-whisper hover:bg-paper-dark group">
+                  <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" /> Back
+                </Button>
+              )}
+              
+              <Button 
+                type="submit" 
+                size="lg" 
+                className={`h-14 flex-1 text-base shadow-none bg-ink hover:bg-ink-light text-white rounded-xl transition-all duration-300 ease-out active:scale-[0.98] ${currentStep === 1 ? 'w-full' : ''}`}
+                disabled={isSubmitting || !hasSupabaseConfig}
+              >
                 {isSubmitting ? (
                   <div className="flex space-x-2">
                     <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse"></div>
                     <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-200"></div>
                     <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-400"></div>
                   </div>
-                ) : "Request Teacher"}
+                ) : currentStep === wizard.totalSteps ? "Request Teacher" : (
+                  <>Next Step <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" /></>
+                )}
               </Button>
             </div>
           </form>
@@ -218,3 +314,4 @@ export function DrawingTeachers() {
     </div>
   );
 }
+

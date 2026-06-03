@@ -17,25 +17,30 @@
 }
 
 :root {
-  --app-paper: #FBFBFB;
-  --app-paper-dark: #F5F5F4;
-  --app-ink: #1C1917;
-  --app-ink-light: #57534E;
-  --app-terracotta: #C05621;
-  --app-terracotta-dark: #9C4221;
-  --app-whisper: rgba(28, 25, 23, 0.1);
-  --app-white: #FFFFFF;
+  /* Tinted neutrals using OKLCH towards hue 140 (Sage / Canvas) */
+  --app-paper: oklch(98.5% 0.005 140);
+  --app-paper-dark: oklch(96% 0.01 140);
+  --app-ink: oklch(25% 0.02 140);
+  --app-ink-light: oklch(45% 0.01 140);
+  
+  --app-terracotta: oklch(55% 0.12 140); /* Sage Green Accent */
+  --app-terracotta-dark: oklch(45% 0.10 140);
+  
+  --app-whisper: oklch(25% 0.02 140 / 0.1);
+  --app-white: oklch(100% 0 0);
 }
 
 .dark {
-  --app-paper: #121212;
-  --app-paper-dark: #1C1C1C;
-  --app-ink: #E5E5E5;
-  --app-ink-light: #A3A3A3;
-  --app-terracotta: #E27B49;
-  --app-terracotta-dark: #C05621;
-  --app-whisper: rgba(255, 255, 255, 0.15);
-  --app-white: #1E1E1E; /* Make cards have depth against the #121212 bg */
+  --app-paper: oklch(18% 0.015 140);
+  --app-paper-dark: oklch(22% 0.015 140);
+  --app-ink: oklch(95% 0.01 140);
+  --app-ink-light: oklch(75% 0.01 140);
+  
+  --app-terracotta: oklch(65% 0.12 140);
+  --app-terracotta-dark: oklch(55% 0.10 140);
+  
+  --app-whisper: oklch(95% 0.01 140 / 0.15);
+  --app-white: oklch(24% 0.015 140);
 }
 
 @layer utilities {

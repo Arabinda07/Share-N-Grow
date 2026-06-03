@@ -119,7 +119,7 @@ export const api = {
     return await supabase.from('join_requests').update({ status }).eq('id', id);
   },
 
-  async updateInquiryStatus(id: string, status: 'pending' | 'approved' | 'rejected') {
+  async updateInquiryStatus(id: string, status: 'new' | 'reviewed' | 'matched' | 'closed') {
     if (!hasSupabaseConfig) return { error: { message: 'Database not configured' } };
     return await supabase.from('inquiries').update({ status }).eq('id', id);
   }

@@ -202,7 +202,7 @@ export function Hire() {
                       required
                       value={formData.service}
                       onChange={handleInputChange}
-                      className="flex h-14 w-full rounded-xl border border-whisper bg-paper px-4 py-2 text-base text-ink focus:outline-none focus:ring-1 focus:ring-ink focus:bg-white transition-colors"
+                      className="flex h-14 w-full rounded-xl border border-whisper bg-paper px-4 py-2 text-base text-ink focus:outline-none focus:ring-1 focus:ring-ink focus:bg-white transition-colors appearance-none"
                     >
                       <option value="">Select a service...</option>
                       <option value="drawing-teacher">Drawing teacher for child</option>
