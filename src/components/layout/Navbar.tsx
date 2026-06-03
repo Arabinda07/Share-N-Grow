@@ -94,6 +94,7 @@ export function Navbar() {
             <button 
               className="p-2 text-ink-light"
               onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle mobile menu"
             >
               <Menu className="h-6 w-6 text-ink" />
             </button>
@@ -108,11 +109,13 @@ export function Navbar() {
             <button 
               className="w-full flex items-center justify-between text-lg font-medium text-ink py-2 hover:text-terracotta transition-colors duration-300"
               onClick={() => setIsServicesOpen(!isServicesOpen)}
+              aria-expanded={isServicesOpen}
+              aria-controls="mobile-services-menu"
             >
               Services
               <ChevronDownIcon className={`w-5 h-5 transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''}`} />
             </button>
-            <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isServicesOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0 pointer-events-none'}`}>
+            <div id="mobile-services-menu" className={`overflow-hidden transition-all duration-300 ease-in-out ${isServicesOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0 pointer-events-none'}`}>
               <div className="flex flex-col pl-4 space-y-2 py-2 border-l-2 border-whisper">
                 <Link to="/drawing-teachers" className="block text-base font-medium text-ink hover:text-terracotta transition-colors py-1 pl-2" onClick={() => setIsOpen(false)}>Drawing Teachers</Link>
                 <Link to="/wall-murals" className="block text-base font-medium text-ink hover:text-terracotta transition-colors py-1 pl-2" onClick={() => setIsOpen(false)}>Wall Murals</Link>

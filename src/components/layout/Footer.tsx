@@ -11,23 +11,23 @@ export function Footer() {
             A curated network connecting local artists with clients.
           </p>
           <div className="flex gap-4">
-            <a href="https://www.facebook.com/sharengrowart" target="_blank" rel="noopener noreferrer" className="text-ink hover:text-terracotta transition-colors">
+            <a href="https://www.facebook.com/sharengrowart" target="_blank" rel="noopener noreferrer" className="text-ink hover:text-terracotta transition-colors" aria-label="Visit ShareNGrow on Facebook">
               <FacebookLogo className="w-6 h-6" />
             </a>
-            <a href="https://www.instagram.com/sharengrow/" target="_blank" rel="noopener noreferrer" className="text-ink hover:text-terracotta transition-colors">
+            <a href="https://www.instagram.com/sharengrow/" target="_blank" rel="noopener noreferrer" className="text-ink hover:text-terracotta transition-colors" aria-label="Visit ShareNGrow on Instagram">
               <InstagramLogo className="w-6 h-6" />
             </a>
-            <a href="https://chat.whatsapp.com/JtEre6AP4zaEXgJVu8edVe" target="_blank" rel="noopener noreferrer" className="text-ink hover:text-terracotta transition-colors">
+            <a href="https://chat.whatsapp.com/JtEre6AP4zaEXgJVu8edVe" target="_blank" rel="noopener noreferrer" className="text-ink hover:text-terracotta transition-colors" aria-label="Join ShareNGrow WhatsApp Community">
               <WhatsappLogo className="w-6 h-6" />
             </a>
-            <a href="mailto:sharengrowofficial@gmail.com" className="text-ink hover:text-terracotta transition-colors">
+            <a href="mailto:sharengrowofficial@gmail.com" className="text-ink hover:text-terracotta transition-colors" aria-label="Email ShareNGrow directly">
               <EnvelopeSimple className="w-6 h-6" />
             </a>
           </div>
         </div>
         
         <div className="flex flex-col gap-4">
-          <h4 className="font-semibold text-ink">Services</h4>
+          <p className="font-semibold text-ink">Services</p>
           <Link to="/directory" className="hover:text-terracotta transition-colors">Artist Directory</Link>
           <Link to="/hire" className="hover:text-terracotta transition-colors">Request Custom Work</Link>
           <Link to="/drawing-teachers" className="hover:text-terracotta transition-colors">Drawing Teachers</Link>
@@ -36,14 +36,14 @@ export function Footer() {
         </div>
         
         <div className="flex flex-col gap-4">
-          <h4 className="font-semibold text-ink">Network</h4>
+          <p className="font-semibold text-ink">Network</p>
           <Link to="/join" className="hover:text-terracotta transition-colors">Join Us</Link>
           <Link to="/collaborate" className="hover:text-terracotta transition-colors">Collaborate</Link>
           <Link to="/faq" className="hover:text-terracotta transition-colors">FAQ</Link>
         </div>
 
         <div className="flex flex-col gap-4">
-          <h4 className="font-semibold text-ink">Connect</h4>
+          <p className="font-semibold text-ink">Connect</p>
           <Link to="/contact" className="hover:text-terracotta transition-colors">Contact Us</Link>
           <a href="https://chat.whatsapp.com/JtEre6AP4zaEXgJVu8edVe" target="_blank" rel="noopener noreferrer" className="hover:text-terracotta transition-colors">WhatsApp Community</a>
         </div>

@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Navbar } from './components/layout/Navbar'; 
 import { Footer } from './components/layout/Footer';
+import { ScrollToTop } from './components/layout/ScrollToTop';
 
 // Lazy load pages for better performance (bundle splitting)
 const Home = lazy(() => import('./pages/Home').then(module => ({ default: module.Home })));
@@ -41,6 +42,7 @@ export default function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <div className="min-h-screen flex flex-col bg-paper font-sans text-ink relative">
           <Navbar />
           <main className="flex-grow overflow-x-hidden w-full max-w-full">

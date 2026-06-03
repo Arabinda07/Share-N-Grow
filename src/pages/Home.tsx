@@ -127,7 +127,7 @@ export function Home() {
             <div className="bento-item flex flex-col md:flex-row items-start md:items-end justify-between gap-8 md:gap-16 pb-12 border-b border-whisper group select-none">
               <div className="flex-1 max-w-2xl">
                 <span className="text-secondary-dark font-semibold tracking-[0.15em] text-xs uppercase mb-6 block">01 / Wall Murals & Public Art</span>
-                <h3 className="text-3xl md:text-5xl font-bold font-serif mb-6 leading-[1.05]">Turn a blank wall into art.</h3>
+                <h2 className="text-3xl md:text-5xl font-bold font-serif mb-6 leading-[1.05]">Turn a blank wall into art.</h2>
                 <p className="text-lg md:text-xl text-ink-light leading-relaxed">Connect with painters who handle large-format typography, illustration, and commercial branding for your specific project.</p>
               </div>
               <div className="shrink-0 pt-4 md:pt-0">
@@ -140,7 +140,7 @@ export function Home() {
             <div className="bento-item flex flex-col md:flex-row items-start md:items-end justify-between gap-8 md:gap-16 pb-12 border-b border-whisper group select-none">
               <div className="flex-1 max-w-2xl">
                  <span className="text-secondary-dark font-semibold tracking-[0.15em] text-xs uppercase mb-6 block">02 / Drawing Teachers</span>
-                 <h3 className="text-3xl md:text-5xl font-bold font-serif text-ink mb-6 leading-[1.05]">Foundational skills.</h3>
+                 <h2 className="text-3xl md:text-5xl font-bold font-serif text-ink mb-6 leading-[1.05]">Foundational skills.</h2>
                  <p className="text-ink-light text-lg md:text-xl leading-relaxed">Charcoal, acrylics, and sketching basics. Find patient, skilled teachers for in-home lessons or private studio sessions.</p>
               </div>
               <div className="shrink-0 pt-4 md:pt-0">
@@ -153,7 +153,7 @@ export function Home() {
             <div className="bento-item flex flex-col md:flex-row items-start md:items-end justify-between gap-8 md:gap-16 pb-12 border-b border-whisper group select-none">
               <div className="flex-1 max-w-2xl">
                  <span className="text-secondary-dark font-semibold tracking-[0.15em] text-xs uppercase mb-6 block">03 / Live Event Art</span>
-                 <h3 className="text-3xl md:text-5xl font-bold font-serif text-ink mb-6 leading-[1.05]">Live canvas painting.</h3>
+                 <h2 className="text-3xl md:text-5xl font-bold font-serif text-ink mb-6 leading-[1.05]">Live canvas painting.</h2>
                  <p className="text-ink-light text-lg md:text-xl leading-relaxed">Hire artists for fast watercolors, live canvas painting, and caricatures to capture memories right as they happen.</p>
               </div>
               <div className="shrink-0 pt-4 md:pt-0">
