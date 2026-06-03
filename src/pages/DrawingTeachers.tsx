@@ -5,7 +5,8 @@ import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Card, CardContent } from '../components/ui/card';
 import React, { useState } from 'react';
-import { supabase, hasSupabaseConfig } from '../lib/supabase';
+import { api } from '../lib/api';
+import { hasSupabaseConfig } from '../lib/supabase';
 import { CheckCircledIcon as CheckCircle2, ExclamationTriangleIcon as AlertCircle } from '@radix-ui/react-icons';
 
 export function DrawingTeachers() {
@@ -34,7 +35,7 @@ export function DrawingTeachers() {
       description: `Child Age: ${formData.get('age')}\nClass Mode: ${formData.get('mode')}\nTiming: ${formData.get('timing')}\nGoal: ${formData.get('goal')}\nNotes: ${formData.get('notes')}`,
     };
 
-    const { error: dbError } = await supabase.from('inquiries').insert([data]);
+    const { error: dbError } = await api.submitInquiry(data);
 
     setIsSubmitting(false);
 

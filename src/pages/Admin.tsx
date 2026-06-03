@@ -1,96 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { supabase, hasSupabaseConfig } from '../lib/supabase';
+import { hasSupabaseConfig } from '../lib/supabase';
 import { Inquiry, JoinRequest } from '../types';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { api } from '../lib/api';
+import { Card, CardContent } from '../components/ui/card';
 import { formatDistanceToNow } from 'date-fns';
 import { ExclamationTriangleIcon as AlertCircle, CalendarIcon as Calendar } from '@radix-ui/react-icons';
+import { useAdminAuth } from '../hooks/useAdminAuth';
 
 export function Admin() {
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [applications, setApplications] = useState<JoinRequest[]>([]);
   const [loading, setLoading] = useState(true);
   
-  // Auth states
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [authError, setAuthError] = useState('');
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
-  useEffect(() => {
-    // Check active session on mount
-    const checkSession = async () => {
-      if (!hasSupabaseConfig) {
-        setIsCheckingAuth(false);
-        setLoading(false);
-        return;
-      }
-
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (session?.user) {
-        verifyAdminAccess(session.user.id);
-      } else {
-        setIsCheckingAuth(false);
-        setLoading(false);
-      }
-    };
-
-    checkSession();
-  }, []); // Run once on mount
-
-  const verifyAdminAccess = async (userId: string) => {
-    try {
-      const { data, error } = await supabase
-        .from('admin_users')
-        .select('*')
-        .eq('user_id', userId)
-        .single();
-        
-      if (error || !data) {
-        console.error("Admin verification failed:", error);
-        setAuthError("Account does not have admin privileges.");
-        await supabase.auth.signOut();
-        setIsAuthenticated(false);
-      } else {
-        setIsAuthenticated(true);
-      }
-    } catch (err) {
-      console.error("Error verifying admin status");
-    } finally {
-      setIsCheckingAuth(false);
-    }
-  };
+  const { isAuthenticated, isCheckingAuth, authError, signIn, signOut } = useAdminAuth();
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
-    setAuthError('');
-    setIsCheckingAuth(true);
-
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) {
-        setAuthError(error.message);
-        setIsCheckingAuth(false);
-        return;
-      }
-
-      if (data.user) {
-        await verifyAdminAccess(data.user.id);
-      }
-    } catch (err) {
-      setAuthError("Failed to sign in.");
-      setIsCheckingAuth(false);
-    }
+    await signIn(email, password);
   };
 
   const handleLogOut = async () => {
-    await supabase.auth.signOut();
-    setIsAuthenticated(false);
+    await signOut();
     setEmail('');
     setPassword('');
   };
@@ -99,8 +32,8 @@ export function Admin() {
     if (isAuthenticated && hasSupabaseConfig) {
       setLoading(true);
       Promise.all([
-        supabase.from('inquiries').select('*').order('created_at', { ascending: false }),
-        supabase.from('join_requests').select('*').order('created_at', { ascending: false })
+        api.fetchAdminInquiries(),
+        api.fetchAdminJoinRequests()
       ]).then(([inquiriesRes, appsRes]) => {
         if (inquiriesRes.data) setInquiries(inquiriesRes.data);
         if (appsRes.data) setApplications(appsRes.data);
@@ -111,7 +44,7 @@ export function Admin() {
 
   const updateApplicationStatus = async (id: string, status: 'approved' | 'rejected') => {
     try {
-      const { error } = await supabase.from('join_requests').update({ status }).eq('id', id);
+      const { error } = await api.updateJoinRequestStatus(id, status);
       if (error) {
         alert("Failed to update status: " + error.message);
         return;
@@ -125,7 +58,7 @@ export function Admin() {
 
   const updateInquiryStatus = async (id: string, status: 'reviewed' | 'matched' | 'closed') => {
     try {
-      const { error } = await supabase.from('inquiries').update({ status }).eq('id', id);
+      const { error } = await api.updateInquiryStatus(id, status);
       if (error) {
         alert("Failed to update status: " + error.message);
         return;

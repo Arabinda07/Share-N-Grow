@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { supabase, hasSupabaseConfig } from '../lib/supabase';
+import { api } from '../lib/api';
+import { hasSupabaseConfig } from '../lib/supabase';
 import { Artist } from '../types';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
@@ -38,19 +39,7 @@ export function ArtistProfile() {
       setError(null);
       
       try {
-        // First try to fetch by slug, if failed or if id is clearly a UUID, fallback
-        let query = supabase.from('artists').select('*').eq('status', 'approved');
-        
-        // Basic UUID check
-        const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
-        
-        if (isUUID) {
-           query = query.eq('id', id);
-        } else {
-           query = query.eq('slug', id);
-        }
-        
-        const { data, error: fetchError } = await query.single();
+        const { data, error: fetchError } = await api.fetchArtistBySlugOrId(id);
         
         if (fetchError) {
           // If no rows found, we just set artist to null and let the empty state handle it

@@ -5,7 +5,8 @@ import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Card, CardContent } from '../components/ui/card';
 import React, { useState } from 'react';
-import { supabase, hasSupabaseConfig } from '../lib/supabase';
+import { api } from '../lib/api';
+import { hasSupabaseConfig } from '../lib/supabase';
 import { CheckCircledIcon as CheckCircle2 } from '@radix-ui/react-icons';
 
 export function WallMurals() {
@@ -36,7 +37,7 @@ export function WallMurals() {
       description: `Organization: ${formData.get('org')}\nLocation Type: ${formData.get('locationType')}\nWall Size: ${formData.get('size')}\nStyle: ${formData.get('style')}\nNotes: ${formData.get('notes')}`,
     };
 
-    const { error: dbError } = await supabase.from('inquiries').insert([data]);
+    const { error: dbError } = await api.submitInquiry(data);
 
     setIsSubmitting(false);
 

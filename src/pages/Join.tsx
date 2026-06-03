@@ -4,38 +4,26 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Card, CardContent } from '../components/ui/card';
-import { supabase, hasSupabaseConfig } from '../lib/supabase';
+import { api } from '../lib/api';
+import { hasSupabaseConfig } from '../lib/supabase';
 import { CheckCircledIcon as CheckCircle2, ExclamationTriangleIcon as AlertCircle } from '@radix-ui/react-icons';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
+import { useFormWizard } from '../hooks/useFormWizard';
+import { WizardProgress } from '../components/ui/wizard-progress';
 
 export function Join() {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  
-  // Store form data between steps
-  const [formData, setFormData] = useState({
+  const wizard = useFormWizard({
     name: '', contact: '', email: '', city: '', area: '', 
     mediums: '', portfolio: '', social: '', bio: '', message: '',
     paid_work: false, home_teaching: false, travel: false, 
     consent_public: false, consent_art: false
-  });
+  }, 3);
+
+  const { formData, handleInputChange, currentStep, isSubmitting, isSuccess, error } = wizard;
+  
   const [services, setServices] = useState<string[]>([]);
   const [portfolioFile, setPortfolioFile] = useState<File | null>(null);
-
-  const totalSteps = 3;
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, type } = e.target as HTMLInputElement;
-    if (type === 'checkbox') {
-      const checked = (e.target as HTMLInputElement).checked;
-      setFormData(prev => ({ ...prev, [name]: checked }));
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
-    }
-  };
 
   const handleServiceChange = (service: string, checked: boolean) => {
     setServices(prev => 
@@ -43,42 +31,36 @@ export function Join() {
     );
   };
 
-  const nextStep = () => {
-    // Basic validation per step
-    if (currentStep === 1) {
-      if (!formData.name || !formData.contact || !formData.city || !formData.area) {
-        setError("Please fill in all required fields.");
-        return;
+  const validateStep = (step: number, data: typeof formData) => {
+    if (step === 1) {
+      if (!data.name || !data.contact || !data.city || !data.area) {
+        return "Please fill in all required fields.";
       }
     }
-    if (currentStep === 2) {
-      if (!formData.mediums || services.length === 0) {
-        setError("Please provide your mediums and select at least one service.");
-        return;
+    if (step === 2) {
+      if (!data.mediums || services.length === 0) {
+        return "Please provide your mediums and select at least one service.";
       }
     }
-    setError(null);
-    setCurrentStep(prev => Math.min(prev + 1, totalSteps));
+    return null;
   };
-
-  const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (currentStep !== totalSteps) {
-      nextStep();
+    if (currentStep !== wizard.totalSteps) {
+      wizard.nextStep(validateStep);
       return;
     }
     
     if (!formData.consent_public || !formData.consent_art) {
-        setError("Please agree to the consent terms to proceed.");
+        wizard.setError("Please agree to the consent terms to proceed.");
         return;
     }
 
-    setError(null);
+    wizard.setError(null);
 
     if (!hasSupabaseConfig) {
-      setError("Database is not configured. (Developer: check Supabase credentials)");
+      wizard.setError("Database is not configured.");
       return;
     }
 
@@ -86,38 +68,33 @@ export function Join() {
     const formElement = e.currentTarget;
     const botCheck = (formElement.elements.namedItem('_botcheck') as HTMLInputElement)?.value;
     if (botCheck) {
-      setIsSuccess(true);
+      wizard.setIsSuccess(true);
       return;
     }
 
-    setIsSubmitting(true);
+    wizard.setIsSubmitting(true);
     
     // Process File Upload if provided
     let uploadedFileUrl = "";
     if (portfolioFile && portfolioFile.size > 0) {
       if (portfolioFile.size > 5 * 1024 * 1024) {
-        setError("File size must be under 5MB.");
-        setIsSubmitting(false);
+        wizard.setError("File size must be under 5MB.");
+        wizard.setIsSubmitting(false);
         return;
       }
       const fileExt = portfolioFile.name.split('.').pop();
       const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from('application-uploads')
-        .upload(fileName, portfolioFile);
+      
+      const { data: uploadResult, error: uploadError } = await api.uploadPortfolio(fileName, portfolioFile);
 
-      if (uploadError) {
+      if (uploadError || !uploadResult) {
         console.error("Upload error:", uploadError);
-        setError("Failed to upload portfolio file. Please try again.");
-        setIsSubmitting(false);
+        wizard.setError("Failed to upload portfolio file. Please try again.");
+        wizard.setIsSubmitting(false);
         return;
       }
       
-      const { data: publicUrlData } = supabase.storage
-        .from('application-uploads')
-        .getPublicUrl(fileName);
-        
-      uploadedFileUrl = publicUrlData.publicUrl;
+      uploadedFileUrl = uploadResult.publicUrl;
     }
 
     const mediumsArr = formData.mediums ? formData.mediums.split(',').map(s => s.trim()).filter(Boolean) : [];
@@ -146,14 +123,14 @@ export function Join() {
       message: formData.message,
     };
 
-    const { error: dbError } = await supabase.from('join_requests').insert([data]);
-    setIsSubmitting(false);
+    const { error: dbError } = await api.submitJoinRequest(data);
+    wizard.setIsSubmitting(false);
 
     if (dbError) {
       console.error(dbError);
-      setError("Something went wrong submitting your application. Please try again.");
+      wizard.setError("Something went wrong submitting your application. Please try again.");
     } else {
-      setIsSuccess(true);
+      wizard.setIsSuccess(true);
     }
   }
 
@@ -183,22 +160,11 @@ export function Join() {
       <div className="mb-12">
         <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold tracking-tighter text-ink leading-[1.1] font-serif mb-4">Apply as an Artist</h1>
         
-        {/* Progress Bar */}
-        <div className="flex items-center gap-2 mt-8 max-w-sm">
-          {[1, 2, 3].map((step) => (
-            <div key={step} className="flex-1 h-2 rounded-full bg-whisper overflow-hidden flex">
-              <div 
-                className={`h-full bg-ink transition-all duration-500 ease-out`}
-                style={{ width: currentStep >= step ? '100%' : '0%' }}
-              />
-            </div>
-          ))}
-        </div>
-        <div className="flex justify-between max-w-sm mt-2">
-            <span className={`text-xs font-medium ${currentStep >= 1 ? 'text-ink' : 'text-ink-light'}`}>Basics</span>
-            <span className={`text-xs font-medium ${currentStep >= 2 ? 'text-ink' : 'text-ink-light'}`}>Art</span>
-            <span className={`text-xs font-medium ${currentStep >= 3 ? 'text-ink' : 'text-ink-light'}`}>Details</span>
-        </div>
+        <WizardProgress 
+          currentStep={currentStep} 
+          totalSteps={wizard.totalSteps} 
+          steps={[{ label: 'Basics' }, { label: 'Art' }, { label: 'Details' }]} 
+        />
       </div>
 
       <Card className="border border-whisper bg-white rounded-[2rem] shadow-none p-6 sm:p-10 md:p-12 overflow-hidden relative">
@@ -378,7 +344,7 @@ export function Join() {
 
             <div className="flex items-center gap-4 mt-12 pt-6 border-t border-whisper">
               {currentStep > 1 && (
-                <Button type="button" variant="outline" size="lg" onClick={prevStep} className="h-14 px-6 rounded-xl border-whisper hover:bg-paper-dark group">
+                <Button type="button" variant="outline" size="lg" onClick={wizard.prevStep} className="h-14 px-6 rounded-xl border-whisper hover:bg-paper-dark group">
                   <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" /> Back
                 </Button>
               )}
@@ -395,7 +361,7 @@ export function Join() {
                     <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-200"></div>
                     <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-400"></div>
                   </div>
-                ) : currentStep === totalSteps ? (
+                ) : currentStep === wizard.totalSteps ? (
                    "Submit Application"
                 ) : (
                   <>Next Step <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" /></>

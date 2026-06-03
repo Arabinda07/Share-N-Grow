@@ -3,7 +3,8 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Card, CardContent } from '../components/ui/card';
-import { supabase, hasSupabaseConfig } from '../lib/supabase';
+import { api } from '../lib/api';
+import { hasSupabaseConfig } from '../lib/supabase';
 import { CheckCircledIcon as CheckCircle2 } from '@radix-ui/react-icons';
 import { Link } from 'react-router-dom';
 
@@ -36,7 +37,7 @@ export function Collaborate() {
       description: formData.get('description') as string,
     };
 
-    const { error: dbError } = await supabase.from('collaboration_requests').insert([data]);
+    const { error: dbError } = await api.submitCollaborationRequest(data);
 
     setIsSubmitting(false);
 

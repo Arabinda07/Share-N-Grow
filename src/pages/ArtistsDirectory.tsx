@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { supabase, hasSupabaseConfig } from '../lib/supabase';
+import { api } from '../lib/api';
+import { hasSupabaseConfig } from '../lib/supabase';
 import { Artist, SERVICES } from '../types';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
@@ -26,22 +27,11 @@ export function ArtistsDirectory() {
     setLoading(true);
     setError(null);
     try {
-      let query = supabase
-        .from('artists')
-        .select('*')
-        .eq('status', 'approved');
-
-      if (cityFilter) {
-        query = query.eq('city', cityFilter);
-      }
-      
-      if (serviceFilter === 'drawing-teacher') {
-        query = query.eq('available_for_teaching', true);
-      } else if (serviceFilter === 'wall-mural' || serviceFilter === 'live-event-art') {
-        query = query.eq('available_for_commissions', true);
-      }
-      
-      const { data, error: fetchError } = await query;
+      const { data, error: fetchError } = await api.fetchArtists({
+        status: 'approved',
+        city: cityFilter,
+        service: serviceFilter
+      });
       
       if (fetchError) throw fetchError;
       

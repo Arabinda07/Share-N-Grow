@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS artists (
   available_for_travel boolean DEFAULT false,
   status text DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
   consent_profile_public boolean DEFAULT true,
+  is_featured boolean DEFAULT false,
   created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
   updated_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
 );

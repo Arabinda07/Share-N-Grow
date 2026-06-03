@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { supabase, hasSupabaseConfig } from '../lib/supabase';
+import { api } from '../lib/api';
+import { hasSupabaseConfig } from '../lib/supabase';
 import { Artist, Artwork } from '../types';
 import { Card, CardContent } from '../components/ui/card';
 import { PersonIcon as User, ExclamationTriangleIcon as AlertCircle } from '@radix-ui/react-icons';
@@ -25,12 +26,11 @@ export function Showcase() {
     setError(null);
     try {
       // Fetch Artists
-      const { data: artistsData, error: artistsError } = await supabase
-        .from('artists')
-        .select('*')
-        .eq('status', 'approved')
-        .eq('is_featured', true)
-        .limit(6);
+      const { data: artistsData, error: artistsError } = await api.fetchArtists({
+        status: 'approved',
+        is_featured: true,
+        limit: 6
+      });
 
       if (artistsError) throw artistsError;
       
@@ -42,12 +42,7 @@ export function Showcase() {
       // Note: In Supabase, if a foreign key exists, we can do: select('*, artist:artists(*)')
       // Since it might not exist yet, we'll fetch artworks, then fetch their artists manually if needed,
       // or try the join syntax. Let's try join syntax and gracefully fallback.
-      const { data: artworksData, error: artworksError } = await supabase
-        .from('artworks')
-        .select('*, artist:artists(*)')
-        .eq('is_featured', true)
-        .order('created_at', { ascending: false })
-        .limit(10);
+      const { data: artworksData, error: artworksError } = await api.fetchFeaturedArtworks(10);
         
       if (artworksError) {
         // If table doesn't exist, just catch and ignore or throw depending on strictness

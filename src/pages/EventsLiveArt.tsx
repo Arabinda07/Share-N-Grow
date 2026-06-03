@@ -5,7 +5,8 @@ import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Card, CardContent } from '../components/ui/card';
 import React, { useState } from 'react';
-import { supabase, hasSupabaseConfig } from '../lib/supabase';
+import { api } from '../lib/api';
+import { hasSupabaseConfig } from '../lib/supabase';
 import { CheckCircledIcon as CheckCircle2 } from '@radix-ui/react-icons';
 
 export function EventsLiveArt() {
@@ -36,7 +37,7 @@ export function EventsLiveArt() {
       description: `Event Type: ${formData.get('eventType')}\nGuests: ${formData.get('guests')}\nDuration: ${formData.get('duration')}\nService: ${formData.get('serviceSpecific')}\nNotes: ${formData.get('notes')}`,
     };
 
-    const { error: dbError } = await supabase.from('inquiries').insert([data]);
+    const { error: dbError } = await api.submitInquiry(data);
 
     setIsSubmitting(false);
 

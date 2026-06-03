@@ -5,84 +5,69 @@ import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Card, CardContent } from '../components/ui/card';
 import { SERVICES } from '../types';
-import { supabase, hasSupabaseConfig } from '../lib/supabase';
+import { api } from '../lib/api';
+import { hasSupabaseConfig } from '../lib/supabase';
 import { CheckCircledIcon as CheckCircle2, ExclamationTriangleIcon as AlertCircle } from '@radix-ui/react-icons';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
+import { useFormWizard } from '../hooks/useFormWizard';
+import { WizardProgress } from '../components/ui/wizard-progress';
 
 export function Hire() {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [searchParams] = useSearchParams();
   const preselectedArtistId = searchParams.get('artist');
 
-  const [formData, setFormData] = useState({
+  const wizard = useFormWizard({
     name: '', contact: '', email: '', city: '', area: '',
     service: '', budget: '', deadline: '', details: '', reference: '',
     consent: false
-  });
+  }, 3);
 
-  const totalSteps = 3;
+  const { formData, handleInputChange, currentStep, isSubmitting, isSuccess, error } = wizard;
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target as HTMLInputElement;
-    if (type === 'checkbox') {
-      const checked = (e.target as HTMLInputElement).checked;
-      setFormData(prev => ({ ...prev, [name]: checked }));
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
-    }
-  };
-
-  const nextStep = () => {
-    if (currentStep === 1) {
-      if (!formData.name || !formData.contact || !formData.city || !formData.area) {
-        setError("Please fill out required fields before proceeding.");
-        return;
+  const validateStep = (step: number, data: typeof formData) => {
+    if (step === 1) {
+      if (!data.name || !data.contact || !data.city || !data.area) {
+        return "Please fill out required fields before proceeding.";
       }
     }
-    if (currentStep === 2) {
-      if (!formData.service || !formData.details) {
-         setError("Please select a service and provide project details.");
-         return;
+    if (step === 2) {
+      if (!data.service || !data.details) {
+         return "Please select a service and provide project details.";
       }
     }
-    setError(null);
-    setCurrentStep(prev => Math.min(prev + 1, totalSteps));
+    return null;
   };
-
-  const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (currentStep !== totalSteps) {
-      nextStep();
+    if (currentStep !== wizard.totalSteps) {
+      wizard.nextStep(validateStep);
       return;
     }
 
     if (!formData.consent) {
-       setError("Please accept the terms to submit your request.");
+       wizard.setError("Please accept the terms to submit your request.");
        return;
     }
 
-    setError(null);
+    wizard.setError(null);
     
+    if (!hasSupabaseConfig) {
+      wizard.setError("Database is not configured.");
+      return;
+    }
+
+
     // Bot check
     const formElement = e.currentTarget;
     const botCheck = (formElement.elements.namedItem('_botcheck') as HTMLInputElement)?.value;
     if (botCheck) {
-      setIsSuccess(true);
+      wizard.setIsSuccess(true);
       return;
     }
 
-    if (!hasSupabaseConfig) {
-      setError("Database is not configured. (Developer: check Supabase credentials)");
-      return;
-    }
-
-    setIsSubmitting(true);
+    wizard.setIsSubmitting(true);
     const data = {
       name: formData.name,
       phone: formData.contact,
@@ -97,15 +82,15 @@ export function Hire() {
       selected_artist_id: preselectedArtistId || null,
     };
 
-    const { error: dbError } = await supabase.from('inquiries').insert([data]);
+    const { error: dbError } = await api.submitInquiry(data);
 
-    setIsSubmitting(false);
+    wizard.setIsSubmitting(false);
 
     if (dbError) {
       console.error(dbError);
-      setError("Something went wrong submitting your request. Please try again.");
+      wizard.setError("Something went wrong submitting your request. Please try again.");
     } else {
-      setIsSuccess(true);
+      wizard.setIsSuccess(true);
     }
   }
 
@@ -135,22 +120,12 @@ export function Hire() {
       <div className="mb-12">
         <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold font-serif tracking-tighter text-ink leading-[1.1] mb-4">Hire an Artist</h1>
         
-        {/* Progress Bar */}
-        <div className="flex items-center gap-2 mt-8 max-w-sm">
-          {[1, 2, 3].map((step) => (
-            <div key={step} className="flex-1 h-2 rounded-full bg-whisper overflow-hidden flex">
-              <div 
-                className={`h-full bg-terracotta transition-all duration-500 ease-out`}
-                style={{ width: currentStep >= step ? '100%' : '0%' }}
-              />
-            </div>
-          ))}
-        </div>
-        <div className="flex justify-between max-w-sm mt-2">
-            <span className={`text-xs font-medium ${currentStep >= 1 ? 'text-ink' : 'text-ink-light'}`}>Client</span>
-            <span className={`text-xs font-medium ${currentStep >= 2 ? 'text-ink' : 'text-ink-light'}`}>Project</span>
-            <span className={`text-xs font-medium ${currentStep >= 3 ? 'text-ink' : 'text-ink-light'}`}>Review</span>
-        </div>
+        <WizardProgress 
+          currentStep={currentStep} 
+          totalSteps={wizard.totalSteps} 
+          steps={[{ label: 'Client' }, { label: 'Project' }, { label: 'Review' }]}
+          activeColor="bg-terracotta"
+        />
       </div>
 
       <Card className="border border-whisper bg-white rounded-[2rem] shadow-none p-6 sm:p-10 md:p-12 overflow-hidden relative">
@@ -288,7 +263,7 @@ export function Hire() {
 
             <div className="flex items-center gap-4 mt-12 pt-6 border-t border-whisper">
               {currentStep > 1 && (
-                <Button type="button" variant="outline" size="lg" onClick={prevStep} className="h-14 px-6 rounded-xl border-whisper hover:bg-paper-dark group">
+                <Button type="button" variant="outline" size="lg" onClick={wizard.prevStep} className="h-14 px-6 rounded-xl border-whisper hover:bg-paper-dark group">
                   <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" /> Back
                 </Button>
               )}
@@ -296,7 +271,7 @@ export function Hire() {
               <Button 
                 type="submit" 
                 size="lg" 
-                className={`h-14 flex-1 text-base shadow-none bg-ink hover:bg-ink-light text-white rounded-xl transition-all duration-300 ease-out active:scale-[0.98] ${currentStep === 1 ? 'w-full' : ''}`} 
+                className={`h-14 flex-1 text-base shadow-none bg-ink hover:bg-ink-light text-white rounded-xl transition-all duration-300 ease-out active:scale-[0.98] ${currentStep === 1 ? 'w-full' : ''}`}
                 disabled={isSubmitting || !hasSupabaseConfig}
               >
                 {isSubmitting ? (
@@ -305,7 +280,7 @@ export function Hire() {
                     <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-200"></div>
                     <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-400"></div>
                   </div>
-                ) : currentStep === totalSteps ? "Send Request" : (
+                ) : currentStep === wizard.totalSteps ? "Send Request" : (
                   <>Next Step <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" /></>
                 )}
               </Button>
