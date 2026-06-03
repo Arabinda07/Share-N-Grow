@@ -1,17 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Lora", ui-serif, Georgia, serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
   
-  --color-paper: #f9f7f1;
-  --color-paper-dark: #f0ebe1;
-  --color-ink: #1c1917;
-  --color-ink-light: #44403c;
-  --color-terracotta: #b05c49;
-  --color-terracotta-dark: #934636;
-  --color-pine: #2c4c3b;
+  --color-paper: #f9fafb;
+  --color-paper-dark: #f1f5f9;
+  --color-ink: #09090b;
+  --color-ink-light: #52525b;
+  --color-terracotta: #10b981; /* Shift to Emerald */
+  --color-terracotta-dark: #059669;
+  --color-pine: #047857;
+}
+
+@layer utilities {
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
 }
 
 body {

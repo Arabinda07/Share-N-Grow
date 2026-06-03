@@ -4,7 +4,7 @@ import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Card, CardContent } from '../components/ui/card';
 import { supabase, hasSupabaseConfig } from '../lib/supabase';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircleIcon as CheckCircle2 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
 export function Collaborate() {
@@ -64,90 +64,90 @@ export function Collaborate() {
   }
 
   return (
-    <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+    <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 min-h-screen">
       <div className="text-center mb-12">
-        <h1 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">Collaborate with ShareNGrow.</h1>
-        <p className="mt-4 text-lg text-stone-600 max-w-2xl mx-auto">
+        <h1 className="text-4xl font-bold tracking-tight text-ink sm:text-5xl font-sans">Collaborate with ShareNGrow.</h1>
+        <p className="mt-4 text-lg text-ink-light max-w-2xl mx-auto">
           We partner with schools, offices, cafés, NGOs, colleges, cultural groups, and event partners to bring more art into local spaces.
         </p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 mb-12">
-        <Card className="border-stone-200">
-          <CardContent className="pt-6">
-            <h3 className="font-semibold text-lg text-stone-900 mb-2">For Schools & Colleges</h3>
-             <p className="text-sm text-stone-600">Hire guest faculty, organise specialized art workshops, or find judges for cultural fests.</p>
+        <Card className="border border-slate-200/50 bg-paper-dark rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
+          <CardContent className="p-8">
+            <h3 className="font-semibold text-lg text-ink tracking-tight font-sans mb-3">For Schools & Colleges</h3>
+             <p className="text-base text-ink-light leading-relaxed">Hire guest faculty, organise specialized art workshops, or find judges for cultural fests.</p>
           </CardContent>
         </Card>
-        <Card className="border-stone-200">
-          <CardContent className="pt-6">
-            <h3 className="font-semibold text-lg text-stone-900 mb-2">For Offices & Local Businesses</h3>
-             <p className="text-sm text-stone-600">Team-building art workshops, office murals, or finding local art for your café walls.</p>
+        <Card className="border border-slate-200/50 bg-white rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
+          <CardContent className="p-8">
+            <h3 className="font-semibold text-lg text-ink tracking-tight font-sans mb-3">For Offices & Local Businesses</h3>
+             <p className="text-base text-ink-light leading-relaxed">Team-building art workshops, office murals, or finding local art for your café walls.</p>
           </CardContent>
         </Card>
-        <Card className="border-stone-200">
-          <CardContent className="pt-6">
-            <h3 className="font-semibold text-lg text-stone-900 mb-2">For Events & Planners</h3>
-             <p className="text-sm text-stone-600">Bulk hire live artists for large festivals, weddings, or corporate offsites.</p>
+        <Card className="border border-slate-200/50 bg-white rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
+          <CardContent className="p-8">
+            <h3 className="font-semibold text-lg text-ink tracking-tight font-sans mb-3">For Events & Planners</h3>
+             <p className="text-base text-ink-light leading-relaxed">Bulk hire live artists for large festivals, weddings, or corporate offsites.</p>
           </CardContent>
         </Card>
-        <Card className="border-stone-200">
-          <CardContent className="pt-6">
-            <h3 className="font-semibold text-lg text-stone-900 mb-2">For Cultural Groups & NGOs</h3>
-             <p className="text-sm text-stone-600">Partner with our network for community art projects, charity auctions, or public installations.</p>
+        <Card className="border border-slate-200/50 bg-paper-dark rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
+          <CardContent className="p-8">
+            <h3 className="font-semibold text-lg text-ink tracking-tight font-sans mb-3">For Cultural Groups & NGOs</h3>
+             <p className="text-base text-ink-light leading-relaxed">Partner with our network for community art projects, charity auctions, or public installations.</p>
           </CardContent>
         </Card>
       </div>
 
-      <Card className="border-stone-200">
+      <Card className="border-ink-light/20 bg-white rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] p-4 sm:p-8">
         <CardContent className="pt-6">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-8">
              {error && (
-              <div className="mb-6 rounded-md bg-red-50 p-4 text-sm text-red-900">
+              <div className="mb-6 rounded-xl bg-red-50 p-4 text-sm text-red-900 border border-red-200">
                 {error}
               </div>
             )}
             
-            <div className="space-y-4">
-              <h3 className="font-semibold text-lg border-b border-stone-100 pb-2">Your Details</h3>
-              <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-6">
+              <h3 className="font-semibold text-lg border-b border-ink-light/10 pb-2 text-ink">Your Details</h3>
+              <div className="grid gap-6 sm:grid-cols-2">
                  <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">Your Name *</label>
-                  <Input name="name" required placeholder="Full Name" />
+                  <label className="text-sm font-medium text-ink">Your Name *</label>
+                  <Input name="name" required placeholder="Full Name" className="rounded-xl border-ink-light/20" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">Organisation Name *</label>
-                  <Input name="org" required placeholder="School, Company, NGO..." />
-                </div>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">Your Role</label>
-                  <Input name="role" placeholder="E.g. Principal, HR Manager..." />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">City *</label>
-                  <Input name="city" required placeholder="E.g. Kolkata" />
+                  <label className="text-sm font-medium text-ink">Organisation Name *</label>
+                  <Input name="org" required placeholder="School, Company, NGO..." className="rounded-xl border-ink-light/20" />
                 </div>
               </div>
-               <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">WhatsApp / Phone *</label>
-                  <Input name="phone" required placeholder="Phone number" />
+                  <label className="text-sm font-medium text-ink">Your Role</label>
+                  <Input name="role" placeholder="E.g. Principal, HR Manager..." className="rounded-xl border-ink-light/20" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">Email Address</label>
-                  <Input name="email" type="email" placeholder="Optional" />
+                  <label className="text-sm font-medium text-ink">City *</label>
+                  <Input name="city" required placeholder="E.g. Kolkata" className="rounded-xl border-ink-light/20" />
+                </div>
+              </div>
+               <div className="grid gap-6 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-ink">WhatsApp / Phone *</label>
+                  <Input name="phone" required placeholder="Phone number" className="rounded-xl border-ink-light/20" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-ink">Email Address</label>
+                  <Input name="email" type="email" placeholder="Optional" className="rounded-xl border-ink-light/20" />
                 </div>
               </div>
             </div>
 
-            <div className="space-y-4 pt-4">
-               <h3 className="font-semibold text-lg border-b border-stone-100 pb-2">Partnership Details</h3>
+            <div className="space-y-6 pt-4">
+               <h3 className="font-semibold text-lg border-b border-ink-light/10 pb-2 text-ink">Partnership Details</h3>
                
                <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">Type of Collaboration *</label>
-                  <select name="collabType" required className="flex h-10 w-full rounded-md border border-stone-300 bg-white px-3 py-2 text-sm text-stone-900">
+                  <label className="text-sm font-medium text-ink">Type of Collaboration *</label>
+                  <select name="collabType" required className="flex h-12 w-full rounded-xl border border-ink-light/20 bg-white px-3 py-2 text-sm text-ink focus:ring-terracotta focus:outline-none transition-shadow">
                     <option value="">Select...</option>
                     <option value="School/College Program">School / College Art Program</option>
                     <option value="Corporate Workshop">Corporate Team Building Workshop</option>
@@ -159,24 +159,30 @@ export function Collaborate() {
                </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">Description of your needs *</label>
-                  <Textarea name="description" required placeholder="Tell us what you are looking to achieve..." className="min-h-[120px]" />
+                  <label className="text-sm font-medium text-ink">Description of your needs *</label>
+                  <Textarea name="description" required placeholder="Tell us what you are looking to achieve..." className="min-h-[120px] rounded-xl border-ink-light/20" />
                 </div>
                
-               <div className="grid gap-4 sm:grid-cols-2">
+               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">Preferred Timeline (Optional)</label>
-                  <Input name="timeline" placeholder="E.g. Next month, Ongoing..." />
+                  <label className="text-sm font-medium text-ink">Preferred Timeline (Optional)</label>
+                  <Input name="timeline" placeholder="E.g. Next month, Ongoing..." className="rounded-xl border-ink-light/20" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-stone-900">Budget Range (Optional)</label>
-                  <Input name="budget" placeholder="Approximate budget in ₹" />
+                  <label className="text-sm font-medium text-ink">Budget Range (Optional)</label>
+                  <Input name="budget" placeholder="Approximate budget in ₹" className="rounded-xl border-ink-light/20" />
                 </div>
                </div>
             </div>
 
-            <Button type="submit" variant="brand" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? "Submitting..." : "Submit Proposal"}
+            <Button type="submit" size="lg" className="w-full h-14 bg-ink hover:bg-ink-light text-white rounded-xl shadow-none transition-transform active:scale-[0.98] mt-4" disabled={isSubmitting || !hasSupabaseConfig}>
+              {isSubmitting ? (
+                <div className="flex space-x-2">
+                  <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-200"></div>
+                  <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse animation-delay-400"></div>
+                </div>
+              ) : "Submit Proposal"}
             </Button>
           </form>
         </CardContent>

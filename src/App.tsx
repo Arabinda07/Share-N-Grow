@@ -3,19 +3,34 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
-import { Home } from './pages/Home';
-import { Hire } from './pages/Hire';
-import { Join } from './pages/Join';
-import { Admin } from './pages/Admin';
-import { DrawingTeachers } from './pages/DrawingTeachers';
-import { WallMurals } from './pages/WallMurals';
-import { EventsLiveArt } from './pages/EventsLiveArt';
-import { Collaborate } from './pages/Collaborate';
-import { ArtistsDirectory } from './pages/ArtistsDirectory';
-import { ArtistProfile } from './pages/ArtistProfile';
+
+// Lazy load pages for better performance (bundle splitting)
+const Home = lazy(() => import('./pages/Home').then(module => ({ default: module.Home })));
+const Hire = lazy(() => import('./pages/Hire').then(module => ({ default: module.Hire })));
+const Join = lazy(() => import('./pages/Join').then(module => ({ default: module.Join })));
+const Admin = lazy(() => import('./pages/Admin').then(module => ({ default: module.Admin })));
+const DrawingTeachers = lazy(() => import('./pages/DrawingTeachers').then(module => ({ default: module.DrawingTeachers })));
+const WallMurals = lazy(() => import('./pages/WallMurals').then(module => ({ default: module.WallMurals })));
+const EventsLiveArt = lazy(() => import('./pages/EventsLiveArt').then(module => ({ default: module.EventsLiveArt })));
+const Collaborate = lazy(() => import('./pages/Collaborate').then(module => ({ default: module.Collaborate })));
+const ArtistsDirectory = lazy(() => import('./pages/ArtistsDirectory').then(module => ({ default: module.ArtistsDirectory })));
+const ArtistProfile = lazy(() => import('./pages/ArtistProfile').then(module => ({ default: module.ArtistProfile })));
+const FAQ = lazy(() => import('./pages/FAQ').then(module => ({ default: module.FAQ })));
+
+// Loading fallback
+const PageLoader = () => (
+  <div className="flex items-center justify-center min-h-[60vh]">
+    <div className="flex space-x-2 animate-pulse">
+      <div className="w-3 h-3 bg-terracotta rounded-full"></div>
+      <div className="w-3 h-3 bg-terracotta rounded-full animation-delay-200"></div>
+      <div className="w-3 h-3 bg-terracotta rounded-full animation-delay-400"></div>
+    </div>
+  </div>
+);
 
 export default function App() {
   return (
@@ -23,18 +38,21 @@ export default function App() {
       <div className="min-h-screen flex flex-col bg-paper font-sans text-ink">
         <Navbar />
         <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/hire" element={<Hire />} />
-            <Route path="/join" element={<Join />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/drawing-teachers" element={<DrawingTeachers />} />
-            <Route path="/wall-murals" element={<WallMurals />} />
-            <Route path="/events-live-art" element={<EventsLiveArt />} />
-            <Route path="/collaborate" element={<Collaborate />} />
-            <Route path="/directory" element={<ArtistsDirectory />} />
-            <Route path="/artist/:id" element={<ArtistProfile />} />
-          </Routes>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/hire" element={<Hire />} />
+              <Route path="/join" element={<Join />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/drawing-teachers" element={<DrawingTeachers />} />
+              <Route path="/wall-murals" element={<WallMurals />} />
+              <Route path="/events-live-art" element={<EventsLiveArt />} />
+              <Route path="/collaborate" element={<Collaborate />} />
+              <Route path="/directory" element={<ArtistsDirectory />} />
+              <Route path="/artist/:id" element={<ArtistProfile />} />
+              <Route path="/faq" element={<FAQ />} />
+            </Routes>
+          </Suspense>
         </main>
         <Footer />
       </div>
