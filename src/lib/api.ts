@@ -1,5 +1,5 @@
 import { supabase, hasSupabaseConfig } from './supabase';
-import { Artist, Artwork } from '../types';
+import { Artist, Artwork, JoinRequest } from '../types';
 
 export const api = {
   // Join Requests
@@ -104,6 +104,16 @@ export const api = {
         .single();
   },
 
+  async checkAdminEmailExists(email: string) {
+    if (!hasSupabaseConfig) return false;
+    const { data } = await supabase
+        .from('admin_users')
+        .select('id')
+        .eq('email', email.trim().toLowerCase())
+        .maybeSingle();
+    return !!data;
+  },
+
   async fetchAdminInquiries() {
     if (!hasSupabaseConfig) return { data: [], error: null };
     return await supabase.from('inquiries').select('*').order('created_at', { ascending: false });
@@ -114,9 +124,65 @@ export const api = {
     return await supabase.from('join_requests').select('*').order('created_at', { ascending: false });
   },
 
+  async approveJoinRequest(request: JoinRequest) {
+    if (!hasSupabaseConfig) return { error: { message: 'Database not configured' } };
+    
+    // Generate a simple slug
+    const baseSlug = request.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+    const slug = `${baseSlug}-${Math.random().toString(36).substring(2, 8)}`;
+    
+    // Parse social links for instagram
+    let instagram_url = null;
+    if (request.social_links?.includes('instagram.com')) {
+      instagram_url = request.social_links;
+    }
+
+    const artistData = {
+      name: request.name,
+      slug,
+      city: request.city,
+      area: request.area,
+      bio: request.short_bio,
+      mediums: request.mediums,
+      phone_private: request.phone,
+      email_private: request.email,
+      available_for_commissions: request.available_for_paid_work,
+      available_for_teaching: request.available_for_home_teaching,
+      available_for_travel: request.available_for_travel,
+      status: 'approved',
+      instagram_url,
+      portfolio_links: request.portfolio_links,
+      consent_profile_public: request.consent_profile_public,
+    };
+
+    const { data: newArtist, error: artistError } = await supabase.from('artists').insert([artistData]).select().single();
+    
+    if (artistError) return { error: artistError };
+
+    // Update the request status
+    const { error: updateError } = await supabase.from('join_requests').update({ status: 'approved' }).eq('id', request.id);
+
+    return { data: newArtist, error: updateError };
+  },
+
   async updateJoinRequestStatus(id: string, status: 'pending' | 'approved' | 'rejected') {
     if (!hasSupabaseConfig) return { error: { message: 'Database not configured' } };
     return await supabase.from('join_requests').update({ status }).eq('id', id);
+  },
+
+  async fetchAdmins() {
+    if (!hasSupabaseConfig) return { data: [], error: null };
+    return await supabase.from('admin_users').select('*').order('email');
+  },
+
+  async updateAdmin(id: string, updates: Partial<{ name: string; role: string; status: string }>) {
+    if (!hasSupabaseConfig) return { error: { message: 'Database not configured' } };
+    return await supabase.from('admin_users').update(updates).eq('id', id);
+  },
+
+  async createAdminRecord(email: string, name: string, role: string = 'admin') {
+     if (!hasSupabaseConfig) return { error: { message: 'Database not configured' } };
+     return await supabase.from('admin_users').insert([{ email: email.trim().toLowerCase(), name, role }]);
   },
 
   async updateInquiryStatus(id: string, status: 'new' | 'reviewed' | 'matched' | 'closed') {

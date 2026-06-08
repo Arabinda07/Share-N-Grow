@@ -211,6 +211,8 @@ CREATE TABLE IF NOT EXISTS collaboration_requests (
 CREATE TABLE IF NOT EXISTS admin_users (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id uuid, -- Reference to auth.users if using Supabase Auth
+  email text UNIQUE,
+  name text,
   role text DEFAULT 'admin',
   permissions text[],
   status text DEFAULT 'active'

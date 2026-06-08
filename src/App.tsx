@@ -110,7 +110,7 @@ export default function App() {
                 <Route path="/wall-murals" element={<WallMurals />} />
                 <Route path="/events-live-art" element={<EventsLiveArt />} />
                 <Route path="/collaborate" element={<Collaborate />} />
-                <Route path="/directory" element={<ArtistsDirectory />} />
+                <Route path="/artists" element={<ArtistsDirectory />} />
                 <Route path="/showcase" element={<Showcase />} />
                 <Route path="/artist/:id" element={<ArtistProfile />} />
                 <Route path="/faq" element={<FAQ />} />

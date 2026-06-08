@@ -55,8 +55,8 @@ export function Navbar() {
               )}
             </div>
 
-            <Link to="/directory" className="text-sm font-medium text-ink hover:text-terracotta transition-colors duration-300">
-              Directory
+            <Link to="/artists" className="text-sm font-medium text-ink hover:text-terracotta transition-colors duration-300">
+              Artists
             </Link>
             <Link to="/showcase" className="text-sm font-medium text-ink hover:text-terracotta transition-colors duration-300">
               Showcase
@@ -128,12 +128,12 @@ export function Navbar() {
           <div className="h-px w-full bg-whisper my-4 animate-slide-down-fade" style={{ animationDelay: '100ms' }}></div>
 
           <Link 
-            to="/directory" 
+            to="/artists" 
             className="block text-lg font-medium text-ink w-full py-2 hover:text-terracotta transition-colors duration-300 animate-slide-down-fade"
             style={{ animationDelay: '150ms' }}
             onClick={() => setIsOpen(false)}
           >
-            Directory
+            Artists
           </Link>
           <Link 
             to="/showcase" 

@@ -6,12 +6,18 @@ export function useAdminAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [authError, setAuthError] = useState<string | null>(null);
+  const [requiresPasswordUpdate, setRequiresPasswordUpdate] = useState(false);
 
   useEffect(() => {
     const checkSession = async () => {
       if (!hasSupabaseConfig) {
         setIsCheckingAuth(false);
         return;
+      }
+
+      // Intercept hash token for recovery
+      if (window.location.hash.includes('type=recovery')) {
+        setRequiresPasswordUpdate(true);
       }
 
       const { data: { session } } = await supabase.auth.getSession();
@@ -24,6 +30,14 @@ export function useAdminAuth() {
     };
 
     checkSession();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        setRequiresPasswordUpdate(true);
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const verifyAdminAccess = async (userId: string) => {
@@ -79,11 +93,53 @@ export function useAdminAuth() {
     setIsAuthenticated(false);
   };
 
+  const resetPassword = async (email: string) => {
+    setAuthError(null);
+    try {
+      const isAdmin = await api.checkAdminEmailExists(email);
+      if (!isAdmin) {
+        setAuthError("Email is not registered as an admin.");
+        return false;
+      }
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin + '/admin',
+      });
+      if (error) {
+        setAuthError(error.message);
+        return false;
+      }
+      return true;
+    } catch (err) {
+      setAuthError("Failed to send reset email.");
+      return false;
+    }
+  };
+
+  const updatePassword = async (newPassword: string) => {
+    setAuthError(null);
+    try {
+      const { error } = await supabase.auth.updateUser({ password: newPassword });
+      if (error) {
+        setAuthError(error.message);
+        return false;
+      }
+      return true;
+    } catch (err) {
+      setAuthError("Failed to update password.");
+      return false;
+    }
+  };
+
   return {
     isAuthenticated,
     isCheckingAuth,
     authError,
+    setAuthError,
+    requiresPasswordUpdate,
+    setRequiresPasswordUpdate,
     signIn,
-    signOut
+    signOut,
+    resetPassword,
+    updatePassword
   };
 }

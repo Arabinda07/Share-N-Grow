@@ -48,6 +48,7 @@ export type Artist = {
   languages: string[];
   mediums: string[];
   instagram_url: string | null;
+  portfolio_links?: string | null;
   available_for_commissions: boolean;
   available_for_teaching: boolean;
   available_for_travel: boolean;
@@ -64,6 +65,14 @@ export type Artwork = {
   image_url: string;
   created_at: string;
   is_featured: boolean;
+};
+
+export type AdminUser = {
+  id: string;
+  email: string;
+  name: string | null;
+  role: string;
+  status: string;
 };
 
 export const SERVICES = [

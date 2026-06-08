@@ -84,7 +84,8 @@ export function Join() {
         return;
       }
       const fileExt = portfolioFile.name.split('.').pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+      const sanitizedName = formData.name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/(^-|-$)+/g, '');
+      const fileName = `${sanitizedName}-${Date.now()}.${fileExt}`;
       
       const { data: uploadResult, error: uploadError } = await api.uploadPortfolio(fileName, portfolioFile);
 

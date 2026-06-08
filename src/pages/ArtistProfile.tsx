@@ -98,6 +98,42 @@ export function ArtistProfile() {
     );
   }
 
+  const renderPortfolioLinks = (text: string | null | undefined) => {
+    if (!text) return <p className="text-lg">No portfolio links provided.</p>;
+    let linkText = text;
+    let uploadedFileUrl = '';
+    
+    if (text.includes('\n\nUploaded File: ')) {
+      const parts = text.split('\n\nUploaded File: ');
+      linkText = parts[0].trim();
+      uploadedFileUrl = parts[1].trim();
+    } else if (text.startsWith('Uploaded File: ')) {
+      linkText = '';
+      uploadedFileUrl = text.replace('Uploaded File: ', '').trim();
+    }
+
+    return (
+      <div className="flex flex-col items-center justify-center gap-4 text-center">
+         {linkText && (
+            <div>
+              <span className="font-semibold text-ink-light text-xs uppercase tracking-wider block mb-2">External Portfolio</span>
+              <a href={linkText.startsWith('http') ? linkText : `https://${linkText}`} target="_blank" rel="noreferrer" className="text-ink hover:text-ink-light font-medium underline underline-offset-4 decoration-ink/30 hover:decoration-ink transition-colors break-all text-base">
+                {linkText}
+              </a>
+            </div>
+         )}
+         {uploadedFileUrl && (
+            <div className={linkText ? "mt-4 pt-4 border-t border-whisper w-full" : ""}>
+               <span className="font-semibold text-ink-light text-xs uppercase tracking-wider block mb-3">Attachment</span>
+               <a href={uploadedFileUrl} target="_blank" rel="noreferrer" className="inline-flex items-center text-sm font-semibold bg-white px-6 py-3 rounded-xl border border-whisper hover:bg-paper-dark transition-colors shadow-sm text-ink group">
+                 <Palette className="w-5 h-5 mr-2 opacity-50 group-hover:opacity-100 transition-opacity" /> View Uploaded File
+               </a>
+            </div>
+         )}
+      </div>
+    );
+  };
+
   return (
     <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8 max-w-5xl min-h-screen">
       <div className="grid gap-12 md:grid-cols-[1fr_340px]">
@@ -167,12 +203,9 @@ export function ArtistProfile() {
           </div>
 
           <div>
-             <h3 className="text-2xl font-semibold mb-6 text-ink font-serif tracking-tight">Portfolio Samples</h3>
-             <div className="bg-paper p-12 rounded-2xl border border-whisper text-center text-ink-light flex flex-col items-center justify-center min-h-[300px]">
-               <div className="h-16 w-16 mb-4 rounded-xl bg-white border border-whisper flex items-center justify-center shadow-sm">
-                 <Palette className="h-8 w-8 opacity-20" />
-               </div>
-               <p className="text-lg">Portfolio images will be displayed here once uploaded and approved.</p>
+             <h3 className="text-2xl font-semibold mb-6 text-ink font-serif tracking-tight">Portfolio & Work</h3>
+             <div className="bg-paper p-8 rounded-2xl border border-whisper text-ink flex flex-col items-center justify-center min-h-[250px] w-full">
+               {renderPortfolioLinks(artist.portfolio_links)}
              </div>
           </div>
         </div>
