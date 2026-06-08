@@ -285,9 +285,9 @@ CREATE POLICY "Public can read featured items" ON featured_items
 INSERT INTO storage.buckets (id, name, public) VALUES 
   ('artist-profiles', 'artist-profiles', true),
   ('artworks', 'artworks', true),
-  ('mural-proofs', 'mural-proofs', false),
-  ('event-proofs', 'event-proofs', false),
-  ('application-uploads', 'application-uploads', false)
+  ('mural-proofs', 'mural-proofs', true),
+  ('event-proofs', 'event-proofs', true),
+  ('application-uploads', 'application-uploads', true)
 ON CONFLICT (id) DO NOTHING;
 
 -- ==============================================================================
